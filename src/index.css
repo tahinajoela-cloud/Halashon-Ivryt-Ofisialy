@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'SILEOTLocal';
+  src: url('/fonts/SILEOT.ttf') format('truetype'),
+       url('./fonts/SILEOT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sileot';
+  src: url('/fonts/SILEOT.ttf') format('truetype'),
+       url('./fonts/SILEOT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DavidLocal';
+  src: url('/fonts/David.ttf') format('truetype'),
+       url('./fonts/David.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'David';
+  src: url('/fonts/David.ttf') format('truetype'),
+       url('./fonts/David.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TimesLocal';
+  src: url('/fonts/Times.ttf') format('truetype'),
+       url('./fonts/Times.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Times';
+  src: url('/fonts/Times.ttf') format('truetype'),
+       url('./fonts/Times.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-bgPrimary: var(--bg-primary);
+  --color-bgSecondary: var(--bg-secondary);
+  --color-bgCard: var(--bg-card);
+  --color-textPrimary: var(--text-primary);
+  --color-textSecondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accentHover: var(--accent-hover);
+  --color-borderColor: var(--border-color);
+
+  --font-sans: "Roboto Condensed", "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, "SILEOTLocal", serif;
+  --font-sileot: "SILEOTLocal", serif;
+  --font-david: "DavidLocal", serif;
+  --font-times: "TimesLocal", serif;
+  --font-mono: "Fira Code", "SILEOTLocal", monospace;
+
+  --animate-fadeIn: fadeIn 0.4s ease-out forwards;
+  --animate-slideInUp: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-spinSlow: spin 4s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}

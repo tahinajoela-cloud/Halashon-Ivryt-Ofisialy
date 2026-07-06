@@ -1,0 +1,6 @@
+{
+  "name": "Halashon Ivryt",
+  "description": "Fampiharana voalohany natao hianarana ny fiteny hebreo eto Madagasikara.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

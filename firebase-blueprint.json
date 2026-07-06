@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User account with allowed levels for reading",
+      "type": "object",
+      "properties": {
+        "allowedLevels": {
+          "type": "array",
+          "description": "List of levels the user is allowed to access"
+        },
+        "deviceId": {
+          "type": "string",
+          "description": "Unique ID of the physical device bound to this account"
+        }
+      },
+      "required": ["allowedLevels"]
+    },
+    "Passage": {
+      "title": "Passage",
+      "description": "A Hebrew scripture passage with translations and verses",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object",
+          "description": "Map of language codes to title strings (mg, fr, he)"
+        },
+        "verses": {
+          "type": "array",
+          "description": "Array of verse objects containing num, he, mg, fr"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "title", "verses"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile with level authorization"
+    },
+    "/lessons/{lessonId}": {
+      "schema": "Passage",
+      "description": "Collection of Hebrew scripture lessons/passages"
+    }
+  }
+}

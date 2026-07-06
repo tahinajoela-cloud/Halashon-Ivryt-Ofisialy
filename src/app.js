@@ -42,14 +42,14 @@ const state = {
 };
 
 // Initialize Firebase Configuration (Defaults to user's halashon-ivryt-shaliach project)
+// In production (GitHub Pages), this connects to the (default) database.
 let firebaseConfig = {
   apiKey: "AIzaSyC2RWM8RfT5D1HytYuawfwYjNXOBch63ic",
   authDomain: "halashon-ivryt-shaliach.firebaseapp.com",
   projectId: "halashon-ivryt-shaliach",
   storageBucket: "halashon-ivryt-shaliach.firebasestorage.app",
   messagingSenderId: "1032741613734",
-  appId: "1:1032741613734:web:b440a3bab2e43a2d198467",
-  databaseId: "ai-studio-hebreofamakiana-b383131a-bba9-4ccf-a1d0-aa67ec380e4a"
+  appId: "1:1032741613734:web:b440a3bab2e43a2d198467"
 };
 
 let db = null;
@@ -77,8 +77,8 @@ async function initializeFirebase() {
     if (window.firebase) {
       window.firebase.initializeApp(firebaseConfig);
       
-      const dbId = firebaseConfig.databaseId || "ai-studio-hebreofamakiana-b383131a-bba9-4ccf-a1d0-aa67ec380e4a";
-      db = window.firebase.app().firestore(dbId);
+      const dbId = firebaseConfig.databaseId;
+      db = dbId ? window.firebase.app().firestore(dbId) : window.firebase.app().firestore();
       auth = window.firebase.auth();
       
       // Enable Firestore offline persistence for instant loading and full offline capability
@@ -87,7 +87,7 @@ async function initializeFirebase() {
           console.warn("Firestore offline persistence failed or already enabled:", err.code);
         });
 
-      console.log("Firebase initialized successfully with project:", firebaseConfig.projectId, "and database:", dbId);
+      console.log("Firebase initialized successfully with project:", firebaseConfig.projectId, "and database:", dbId || "(default)");
 
       // Listen to Firebase Auth state
       auth.onAuthStateChanged(async (user) => {

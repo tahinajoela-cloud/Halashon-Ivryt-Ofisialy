@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="mg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halashon Ivryt — Mpamaky Teny Hebreo</title>
+    <link rel="icon" type="image/png" href="./assets/icon-DJVRreIU.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Local compiled Tailwind CSS for full offline capabilities -->
+
+    <!-- Custom inline styles for fonts, smooth transitions, and layout variables -->
+    <style>
+      @font-face {
+        font-family: 'SILEOTLocal';
+        src: url('./fonts/SILEOT.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Sileot';
+        src: url('./fonts/SILEOT.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'DavidLocal';
+        src: url('./fonts/David.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'David';
+        src: url('./fonts/David.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'TimesLocal';
+        src: url('./fonts/Times.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Times';
+        src: url('./fonts/Times.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        /* Default light theme values (Editorial Cream & Charcoal) */
+        --bg-primary: #F4F3EF;
+        --bg-secondary: #EAE8E1;
+        --bg-card: #FCFAF2;
+        --text-primary: #1C1C1E;
+        --text-secondary: #71717A;
+        --accent: #1C1C1E;
+        --accent-hover: #404040;
+        --border-color: #D4D4D8;
+      }
+
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: "Roboto Condensed", "Inter", sans-serif;
+        transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+      }
+
+      /* Custom animations */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-fadeIn {
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+      .animate-slideInUp {
+        animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Floating capsule button styles */
+      .floating-capsule {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(12px);
+      }
+
+      /* Scrollbar adjustments */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+      }
+
+      /* Custom cards and lesson typography */
+      .card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease-in-out;
+        margin-bottom: 1rem;
+      }
+      .card:hover {
+        border-color: var(--text-primary);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+      }
+      .hebrew-text {
+        font-family: var(--hebrew-font-family, "SILEOTLocal", serif) !important;
+        font-size: var(--hebrew-font-size, 2rem) !important;
+        line-height: 1.5;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        direction: rtl;
+        text-align: center;
+      }
+      .lesson-title {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--text-primary);
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-Cj1h-G3V.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BBe-CVLQ.css">
+  </head>
+  <body class="min-h-screen flex flex-col antialiased selection:bg-accent/20">
+
+    <!-- LOGIN AND SIGN UP CONTAINER -->
+    <div id="login-section" class="min-h-screen w-full flex items-center justify-center p-4">
+      <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-8 max-w-md w-full space-y-6 transition-all duration-300">
+        <!-- Logo and App Title -->
+        <div class="flex flex-col items-center justify-center text-center">
+          <div class="w-14 h-14 rounded-sm border border-borderColor bg-bgSecondary flex items-center justify-center text-textPrimary shadow-sm mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-textPrimary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5c0 .5-.5 1-1 1s-1-.5-1-1v-14C2 4.5 2.5 4 3 4h15a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H3.5"/>
+              <path d="M12 6v10"/>
+              <path d="M8 8c0 2 1.2 4 4 4s4-2 4-4"/>
+              <path d="M6 10c0 3 2.2 6 6 6s6-3 6-6"/>
+            </svg>
+          </div>
+          <h1 data-translate="login_title" class="font-serif font-light text-xl md:text-2xl text-textPrimary tracking-wide italic">Fidirana amin'ny Fampiharana</h1>
+          <p data-translate="login_subtitle" class="text-[10px] text-textSecondary font-mono mt-1 uppercase tracking-widest">Ampidiro ny mailaka sy ny tenimiafinao</p>
+        </div>
+
+        <!-- Language Quick Selector inside Login Card -->
+        <div class="flex justify-center bg-bgSecondary/20 p-1 rounded-sm border border-borderColor max-w-[180px] mx-auto">
+          <button data-lang="mg" class="lang-btn flex-1 py-1 rounded-sm text-[10px] font-mono transition-all font-bold">MG</button>
+          <button data-lang="fr" class="lang-btn flex-1 py-1 rounded-sm text-[10px] font-mono transition-all">FR</button>
+          <button data-lang="he" class="lang-btn flex-1 py-1 rounded-sm text-[10px] font-mono transition-all font-bold">IL</button>
+        </div>
+
+        <!-- Credentials Form -->
+        <form id="login-form" class="space-y-4">
+          <!-- Email Input -->
+          <div class="space-y-1.5">
+            <label data-translate="login_email_label" for="email" class="text-[10px] font-bold uppercase tracking-widest text-textSecondary font-mono block">Adiresy Mailaka:</label>
+            <input type="email" id="email" required class="w-full px-3 py-2.5 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm focus:outline-none focus:ring-1 focus:ring-textPrimary focus:border-textPrimary text-xs font-mono" placeholder="ohatra@mail.com">
+          </div>
+
+          <!-- Password Input -->
+          <div class="space-y-1.5">
+            <label data-translate="login_password_label" for="password" class="text-[10px] font-bold uppercase tracking-widest text-textSecondary font-mono block">Tenimiafina:</label>
+            <input type="password" id="password" required minlength="6" class="w-full px-3 py-2.5 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm focus:outline-none focus:ring-1 focus:ring-textPrimary focus:border-textPrimary text-xs font-mono" placeholder="••••••••">
+          </div>
+
+          <!-- Action Button -->
+          <button type="submit" id="login-btn" class="w-full flex items-center justify-center gap-2.5 py-3 mt-2 bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor rounded-sm font-mono text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span id="login-submit-text" data-translate="login_btn_submit">Hiditra (Log In)</span>
+          </button>
+        </form>
+
+        <!-- Toggle Sign In / Sign Up Link -->
+        <div class="text-center pt-2">
+          <button id="toggle-auth-mode-btn" class="text-[11px] text-textSecondary hover:text-textPrimary transition-colors font-mono uppercase tracking-wider underline decoration-borderColor hover:decoration-textPrimary">
+            <span id="toggle-auth-mode-text" data-translate="login_contact_admin">Hifandray amin'ny mpiandraikitra raha mila kaonty</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT ADMIN SECTION (MITOVY AMIN'NY MPAMOLAVOLA) -->
+    <div id="contact-admin-section" class="hidden min-h-screen w-full flex items-center justify-center p-4">
+      <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 max-w-4xl w-full space-y-8 transition-colors duration-300">
+        <!-- Top info with Portrait styled strictly from Editorial theme -->
+        <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 border-b border-borderColor pb-8">
+          <div class="space-y-4 text-center md:text-left flex-1 max-w-2xl">
+            <span data-translate="dev_title" class="text-[10px] uppercase tracking-[0.3em] text-textSecondary mb-2 block">FANDAHARANA</span>
+            <h1 data-translate="dev_brand_title" class="text-4xl md:text-5xl font-serif font-light leading-tight text-textPrimary italic mb-4">LILMOD BEVEYT HASEFER</h1>
+            <p data-translate="dev_role" class="text-sm font-mono tracking-wider text-textSecondary uppercase pl-4 border-l-2 border-borderColor/80 mb-6">Hianatra ny Fiteny Hebreo</p>
+
+            <!-- DYNAMIC USER STATUS FOR COPYING UID -->
+            <div id="user-unauthorized-status" class="hidden bg-red-500/10 border border-red-500/30 p-4 rounded-sm space-y-3 text-left">
+              <span class="text-xs font-mono font-bold text-red-500 uppercase tracking-wider block">⚠️ Kaonty tsy mbola nahazo alalana</span>
+              <p class="text-xs text-textPrimary leading-relaxed">Mbola tsy nampidirin'ny mpiandraikitra ao amin'ny rafitra ny kaontinao. Alefaso any aminy ity ID-nao manaraka ity mba handefasana ny lesona mifanaraka aminao:</p>
+              <div class="flex items-center gap-2 bg-bgSecondary/40 p-2 rounded-sm border border-borderColor">
+                <span id="user-unauthorized-uid" class="font-mono text-xs text-textPrimary select-all break-all flex-1"></span>
+                <button id="copy-uid-btn" class="px-3 py-1 bg-bgCard hover:bg-bgSecondary border border-borderColor rounded-sm text-[10px] font-mono font-bold uppercase cursor-pointer transition-colors text-textPrimary">Adika</button>
+              </div>
+            </div>
+
+            <!-- Language Quick Selector inside Contact Admin Card -->
+            <div class="flex justify-start bg-bgSecondary/20 p-1 rounded-sm border border-borderColor max-w-[180px] my-2 mx-auto md:mx-0">
+               <button data-lang="mg" class="lang-btn flex-1 py-1 rounded-sm text-[10px] font-mono transition-all font-bold">MG</button>
+               <button data-lang="fr" class="lang-btn flex-1 py-1 rounded-sm text-[10px] font-mono transition-all">FR</button>
+               <button data-lang="he" class="lang-btn flex-1 py-1 rounded-sm text-[10px] font-mono transition-all font-bold">IL</button>
+            </div>
+
+            <!-- Contact social buttons -->
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+              <!-- Facebook link -->
+              <a href="https://www.facebook.com/havushai" target="_blank" class="flex items-center gap-2 px-3.5 py-2 rounded-sm bg-bgSecondary/30 hover:bg-bgSecondary border border-borderColor text-textPrimary text-xs font-mono uppercase tracking-wider transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5">
+                  <path d="M9 8H7v3h2v9h3v-9h2.72l.42-3H12V6c0-.55.45-1 1-1h2V2h-3c-2.21 0-4 1.79-4 4v2z"/>
+                </svg>
+                <span>Facebook</span>
+              </a>
+              <!-- Instagram link -->
+              <a href="https://www.instagram.com/havushai" target="_blank" class="flex items-center gap-2 px-3.5 py-2 rounded-sm bg-bgSecondary/30 hover:bg-bgSecondary border border-borderColor text-textPrimary text-xs font-mono uppercase tracking-wider transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5">
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                </svg>
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Rotated image border strictly from the theme HTML -->
+          <div class="w-48 h-48 border border-borderColor p-2 rotate-3 bg-bgSecondary/40 shrink-0 shadow-sm transition-transform hover:rotate-0 duration-300 mx-auto md:mx-0">
+            <img src="./assets/developper-image-Dz9KfhIw.jpg" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- Bio and introduction -->
+        <div class="space-y-3">
+          <h3 data-translate="dev_contact" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Mombamomba ny fianarana:</h3>
+          <p data-translate="dev_bio" class="text-textPrimary leading-relaxed text-base md:text-lg border-l-2 border-borderColor/80 pl-6 italic">
+            Te hahay hiteny, hamaky, ary hanoratra teny Hebreo ve ianao? Ny fandaharana "Lilmod Beveyt Hasefer" dia manolotra lesona feno sy mora arahina, natao hanamora ny fahatakaranao an'ity fiteny ity.
+          </p>
+        </div>
+
+        <!-- Price tiers section styled like line-art columns -->
+        <div class="space-y-4 pt-2">
+          <h3 data-translate="dev_price_title" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Safidio ny sokajy mifanaraka amin'ny haavonao:</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Category A1 -->
+            <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                  <span data-translate="dev_cat_a1_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga A1 – Ny Fototra</span>
+                  <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">A1</span>
+                </div>
+                <p data-translate="dev_cat_a1_desc" class="text-xs text-textSecondary leading-relaxed italic">Ity sokajy ity dia natokana ho an'ny mpanomboka tanteraka. Hianaranao ao ny abidia hebreo, ny fanononana marina, ny fiarahabana andavanandro, ary ireo voambolana fototra ilaina amin'ny fiainana.</p>
+              </div>
+              <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                <span data-translate="dev_price_50k">50.000 Ariary</span>
+              </div>
+            </div>
+
+            <!-- Category A2 -->
+            <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                  <span data-translate="dev_cat_a2_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga A2 – Ny Tsotra</span>
+                  <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">A2</span>
+                </div>
+                <p data-translate="dev_cat_a2_desc" class="text-xs text-textSecondary leading-relaxed italic">Ho anao efa mahafantatra ny fototra sy te hanitatra ny fahaizanao. Hianarana eto ny fomba fanaovana fehezanteny tsotra, ny fifampiresahana fototra (eny an-tsena, any amin'ny fitaterana), ary ny fampahafantarana ny tena.</p>
+              </div>
+              <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                <span data-translate="dev_price_50k">50.000 Ariary</span>
+              </div>
+            </div>
+
+            <!-- Category B1 -->
+            <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                  <span data-translate="dev_cat_b1_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga B1 – Antenatenany Tsotra</span>
+                  <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">B1</span>
+                </div>
+                <p data-translate="dev_cat_b1_desc" class="text-xs text-textSecondary leading-relaxed italic">Natao hanampiana anao hahaleo tena amin'ny resadresaka. Hianaranao ao ny fitantarana zavatra efa lasa, ny fanehoana hevitra momba ny lohahevitra mahazatra (asa, fianarana, fialamboly), ary ny fahatakarana lahatsoratra tsotra.</p>
+              </div>
+              <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                <span data-translate="dev_price_50k">50.000 Ariary</span>
+              </div>
+            </div>
+
+            <!-- Category B2 -->
+            <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                  <span data-translate="dev_cat_b2_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga B2 – Antenatenany Ambony</span>
+                  <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">B2</span>
+                </div>
+                <p data-translate="dev_cat_b2_desc" class="text-xs text-textSecondary leading-relaxed italic">Hampitomboana ny fahaizanao miady hevitra sy miteny malalaka. Ho hainao ny handray anjara amin'ny resaka sarotra kokoa, ny hahatakatra ny votoatin'ny lahatsoratra mivaingana, ary ny haneho hevitra momba ny lohahevitra ara-teknika na ara-tsosialy.</p>
+              </div>
+              <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                <span data-translate="dev_price_50k">50.000 Ariary</span>
+              </div>
+            </div>
+
+            <!-- Category C1 -->
+            <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                  <span data-translate="dev_cat_c1_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga C1 – Ny Efa Havanana</span>
+                  <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">C1</span>
+                </div>
+                <p data-translate="dev_cat_c1_desc" class="text-xs text-textSecondary leading-relaxed italic">Ho an'ireo te hahay hiteny tsy misy fisalasalana. Ity lesona ity dia mampianatra anao hahatakatra lahatsoratra lava sy saro-takarina, ary haneho hevitra amin'ny fomba mirindra tsara sy mavitrika amin'ny fiainana ara-panjakana na ara-asa.</p>
+              </div>
+              <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                <span data-translate="dev_price_50k">50.000 Ariary</span>
+              </div>
+            </div>
+
+            <!-- Category C2 -->
+            <div class="bg-textPrimary/5 p-6 rounded-sm border border-textPrimary flex flex-col justify-between space-y-4 relative shadow-sm hover:scale-[1.01] transition-all">
+              <div class="absolute -top-3 right-4 px-2.5 py-0.5 bg-textPrimary text-bgCard text-[9px] font-bold font-mono tracking-widest uppercase rounded-sm border border-borderColor shadow-sm">Mastery</div>
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                  <span data-translate="dev_cat_c2_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga C2 – Ny Tena Mahay</span>
+                  <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">C2</span>
+                </div>
+                <p data-translate="dev_cat_c2_desc" class="text-xs text-textSecondary leading-relaxed italic">Ny dingana farany ambony indrindra. Hahafahanao mahatakatra amin'ny antsipiriany izay rehetra vakinao na renao amin'ny teny Hebreo, ary ho hainao ny haneho hevitra amin'ny fomba feno, mazava, sy tsimatimanota tahaka ny teratany.</p>
+              </div>
+              <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                <span data-translate="dev_price_50k">50.000 Ariary</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Instructions -->
+        <div class="bg-bgSecondary/20 p-5 rounded-sm border border-borderColor space-y-4">
+          <p data-translate="dev_payment_instruction" class="text-xs text-textSecondary uppercase tracking-wider font-mono leading-relaxed">
+            👉 Fanamarihana: Afaka jifaina tsirairay araka izay haavonao ny sokajy tsirairay. Antsoy ny laharana 034 97 252 67 na 032 22 213 53 dia araho ny toromarika amin'ny fandoavam-bola.
+          </p>
+          
+          <div class="space-y-3 pt-1">
+            <!-- Mvola -->
+            <a href="tel:0349725267" class="flex items-center gap-3 group hover:text-textPrimary transition-colors w-fit">
+              <div class="w-8 h-8 rounded-sm bg-bgSecondary border border-borderColor text-textSecondary group-hover:text-textPrimary group-hover:border-textPrimary/50 flex items-center justify-center shadow-sm transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <span data-translate="dev_payment_mvola" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">Mvola : 034 97 252 67</span>
+            </a>
+
+            <!-- OrangeMoney -->
+            <a href="tel:0322221353" class="flex items-center gap-3 group hover:text-textPrimary transition-colors w-fit">
+              <div class="w-8 h-8 rounded-sm bg-bgSecondary border border-borderColor text-textSecondary group-hover:text-textPrimary group-hover:border-textPrimary/50 flex items-center justify-center shadow-sm transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <span data-translate="dev_payment_orange" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">OrangeMoney: 032 22 213 53</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Back to Login Link at bottom -->
+        <div class="border-t border-borderColor pt-6 flex justify-center">
+          <button id="back-to-login-btn" class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-textSecondary hover:text-textPrimary cursor-pointer transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span data-translate="login_back_to_login">Hiverina amin'ny Fidirana</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header Navigation Bar -->
+    <header id="main-header" class="hidden sticky top-0 z-40 bg-bgCard/95 border-b border-borderColor/60 backdrop-blur-md transition-colors duration-300">
+      <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <!-- Logo and App Name -->
+        <a href="#" onclick="setView('home'); return false;" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-sm border border-borderColor/80 bg-bgSecondary flex items-center justify-center text-textPrimary transform group-hover:rotate-3 transition-all">
+            <!-- Menorah/Scroll Logo motif -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-textPrimary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5c0 .5-.5 1-1 1s-1-.5-1-1v-14C2 4.5 2.5 4 3 4h15a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H3.5"/>
+              <path d="M12 6v10"/>
+              <path d="M8 8c0 2 1.2 4 4 4s4-2 4-4"/>
+              <path d="M6 10c0 3 2.2 6 6 6s6-3 6-6"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span data-translate="app_name" class="font-serif font-bold text-lg tracking-wide text-textPrimary leading-none italic">Hebreo Famakiana</span>
+            <span data-translate="app_tagline" class="text-[9px] text-textSecondary uppercase tracking-[0.25em] font-mono mt-0.5">Fianarana teny Hebreo misy niqqud</span>
+          </div>
+        </a>
+
+        <!-- Right Side: Interface Language Quick select & Menu Hamburger button -->
+        <div class="flex items-center gap-3">
+          <!-- Quick Lang Toggle for interface -->
+          <div class="hidden sm:flex items-center bg-bgSecondary/40 p-1 rounded-sm border border-borderColor/60 transition-colors">
+            <button data-lang="mg" class="lang-btn px-2.5 py-1 rounded-sm text-xs font-mono transition-all">MG</button>
+            <button data-lang="fr" class="lang-btn px-2.5 py-1 rounded-sm text-xs font-mono transition-all">FR</button>
+            <button data-lang="he" class="lang-btn px-2.5 py-1 rounded-sm text-xs font-mono transition-all">IL</button>
+          </div>
+
+          <!-- Sidebar Toggle Hamburger Button -->
+          <button id="menu-toggle-btn" class="p-2.5 rounded-sm hover:bg-bgSecondary/60 text-textPrimary border border-borderColor/60 transition-all active:scale-95" aria-label="Open Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- RIGHT SIDEBAR / DRAWER MENU -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/40 z-40 hidden transition-opacity duration-300 backdrop-blur-sm"></div>
+    <aside id="side-drawer" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-bgCard border-l border-borderColor z-50 transform translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between shadow-xl">
+      <!-- Sidebar Top Area -->
+      <div class="p-4 flex-1 overflow-y-auto">
+        <div class="flex items-center justify-between border-b border-borderColor pb-3 mb-4">
+          <h2 data-translate="menu_title" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Fikarohana</h2>
+          <button onclick="closeSidebar()" class="p-1 rounded-sm hover:bg-bgSecondary text-textPrimary border border-borderColor/40 transition-all active:scale-90">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" x2="6" y1="6" y2="18"/>
+              <line x1="6" x2="18" y1="6" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- App Icon and Name in Sidebar -->
+        <div class="flex flex-col items-center justify-center text-center py-3 mb-4 bg-bgSecondary/20 rounded-sm border border-borderColor">
+          <div class="w-11 h-11 rounded-sm border border-borderColor bg-bgCard flex items-center justify-center text-textPrimary shadow-sm mb-2 transform rotate-3 hover:rotate-0 transition-transform overflow-hidden">
+            <img src="./assets/icon-DJVRreIU.png" alt="Icon" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+          </div>
+          <span data-translate="app_name" class="font-serif font-bold text-sm text-textPrimary tracking-wide italic">Hebreo Famakiana</span>
+          <span class="text-[8px] text-textSecondary font-mono mt-1 px-1.5 py-0.5 bg-bgSecondary border border-borderColor rounded-sm uppercase tracking-widest">v1.2.0</span>
+        </div>
+
+        <!-- Sidebar Navigation Links -->
+        <nav class="space-y-0.5">
+          <!-- Home Link -->
+          <a href="#" data-view-link="home" class="flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span data-translate="menu_home">Fandraisana</span>
+          </a>
+          <!-- About Link -->
+          <a href="#" data-view-link="about" class="flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" x2="12" y1="16" y2="12"/>
+              <line x1="12" x2="12.01" y1="8" y2="8"/>
+            </svg>
+            <span data-translate="menu_about">Mombamomba</span>
+          </a>
+          <!-- Developer Link -->
+          <a href="#" data-view-link="dev" class="flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span data-translate="menu_dev">Mpamolavola</span>
+          </a>
+          <!-- Quiz Link -->
+          <a href="#" data-view-link="quiz" class="flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span data-translate="menu_quiz">Lalao fanontaniana</span>
+          </a>
+
+          <!-- Settings Link -->
+          <a href="#" data-view-link="settings" class="flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group border-t border-borderColor/20 mt-1 pt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span data-translate="menu_settings">Fikirakirana</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Log out at bottom of sidebar drawer -->
+      <div class="p-4 border-t border-borderColor/60 bg-bgSecondary/10 shrink-0">
+        <button id="logout-btn" class="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-sm bg-red-500/5 hover:bg-red-500/15 text-red-500 border border-red-500/20 text-xs font-mono uppercase tracking-wider transition-all active:scale-95 group">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" x2="9" y1="12" y2="12"/>
+          </svg>
+          <span data-translate="menu_logout">Hiala</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN BODY AREA (DYNAMIC SCREEN WRAPPER) -->
+    <main id="app-main" class="hidden flex-1 max-w-5xl w-full mx-auto px-4 py-8 md:py-12 mb-20">
+
+      <!-- ==================== VIEW 1: HOME (READER WORKSPACE) ==================== -->
+      <section id="view-home" class="animate-fadeIn space-y-6">
+        <!-- Search and Quick Info Bar -->
+        <div class="sticky top-16 z-30 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-bgCard p-5 rounded-sm border border-borderColor shadow-md transition-colors duration-300">
+          <div class="space-y-1.5 flex-1 max-w-md">
+            <label for="search-bar" data-translate="search_word_label" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Karohy ny voambolana:</label>
+            <div class="relative">
+              <input type="text" id="search-bar" placeholder="Hikaroka (Hebreo, dikanteny, phonetic...)" class="w-full pl-10 pr-4 py-2.5 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm focus:outline-none focus:ring-1 focus:ring-textPrimary focus:border-textPrimary text-xs font-mono transition-all">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-textSecondary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Update button -->
+          <div class="flex items-center gap-3">
+            <button id="update-btn" class="flex items-center gap-2 px-4 py-2.5 rounded-sm bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor text-xs font-mono uppercase tracking-wider transition-all active:scale-95 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                <path d="M16 16h5v5"/>
+              </svg>
+              <span data-translate="sync_data_label">Haka lesona vaovao</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress container for downloading lessons -->
+        <div id="progress-container" class="hidden bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 text-center space-y-3">
+          <div class="flex items-center justify-center gap-2.5 text-textSecondary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="2" x2="12" y2="6"></line>
+              <line x1="12" y1="18" x2="12" y2="22"></line>
+              <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+              <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+              <line x1="2" y1="12" x2="6" y2="12"></line>
+              <line x1="18" y1="12" x2="22" y2="12"></line>
+              <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+              <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+            </svg>
+            <span class="text-xs font-mono tracking-widest uppercase">Misintona ireo lesona avy amin'ny Firestore...</span>
+          </div>
+          <div class="w-full max-w-md mx-auto bg-bgSecondary h-1.5 rounded-full overflow-hidden">
+            <div id="progress-bar" class="bg-textPrimary h-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- The Main Lessons Content Card Area -->
+        <div id="lesson-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated dynamically (Levels, Lessons, Phrases) -->
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 2: ABOUT (MOMBA NY APP) ==================== -->
+      <section id="view-about" class="hidden animate-fadeIn space-y-6">
+        <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 space-y-6 transition-colors duration-300">
+          <div class="flex items-center gap-4 border-b border-borderColor pb-5">
+            <div class="w-12 h-12 rounded-sm border border-borderColor bg-bgSecondary/30 flex items-center justify-center text-textPrimary shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" x2="12" y1="16" y2="12"/>
+                <line x1="12" x2="12.01" y1="8" y2="8"/>
+              </svg>
+            </div>
+            <div>
+              <h1 data-translate="about_title" class="font-serif font-light text-xl md:text-2xl text-textPrimary tracking-wide italic">Mombamomba ny Fampiharana</h1>
+              <p class="text-[10px] text-textSecondary font-mono mt-0.5 uppercase tracking-widest"><span data-translate="about_version">Version</span> 1.2.0 &mdash; Stable</p>
+            </div>
+          </div>
+
+          <p data-translate="about_desc" class="text-textPrimary leading-relaxed text-base md:text-lg italic border-l-2 border-borderColor/80 pl-6">
+            Rindrambaiko mpanampy natao manokana ho an'ny mpianatra sy mpandalina ny teny Hebreo ara-Baiboly...
+          </p>
+
+          <!-- List of Features -->
+          <div class="bg-bgSecondary/15 border border-borderColor p-5 rounded-sm space-y-4">
+            <h3 data-translate="about_features_title" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Ny Zavatra Azon'ny Fampiharana Atao:</h3>
+            <ul class="space-y-2.5 text-textPrimary">
+              <li class="flex items-start gap-3 text-sm font-sans">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textPrimary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span data-translate="about_feature_1" class="font-serif italic text-textPrimary text-base">Fampisehoana lahatsoratra Hebreo misy Niqqud feno.</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm font-sans">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textPrimary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span data-translate="about_feature_2" class="font-serif italic text-textPrimary text-base">Fampitahana dikan-teny telo miaraka (Hebreo, Malagasy, Frantsay).</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm font-sans">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textPrimary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span data-translate="about_feature_3" class="font-serif italic text-textPrimary text-base">Fikirakirana ny endriky ny soratra sy ny loko manokana araka izay tiana.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- File Sync Button -->
+          <div class="border-t border-borderColor pt-6 flex justify-center">
+            <button id="sync-files-btn" class="flex items-center gap-3 px-6 py-3.5 bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor rounded-sm font-mono text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                <path d="M16 16h5v5"/>
+              </svg>
+              <span data-translate="about_sync_btn">Hamarino sy havaozy ny rakitra (Sync)</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: DEVELOPER (MPAMOLAVOLA) ==================== -->
+      <section id="view-dev" class="hidden animate-fadeIn space-y-6">
+        <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 space-y-8 transition-colors duration-300">
+          
+          <!-- Top info with Portrait styled strictly from Editorial theme -->
+          <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 border-b border-borderColor pb-8">
+            <div class="space-y-4 text-center md:text-left flex-1 max-w-2xl">
+              <span data-translate="dev_title" class="text-[10px] uppercase tracking-[0.3em] text-textSecondary mb-2 block">FANDAHARANA</span>
+              <h1 data-translate="dev_brand_title" class="text-4xl md:text-5xl font-serif font-light leading-tight text-textPrimary italic mb-4">LILMOD BEVEYT HASEFER</h1>
+              <p data-translate="dev_role" class="text-sm font-mono tracking-wider text-textSecondary uppercase pl-4 border-l-2 border-borderColor/80 mb-6">Hianatra ny Fiteny Hebreo</p>
+
+              <!-- Contact social buttons -->
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+                <!-- Facebook link -->
+                <a href="https://www.facebook.com/havushai" target="_blank" class="flex items-center gap-2 px-3.5 py-2 rounded-sm bg-bgSecondary/30 hover:bg-bgSecondary border border-borderColor text-textPrimary text-xs font-mono uppercase tracking-wider transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5">
+                    <path d="M9 8H7v3h2v9h3v-9h2.72l.42-3H12V6c0-.55.45-1 1-1h2V2h-3c-2.21 0-4 1.79-4 4v2z"/>
+                  </svg>
+                  <span>Facebook</span>
+                </a>
+                <!-- Instagram link -->
+                <a href="https://www.instagram.com/havushai" target="_blank" class="flex items-center gap-2 px-3.5 py-2 rounded-sm bg-bgSecondary/30 hover:bg-bgSecondary border border-borderColor text-textPrimary text-xs font-mono uppercase tracking-wider transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+                  <span>Instagram</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Rotated image border strictly from the theme HTML -->
+            <div class="w-48 h-48 border border-borderColor p-2 rotate-3 bg-bgSecondary/40 shrink-0 shadow-sm transition-transform hover:rotate-0 duration-300">
+              <img src="./assets/developper-image-Dz9KfhIw.jpg" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Bio and introduction -->
+          <div class="space-y-3">
+            <h3 data-translate="dev_contact" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Mombamomba ny fianarana:</h3>
+            <p data-translate="dev_bio" class="text-textPrimary leading-relaxed text-base md:text-lg border-l-2 border-borderColor/80 pl-6 italic">
+              Te hahay hiteny, hamaky, ary hanoratra teny Hebreo ve ianao? Ny fandaharana "Lilmod Beveyt Hasefer" dia manolotra lesona feno sy mora arahina, natao hanamora ny fahatakaranao an'ity fiteny ity.
+            </p>
+          </div>
+
+          <!-- Price tiers section styled like line-art columns -->
+          <div class="space-y-4 pt-2">
+            <h3 data-translate="dev_price_title" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Safidio ny sokajy mifanaraka amin'ny haavonao:</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Category A1 -->
+              <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                    <span data-translate="dev_cat_a1_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga A1 – Ny Fototra</span>
+                    <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">A1</span>
+                  </div>
+                  <p data-translate="dev_cat_a1_desc" class="text-xs text-textSecondary leading-relaxed italic">Ity sokajy ity dia natokana ho an'ny mpanomboka tanteraka. Hianaranao ao ny abidia hebreo, ny fanononana marina, ny fiarahabana andavanandro, ary ireo voambolana fototra ilaina amin'ny fiainana.</p>
+                </div>
+                <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                  <span data-translate="dev_price_50k">50.000 Ariary</span>
+                </div>
+              </div>
+
+              <!-- Category A2 -->
+              <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                    <span data-translate="dev_cat_a2_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga A2 – Ny Tsotra</span>
+                    <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">A2</span>
+                  </div>
+                  <p data-translate="dev_cat_a2_desc" class="text-xs text-textSecondary leading-relaxed italic">Ho anao efa mahafantatra ny fototra sy te hanitatra ny fahaizanao. Hianarana eto ny fomba fanaovana fehezanteny tsotra, ny fifampiresahana fototra (eny an-tsena, any amin'ny fitaterana), ary ny fampahafantarana ny tena.</p>
+                </div>
+                <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                  <span data-translate="dev_price_50k">50.000 Ariary</span>
+                </div>
+              </div>
+
+              <!-- Category B1 -->
+              <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                    <span data-translate="dev_cat_b1_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga B1 – Antenatenany Tsotra</span>
+                    <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">B1</span>
+                  </div>
+                  <p data-translate="dev_cat_b1_desc" class="text-xs text-textSecondary leading-relaxed italic">Natao hanampiana anao hahaleo tena amin'ny resadresaka. Hianaranao eto ny fitantarana zavatra efa lasa, ny fanehoana hevitra momba ny lohahevitra mahazatra (asa, fianarana, fialamboly), ary ny fahatakarana lahatsoratra tsotra.</p>
+                </div>
+                <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                  <span data-translate="dev_price_50k">50.000 Ariary</span>
+                </div>
+              </div>
+
+              <!-- Category B2 -->
+              <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                    <span data-translate="dev_cat_b2_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga B2 – Antenatenany Ambony</span>
+                    <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">B2</span>
+                  </div>
+                  <p data-translate="dev_cat_b2_desc" class="text-xs text-textSecondary leading-relaxed italic">Hampitomboana ny fahaizanao miady hevitra sy miteny malalaka. Ho hainao ny handray anjara amin'ny resaka sarotra kokoa, ny hahatakatra ny votoatin'ny lahatsoratra mivaingana, ary ny haneho hevitra momba ny lohahevitra ara-teknika na ara-tsosialy.</p>
+                </div>
+                <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                  <span data-translate="dev_price_50k">50.000 Ariary</span>
+                </div>
+              </div>
+
+              <!-- Category C1 -->
+              <div class="bg-bgSecondary/15 p-6 rounded-sm border border-borderColor flex flex-col justify-between space-y-4 hover:border-textPrimary/40 transition-colors">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                    <span data-translate="dev_cat_c1_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga C1 – Ny Efa Havanana</span>
+                    <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">C1</span>
+                  </div>
+                  <p data-translate="dev_cat_c1_desc" class="text-xs text-textSecondary leading-relaxed italic">Ho an'ireo te hahay hiteny tsy misy fisalasalana. Ity lesona ity dia mampianatra anao hahatakatra lahatsoratra lava sy saro-takarina, ary haneho hevitra amin'ny fomba mirindra tsara sy mavitrika amin'ny fiainana ara-panjakana na ara-asa.</p>
+                </div>
+                <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                  <span data-translate="dev_price_50k">50.000 Ariary</span>
+                </div>
+              </div>
+
+              <!-- Category C2 -->
+              <div class="bg-textPrimary/5 p-6 rounded-sm border border-textPrimary flex flex-col justify-between space-y-4 relative shadow-sm hover:scale-[1.01] transition-all">
+                <div class="absolute -top-3 right-4 px-2.5 py-0.5 bg-textPrimary text-bgCard text-[9px] font-bold font-mono tracking-widest uppercase rounded-sm border border-borderColor shadow-sm">Mastery</div>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between border-b border-borderColor/60 pb-2">
+                    <span data-translate="dev_cat_c2_title" class="font-serif font-bold text-base text-textPrimary">Ambaratonga C2 – Ny Tena Mahay</span>
+                    <span class="text-[9px] uppercase tracking-wider text-textSecondary font-mono bg-bgSecondary px-2 py-0.5 rounded-sm">C2</span>
+                  </div>
+                  <p data-translate="dev_cat_c2_desc" class="text-xs text-textSecondary leading-relaxed italic">Ny dingana farany ambony indrindra. Hahafahanao mahatakatra amin'ny antsipiriany izay rehetra vakinao na renao amin'ny teny Hebreo, ary ho hainao ny haneho hevitra amin'ny fomba feno, mazava, sy tsimatimanota tahaka ny teratany.</p>
+                </div>
+                <div class="text-xl font-bold text-textPrimary font-mono border-t border-borderColor/40 pt-3 flex items-baseline gap-1">
+                  <span data-translate="dev_price_50k">50.000 Ariary</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Instructions -->
+            <div class="bg-bgSecondary/20 p-5 rounded-sm border border-borderColor space-y-4">
+              <p data-translate="dev_payment_instruction" class="text-xs text-textSecondary uppercase tracking-wider font-mono leading-relaxed">
+                👉 Fanamarihana: Afaka jifaina tsirairay araka izay haavonao ny sokajy tsirairay. Antsoy ny laharana 034 97 252 67 na 032 22 213 53 dia araho ny toromarika amin'ny fandoavam-bola.
+              </p>
+              
+              <div class="space-y-3 pt-1">
+                <!-- Mvola -->
+                <a href="tel:0349725267" class="flex items-center gap-3 group hover:text-textPrimary transition-colors w-fit">
+                  <div class="w-8 h-8 rounded-sm bg-bgSecondary border border-borderColor text-textSecondary group-hover:text-textPrimary group-hover:border-textPrimary/50 flex items-center justify-center shadow-sm transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <span data-translate="dev_payment_mvola" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">Mvola : 034 97 252 67</span>
+                </a>
+
+                <!-- OrangeMoney -->
+                <a href="tel:0322221353" class="flex items-center gap-3 group hover:text-textPrimary transition-colors w-fit">
+                  <div class="w-8 h-8 rounded-sm bg-bgSecondary border border-borderColor text-textSecondary group-hover:text-textPrimary group-hover:border-textPrimary/50 flex items-center justify-center shadow-sm transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <span data-translate="dev_payment_orange" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">OrangeMoney: 032 22 213 53</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3.5: QUIZ (FIANARANA SY FILALAOVANA) ==================== -->
+      <section id="view-quiz" class="hidden animate-fadeIn space-y-6">
+        <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 space-y-6 transition-colors duration-300">
+          
+          <!-- Header and Title -->
+          <div class="flex items-center gap-4 border-b border-borderColor pb-5">
+            <div class="w-12 h-12 rounded-sm border border-borderColor bg-bgSecondary/30 flex items-center justify-center text-textPrimary shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <h1 id="quiz-main-title" data-translate="quiz_title" class="font-serif font-light text-xl md:text-2xl text-textPrimary tracking-wide italic">Lalao fanontaniana momba ny Hebreo</h1>
+              <p id="quiz-main-subtitle" data-translate="quiz_subtitle" class="text-[10px] text-textSecondary font-mono mt-0.5 uppercase tracking-widest">Hamarino sy amafiso ny fahalalanao ny teny Hebreo</p>
+            </div>
+          </div>
+
+          <!-- QUIZ SCREEN 1: START SCREEN / CHOICE OF MODE -->
+          <div id="quiz-start-screen" class="space-y-6 animate-fadeIn">
+            <p data-translate="quiz_mode_title" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Hanomboka ny Lalao fanontaniana:</p>
+            
+            <div class="max-w-md mx-auto">
+              <!-- Mode A: Vocabulary -->
+              <button onclick="window.startQuiz('vocabulary')" class="w-full flex flex-col items-center justify-center p-8 bg-bgSecondary/20 hover:bg-bgSecondary/40 text-center border border-borderColor rounded-sm transition-all hover:scale-[1.02] active:scale-95 cursor-pointer group space-y-4">
+                <div class="w-14 h-14 rounded-full bg-accent/5 border border-borderColor flex items-center justify-center text-textPrimary group-hover:scale-110 transition-transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5c0 .5-.5 1-1 1s-1-.5-1-1v-14C2 4.5 2.5 4 3 4h15a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H3.5"/>
+                    <path d="M12 6v10"/>
+                  </svg>
+                </div>
+                <h3 data-translate="quiz_mode_vocab" class="font-serif font-bold text-sm text-textPrimary">Hanomboka ny Lalao (Voambolana)</h3>
+                <p data-translate="quiz_mode_vocab_desc" class="text-xs text-textSecondary italic leading-relaxed">Hamarino sy amafiso ny fahalalanao ny dikan'ireo teny Hebreo hianarana.</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ SCREEN 2: ACTIVE PLAY FIELD -->
+          <div id="quiz-play-screen" class="hidden space-y-6 animate-fadeIn">
+            <!-- Header status bar -->
+            <div class="flex items-center justify-between border-b border-borderColor pb-3.5 text-xs font-mono text-textSecondary">
+              <div class="flex items-center gap-2">
+                <span data-translate="quiz_question">Fanontaniana</span>
+                <span id="quiz-current-question-num" class="font-bold text-textPrimary">1/10</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span data-translate="quiz_score">Isa</span>
+                <span id="quiz-current-score" class="font-bold text-accent">0</span>
+              </div>
+            </div>
+
+            <!-- Beautiful Hebrew Question Card -->
+            <div class="bg-bgSecondary/10 p-6 md:p-8 rounded-sm border border-borderColor text-center space-y-4 transition-colors">
+              <span id="quiz-question-type-badge" class="inline-block text-[9px] font-mono tracking-widest uppercase bg-bgSecondary border border-borderColor text-textSecondary px-2 py-0.5 rounded-sm">Voambolana</span>
+              
+              <!-- Hebrew text -->
+              <div class="py-2">
+                <h2 id="quiz-hebrew-word" class="hebrew-text font-medium text-textPrimary tracking-normal select-text leading-loose" style="direction: rtl;">שָׁלוֹם</h2>
+              </div>
+
+              <!-- Speech pronunciation button -->
+              <div class="flex justify-center">
+                <button id="quiz-speak-btn" class="inline-flex items-center gap-1.5 px-3 py-1 bg-bgSecondary/60 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all hover:scale-105 active:scale-95">
+                  <span class="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                  </span>
+                  <span data-translate="reader_listen_btn">Henoy ny famakiana</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Multiple Choice Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 animate-fadeIn" id="quiz-options-container">
+              <!-- Dynamically populated options -->
+            </div>
+
+            <!-- Correction Explanation Panel -->
+            <div id="quiz-explanation-panel" class="hidden bg-bgSecondary/20 border border-borderColor p-5 rounded-sm transition-all duration-300">
+              <div class="flex items-start gap-3">
+                <div id="quiz-status-icon" class="w-8 h-8 rounded-sm flex items-center justify-center text-white mt-0.5 shadow-sm">
+                  <!-- Injected checkmark/cross -->
+                </div>
+                <div class="space-y-1.5 flex-1">
+                  <h4 id="quiz-status-title" class="font-serif font-bold text-sm">Marina!</h4>
+                  <div class="text-xs text-textSecondary space-y-1.5 font-sans">
+                    <p class="font-normal text-textPrimary flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_phonetic_label">Phonetic:</span> <span id="quiz-explain-phonetic" class="font-normal">shalom</span></p>
+                    <p class="flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_mg_label">Malagasy:</span> <span id="quiz-explain-mg" class="text-textPrimary font-normal">Fiadanana, fiarahabana</span></p>
+                    <p class="flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_fr_label">Français:</span> <span id="quiz-explain-fr" class="text-textPrimary font-normal">Paix, bonjour</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Control Panel -->
+            <div class="flex justify-end pt-2">
+              <button id="quiz-next-btn" onclick="window.quizNextQuestion()" class="hidden flex items-center gap-2 px-5 py-2.5 rounded-sm bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor text-xs font-mono uppercase tracking-wider transition-all active:scale-95 cursor-pointer">
+                <span data-translate="quiz_next">Manaraka</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ SCREEN 3: FINISH SCOREBOARD -->
+          <div id="quiz-finish-screen" class="hidden py-8 text-center space-y-6 animate-fadeIn">
+            <div class="w-20 h-20 rounded-full bg-bgSecondary border border-borderColor flex items-center justify-center text-textPrimary mx-auto shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <h2 data-translate="quiz_finish_title" class="font-serif font-light text-2xl text-textPrimary italic">Vita ny Lalao fanontaniana!</h2>
+              <div class="flex items-center justify-center gap-1 font-mono text-3xl font-extrabold text-accent">
+                <span id="quiz-final-score">8</span>
+                <span class="text-textSecondary">/</span>
+                <span id="quiz-final-total">10</span>
+              </div>
+              <p id="quiz-finish-feedback" class="text-sm text-textSecondary leading-relaxed max-w-sm mx-auto italic">
+                Tsara be! Efa tena mahay ianao.
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+              <button onclick="window.restartQuizCurrentMode()" class="w-full sm:w-auto px-5 py-3 rounded-sm bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor text-xs font-mono uppercase tracking-wider transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                  <path d="M3 3v5h5"/>
+                </svg>
+                <span data-translate="quiz_retry">Hanao indray</span>
+              </button>
+              <button onclick="window.backToQuizMenu()" class="w-full sm:w-auto px-5 py-3 rounded-sm bg-bgSecondary/50 hover:bg-bgSecondary text-textPrimary border border-borderColor text-xs font-mono uppercase tracking-wider transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+                <span data-translate="quiz_back">Hiverina</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
+      <!-- ==================== VIEW 4: SETTINGS (FIKIRAKIRANA) ==================== -->
+      <section id="view-settings" class="hidden animate-fadeIn space-y-6">
+        <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 space-y-8 transition-colors duration-300">
+          
+          <div class="flex items-center gap-4 border-b border-borderColor pb-5">
+            <div class="w-12 h-12 rounded-sm border border-borderColor bg-bgSecondary/30 flex items-center justify-center text-textPrimary shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+            </div>
+            <div>
+              <h1 data-translate="settings_title" class="font-serif font-light text-xl md:text-2xl text-textPrimary tracking-wide italic">Fikirakirana ny Fampiharana</h1>
+              <p class="text-[10px] text-textSecondary font-mono mt-0.5 uppercase tracking-widest">Customization Workspace</p>
+            </div>
+          </div>
+
+          <!-- Setting 1: Interface Language -->
+          <div class="space-y-2.5">
+            <label data-translate="settings_lang_label" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Fiteny ampiasaina amin'ny Interface:</label>
+            <div class="flex max-w-sm gap-2 bg-bgSecondary/20 p-1.5 rounded-sm border border-borderColor">
+              <button data-lang="mg" class="lang-btn flex-1 py-2 text-xs font-mono uppercase tracking-wider rounded-sm border border-borderColor/40 transition-all">Malagasy</button>
+              <button data-lang="fr" class="lang-btn flex-1 py-2 text-xs font-mono uppercase tracking-wider rounded-sm border border-borderColor/40 transition-all">Français</button>
+              <button data-lang="he" class="lang-btn flex-1 py-2 text-xs font-mono uppercase tracking-wider rounded-sm border border-borderColor/40 transition-all">Hebreo</button>
+            </div>
+          </div>
+
+          <!-- Setting 2: Hebrew Font selection -->
+          <div class="space-y-2.5">
+            <label data-translate="settings_font_label" for="setting-font-selector" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Karazan-tsoratra (Font) Hebreo:</label>
+            <div class="relative max-w-md">
+              <select id="setting-font-selector" class="w-full pl-3 pr-10 py-2.5 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm font-medium focus:outline-none transition-all appearance-none cursor-pointer">
+                <option value="sileot">Sileot</option>
+                <option value="david">David</option>
+                <option value="times">Times</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-textSecondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+            </div>
+            <p data-translate="settings_font_desc" class="text-[11px] text-textSecondary italic">Misafidiana ny endriky ny soratra Hebreo tianao ho hita.</p>
+          </div>
+
+          <!-- Setting 3: Hebrew Font Size Slider -->
+          <div class="space-y-2.5 max-w-md">
+            <div class="flex justify-between items-center">
+              <label data-translate="settings_size_label" for="setting-size-slider" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Haben'ny soratra Hebreo:</label>
+              <span id="setting-size-val" class="text-xs font-bold text-textPrimary font-mono bg-bgSecondary border border-borderColor px-2 py-0.5 rounded-sm">32px</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-[10px] text-textSecondary font-mono">24px</span>
+              <input id="setting-size-slider" type="range" min="24" max="48" step="2" value="32" class="flex-1 accent-textPrimary cursor-pointer h-1.5 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
+              <span class="text-[10px] text-textSecondary font-mono">48px</span>
+            </div>
+          </div>
+
+          <!-- Hebrew Font and Size Live Preview -->
+          <div class="p-4 bg-bgSecondary/15 border border-borderColor/50 rounded-sm max-w-md">
+            <span data-translate="settings_preview_title" class="text-[10px] font-bold text-textSecondary tracking-widest uppercase font-mono block mb-2">Santionany mivantana (Aperçu) :</span>
+            <div class="bg-bgCard border border-borderColor/35 p-5 rounded-sm flex flex-col items-center justify-center min-h-[90px]">
+              <p id="font-preview-hebrew" class="hebrew-text" style="margin-bottom: 0; text-align: center;">בְּרֵאשִׁית בָּרָא אֱלֹהִים</p>
+              <span id="font-preview-details" class="text-[9px] font-mono text-textSecondary mt-3 uppercase tracking-wider">Font: Sileot / Size: 32px</span>
+            </div>
+          </div>
+
+          <!-- Setting 4: Theme Swatch Selection -->
+          <div class="space-y-4">
+            <label data-translate="settings_theme_label" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Lokon'ny fampiharana (Thèmes):</label>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Light Themes List -->
+              <div class="space-y-2.5">
+                <span data-translate="settings_theme_claire_label" class="text-[11px] font-bold text-textSecondary tracking-widest uppercase font-mono block">Alon-doko Mazava (Light Mode)</span>
+                <div class="flex flex-wrap gap-4">
+                  <!-- Theme Light 1: Tropical Tech -->
+                  <button data-theme-select="1" data-theme-type="light" class="w-12 h-12 rounded-sm border border-borderColor bg-white hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Tropical Tech">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#FF5630]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Tropical</span>
+                  </button>
+                  <!-- Theme Light 2: Vibrant Nature -->
+                  <button data-theme-select="2" data-theme-type="light" class="w-12 h-12 rounded-sm border border-borderColor bg-white hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Vibrant Nature">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#36B37E]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Nature</span>
+                  </button>
+                  <!-- Theme Light 3: Neon Twilight -->
+                  <button data-theme-select="3" data-theme-type="light" class="w-12 h-12 rounded-sm border border-borderColor bg-white hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Neon Twilight">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#FFAB00]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Twilight</span>
+                  </button>
+                  <!-- Theme Light 4: Warm Joy -->
+                  <button data-theme-select="4" data-theme-type="light" class="w-12 h-12 rounded-sm border border-borderColor bg-white hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Warm Joy">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#70129B]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Warm Joy</span>
+                  </button>
+                  <!-- Theme Light 5: Cyber Electric -->
+                  <button data-theme-select="5" data-theme-type="light" class="w-12 h-12 rounded-sm border border-borderColor bg-white hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Cyber Electric">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#00E5A3]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Cyber</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Dark Themes List -->
+              <div class="space-y-2.5">
+                <span data-translate="settings_theme_sombre_label" class="text-[11px] font-bold text-textSecondary tracking-widest uppercase font-mono block">Alon-doko Maizina (Dark Mode)</span>
+                <div class="flex flex-wrap gap-4">
+                  <!-- Theme Dark 1: Tropical Tech -->
+                  <button data-theme-select="1" data-theme-type="dark" class="w-12 h-12 rounded-sm border border-borderColor bg-zinc-950 hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Tropical Tech (Dark)">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#FF5630]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">Tropical</span>
+                  </button>
+                  <!-- Theme Dark 2: Vibrant Nature -->
+                  <button data-theme-select="2" data-theme-type="dark" class="w-12 h-12 rounded-sm border border-borderColor bg-slate-950 hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Vibrant Nature (Dark)">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#36B37E]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">Nature</span>
+                  </button>
+                  <!-- Theme Dark 3: Neon Twilight -->
+                  <button data-theme-select="3" data-theme-type="dark" class="w-12 h-12 rounded-sm border border-borderColor bg-purple-950 hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Neon Twilight (Dark)">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#FFAB00]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">Twilight</span>
+                  </button>
+                  <!-- Theme Dark 4: Warm Joy -->
+                  <button data-theme-select="4" data-theme-type="dark" class="w-12 h-12 rounded-sm border border-borderColor bg-rose-950 hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Warm Joy (Dark)">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#70129B]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">Warm Joy</span>
+                  </button>
+                  <!-- Theme Dark 5: Cyber Electric -->
+                  <button data-theme-select="5" data-theme-type="dark" class="w-12 h-12 rounded-sm border border-borderColor bg-blue-950 hover:border-textPrimary transition-all relative flex items-center justify-center group cursor-pointer" title="Cyber Electric (Dark)">
+                    <span class="w-3.5 h-3.5 rounded-sm bg-[#00E5A3]"></span>
+                    <span class="absolute -bottom-6 text-[9px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">Cyber</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Save Button (Floating style inside page) -->
+          <div class="border-t border-borderColor pt-6 flex justify-end">
+            <button id="settings-save-btn" class="flex items-center gap-2 px-6 py-3 bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor rounded-sm font-mono text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+                <polyline points="7 3 7 8 15 8"/>
+              </svg>
+              <span data-translate="settings_save_btn">Tehirizina ny fanovana</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FLOATING LIGHT/DARK TOGGLE CAPSULE IN FOOTER -->
+    <footer id="app-footer" class="hidden fixed bottom-6 right-6 z-40">
+      <div class="bg-bgCard border border-borderColor px-3.5 py-2 rounded-sm flex items-center gap-3 shadow-md">
+        <span class="text-[9px] font-bold uppercase tracking-widest text-textSecondary font-mono select-none" data-translate="theme_switch_title">Loko</span>
+        
+        <!-- Toggle Pill Switch -->
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input id="theme-toggle-checkbox" type="checkbox" class="sr-only peer">
+          <div class="w-10 h-5 bg-bgSecondary border border-borderColor rounded-sm peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-textPrimary after:rounded-sm after:h-3.5 after:w-4.5 after:transition-all peer-checked:bg-bgSecondary transition-colors"></div>
+        </label>
+      </div>
+    </footer>
+
+    <!-- LOG OUT CONFIRMATION MODAL -->
+    <div id="logout-modal" class="fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm hidden px-4 transition-all">
+      <div class="bg-bgCard rounded-sm border border-borderColor p-6 max-w-sm w-full space-y-6 shadow-xl">
+        <div class="text-center space-y-2">
+          <div class="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 mx-auto mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" x2="9" y1="12" y2="12"/>
+            </svg>
+          </div>
+          <h3 data-translate="menu_logout" class="font-serif font-light text-lg text-textPrimary italic">Hiala</h3>
+          <p data-translate="logout_confirm" class="text-xs text-textSecondary leading-relaxed">
+            Tena te-hiala amin'ny fampiharana tokoa ve ianao?
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="modal-cancel-btn" data-translate="logout_cancel_btn" class="flex-1 py-2.5 bg-bgSecondary/40 text-textPrimary border border-borderColor rounded-sm text-xs font-mono uppercase tracking-wider transition-all hover:bg-bgSecondary active:scale-95 cursor-pointer">
+            Ajanona
+          </button>
+          <button id="modal-confirm-btn" data-translate="logout_confirm_btn" class="flex-1 py-2.5 bg-red-500 text-white border border-red-600 rounded-sm text-xs font-mono uppercase tracking-wider transition-all hover:bg-red-600 active:scale-95 cursor-pointer">
+            Eny, hiala
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2 pointer-events-none">
+      <!-- Toast cards injected here dynamically -->
+    </div>
+
+    <!-- Script references -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js" crossorigin="anonymous"></script>
+  </body>
+</html>

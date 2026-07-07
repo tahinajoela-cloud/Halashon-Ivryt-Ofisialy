@@ -96,6 +96,18 @@
         direction: rtl;
         text-align: center;
       }
+      .phonetic-text {
+        font-family: var(--phonetic-font-family, "Inter", sans-serif) !important;
+        font-size: var(--phonetic-font-size, 0.8125rem) !important;
+      }
+      .french-text {
+        font-family: var(--french-font-family, "Inter", sans-serif) !important;
+        font-size: var(--french-font-size, 0.875rem) !important;
+      }
+      .malagasy-text {
+        font-family: var(--malagasy-font-family, "Inter", sans-serif) !important;
+        font-size: var(--malagasy-font-size, 0.875rem) !important;
+      }
       .lesson-title {
         font-family: Georgia, Cambria, "Times New Roman", Times, serif;
         font-weight: 300;
@@ -865,9 +877,9 @@
                 <div class="space-y-1.5 flex-1">
                   <h4 id="quiz-status-title" class="font-serif font-bold text-sm">Marina!</h4>
                   <div class="text-xs text-textSecondary space-y-1.5 font-sans">
-                    <p class="font-normal text-textPrimary flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_phonetic_label">Phonetic:</span> <span id="quiz-explain-phonetic" class="font-normal">shalom</span></p>
-                    <p class="flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_mg_label">Malagasy:</span> <span id="quiz-explain-mg" class="text-textPrimary font-normal">Fiadanana, fiarahabana</span></p>
-                    <p class="flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_fr_label">Français:</span> <span id="quiz-explain-fr" class="text-textPrimary font-normal">Paix, bonjour</span></p>
+                    <p class="font-normal text-textPrimary flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_phonetic_label">Phonetic:</span> <span id="quiz-explain-phonetic" class="phonetic-text font-normal">shalom</span></p>
+                    <p class="flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_mg_label">Malagasy:</span> <span id="quiz-explain-mg" class="malagasy-text text-textPrimary font-normal">Fiadanana, fiarahabana</span></p>
+                    <p class="flex gap-2"><span class="text-textSecondary font-normal" data-translate="quiz_explain_fr_label">Français:</span> <span id="quiz-explain-fr" class="french-text text-textPrimary font-normal">Paix, bonjour</span></p>
                   </div>
                 </div>
               </div>
@@ -985,12 +997,131 @@
             </div>
           </div>
 
-          <!-- Hebrew Font and Size Live Preview -->
+          <!-- Hebrew Font and Size Live Preview (Expanded for all categories) -->
           <div class="p-4 bg-bgSecondary/15 border border-borderColor/50 rounded-sm max-w-md">
-            <span data-translate="settings_preview_title" class="text-[10px] font-bold text-textSecondary tracking-widest uppercase font-mono block mb-2">Santionany mivantana (Aperçu) :</span>
-            <div class="bg-bgCard border border-borderColor/35 p-5 rounded-sm flex flex-col items-center justify-center min-h-[90px]">
+            <span data-translate="settings_preview_title" class="text-[10px] font-bold text-textSecondary tracking-widest uppercase font-mono block mb-2.5">Santionany mivantana (Aperçu) :</span>
+            <div class="bg-bgCard border border-borderColor/35 p-5 rounded-sm flex flex-col items-center justify-center min-h-[150px] space-y-2.5">
               <p id="font-preview-hebrew" class="hebrew-text" style="margin-bottom: 0; text-align: center;">בְּרֵאשִׁית בָּרָא אֱלֹהִים</p>
-              <span id="font-preview-details" class="text-[9px] font-mono text-textSecondary mt-3 uppercase tracking-wider">Font: Sileot / Size: 32px</span>
+              <p id="font-preview-phonetic" class="phonetic-text text-textSecondary/80 text-center" style="margin-bottom: 0;">bereshit bara elohim</p>
+              <p id="font-preview-french" class="french-text text-textPrimary text-center" style="margin-bottom: 0;">Au commencement, Dieu créa</p>
+              <p id="font-preview-malagasy" class="malagasy-text text-textPrimary text-center" style="margin-bottom: 0;">Tamin'ny voalohany, Andriamanitra nahary</p>
+              <div id="font-preview-details" class="text-[8px] font-mono text-textSecondary mt-3 uppercase tracking-wider text-center pt-2.5 border-t border-borderColor/30 w-full leading-relaxed">
+                HEBREW: Sileot (32px) / PHONETIC: Inter (13px) / FRENCH: Inter (14px) / MALAGASY: Inter (14px)
+              </div>
+            </div>
+          </div>
+
+          <!-- Setting: Phonetic Font & Size selection -->
+          <div class="p-4 bg-bgSecondary/5 border border-borderColor/40 rounded-sm max-w-md space-y-4">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-textPrimary font-mono flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+              Fikirakirana Phonétique
+            </h4>
+            
+            <div class="space-y-2">
+              <label data-translate="settings_phonetic_font_label" for="setting-phonetic-font-selector" class="text-[10px] font-bold uppercase tracking-wider text-textSecondary font-mono block">Endriky ny soratra (Font):</label>
+              <div class="relative">
+                <select id="setting-phonetic-font-selector" class="w-full pl-3 pr-10 py-2 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm font-medium focus:outline-none transition-all appearance-none cursor-pointer text-xs">
+                  <option value="inter">Inter (Sans-serif)</option>
+                  <option value="roboto">Roboto Condensed</option>
+                  <option value="sileot">Sileot (Serif)</option>
+                  <option value="david">David (Serif)</option>
+                  <option value="times">Times (Serif)</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-textSecondary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <label data-translate="settings_phonetic_size_label" for="setting-phonetic-size-slider" class="text-[10px] font-bold uppercase tracking-wider text-textSecondary font-mono block">Haben'ny soratra:</label>
+                <span id="setting-phonetic-size-val" class="text-[10px] font-bold text-textPrimary font-mono bg-bgSecondary border border-borderColor px-1.5 py-0.5 rounded-sm">13px</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-[9px] text-textSecondary font-mono">10px</span>
+                <input id="setting-phonetic-size-slider" type="range" min="10" max="24" step="1" value="13" class="flex-1 accent-textPrimary cursor-pointer h-1 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
+                <span class="text-[9px] text-textSecondary font-mono">24px</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Setting: French Font & Size selection -->
+          <div class="p-4 bg-bgSecondary/5 border border-borderColor/40 rounded-sm max-w-md space-y-4">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-textPrimary font-mono flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+              Fikirakirana Frantsay (Français)
+            </h4>
+            
+            <div class="space-y-2">
+              <label data-translate="settings_french_font_label" for="setting-french-font-selector" class="text-[10px] font-bold uppercase tracking-wider text-textSecondary font-mono block">Endriky ny soratra (Font):</label>
+              <div class="relative">
+                <select id="setting-french-font-selector" class="w-full pl-3 pr-10 py-2 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm font-medium focus:outline-none transition-all appearance-none cursor-pointer text-xs">
+                  <option value="inter">Inter (Sans-serif)</option>
+                  <option value="roboto">Roboto Condensed</option>
+                  <option value="sileot">Sileot (Serif)</option>
+                  <option value="david">David (Serif)</option>
+                  <option value="times">Times (Serif)</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-textSecondary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <label data-translate="settings_french_size_label" for="setting-french-size-slider" class="text-[10px] font-bold uppercase tracking-wider text-textSecondary font-mono block">Haben'ny soratra:</label>
+                <span id="setting-french-size-val" class="text-[10px] font-bold text-textPrimary font-mono bg-bgSecondary border border-borderColor px-1.5 py-0.5 rounded-sm">14px</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-[9px] text-textSecondary font-mono">10px</span>
+                <input id="setting-french-size-slider" type="range" min="10" max="24" step="1" value="14" class="flex-1 accent-textPrimary cursor-pointer h-1 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
+                <span class="text-[9px] text-textSecondary font-mono">24px</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Setting: Malagasy Font & Size selection -->
+          <div class="p-4 bg-bgSecondary/5 border border-borderColor/40 rounded-sm max-w-md space-y-4">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-textPrimary font-mono flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+              Fikirakirana Malagasy
+            </h4>
+            
+            <div class="space-y-2">
+              <label data-translate="settings_malagasy_font_label" for="setting-malagasy-font-selector" class="text-[10px] font-bold uppercase tracking-wider text-textSecondary font-mono block">Endriky ny soratra (Font):</label>
+              <div class="relative">
+                <select id="setting-malagasy-font-selector" class="w-full pl-3 pr-10 py-2 bg-bgSecondary/30 text-textPrimary border border-borderColor rounded-sm font-medium focus:outline-none transition-all appearance-none cursor-pointer text-xs">
+                  <option value="inter">Inter (Sans-serif)</option>
+                  <option value="roboto">Roboto Condensed</option>
+                  <option value="sileot">Sileot (Serif)</option>
+                  <option value="david">David (Serif)</option>
+                  <option value="times">Times (Serif)</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-textSecondary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <label data-translate="settings_malagasy_size_label" for="setting-malagasy-size-slider" class="text-[10px] font-bold uppercase tracking-wider text-textSecondary font-mono block">Haben'ny soratra:</label>
+                <span id="setting-malagasy-size-val" class="text-[10px] font-bold text-textPrimary font-mono bg-bgSecondary border border-borderColor px-1.5 py-0.5 rounded-sm">14px</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-[9px] text-textSecondary font-mono">10px</span>
+                <input id="setting-malagasy-size-slider" type="range" min="10" max="24" step="1" value="14" class="flex-1 accent-textPrimary cursor-pointer h-1 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
+                <span class="text-[9px] text-textSecondary font-mono">24px</span>
+              </div>
             </div>
           </div>
 

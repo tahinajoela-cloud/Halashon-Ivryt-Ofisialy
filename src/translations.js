@@ -464,6 +464,36 @@ window.APP_TRANSLATIONS = {
       fr: "Taille de la police hébraïque :",
       he: "גֹּדֶל הַגּוֹפָן הָעִבְרִי:"
     },
+    settings_phonetic_font_label: {
+      mg: "Fanehoan-tsoratra ho an’ny soratra Phonétique : ",
+      fr: "Police pour l'écriture phonétique :",
+      he: "גּוֹפָן פוֹנֶטִי:"
+    },
+    settings_phonetic_size_label: {
+      mg: "Haben’ny fanehoan-tsoratra ho an’ny soratra Phonétique : ",
+      fr: "Taille de la police phonétique :",
+      he: "גֹּדֶל הַגּוֹפָן הַפּוֹנֶטִי:"
+    },
+    settings_french_font_label: {
+      mg: "Fanehoan-tsoratra ho an’ny fiteny Frantsay : ",
+      fr: "Police pour le texte français :",
+      he: "גּוֹפָן צָרְפָתִית:"
+    },
+    settings_french_size_label: {
+      mg: "Haben’ny fanehoan-tsoratra ho an’ny fiteny Frantsay : ",
+      fr: "Taille de la police française :",
+      he: "גֹּדֶל הַגּוֹפָן הַצָּרְפָתִית:"
+    },
+    settings_malagasy_font_label: {
+      mg: "Fanehoan-tsoratra ho an’ny fiteny Malagasy : ",
+      fr: "Police pour le texte malgache :",
+      he: "גּוֹפָן מַלְגָּשִׁית:"
+    },
+    settings_malagasy_size_label: {
+      mg: "Haben’ny fanehoan-tsoratra ho an’ny fiteny Malagasy : ",
+      fr: "Taille de la police malgache :",
+      he: "גֹּדֶל הַגּוֹפָן הַמַּלְגָּשִׁית:"
+    },
     settings_theme_label: {
       mg: "Fandaminana alon-doko ho an’ny fampiharana",
       fr: "Thème de couleur de l'application :",

@@ -37,6 +37,12 @@ const state = {
   theme: 1,             // 1, 2, 3
   hebrewFont: 'sileot', // 'sileot', 'david', 'times'
   hebrewFontSize: 32,   // 24 to 48 px
+  phoneticFont: 'inter', // 'inter', 'roboto', 'sileot', 'david', 'times'
+  phoneticFontSize: 13,  // 10 to 24 px
+  frenchFont: 'inter',   // 'inter', 'roboto', 'sileot', 'david', 'times'
+  frenchFontSize: 14,    // 10 to 24 px
+  malagasyFont: 'inter', // 'inter', 'roboto', 'sileot', 'david', 'times'
+  malagasyFontSize: 14,  // 10 to 24 px
   activeView: 'home',   // 'home', 'about', 'dev', 'settings'
   sidebarOpen: false,   // Menu bar state
 };
@@ -439,6 +445,12 @@ function saveStateToStorage() {
     theme: state.theme,
     hebrewFont: state.hebrewFont,
     hebrewFontSize: state.hebrewFontSize,
+    phoneticFont: state.phoneticFont,
+    phoneticFontSize: state.phoneticFontSize,
+    frenchFont: state.frenchFont,
+    frenchFontSize: state.frenchFontSize,
+    malagasyFont: state.malagasyFont,
+    malagasyFontSize: state.malagasyFontSize,
   }));
 }
 
@@ -569,38 +581,85 @@ function applyTheme() {
   applyHebrewSettings();
 }
 
-// Apply Hebrew Font and Font Size dynamically
+// Helper to map font options to exact CSS values
+function getFontFamilyString(fontKey) {
+  if (fontKey === 'david') return "DavidLocal, serif";
+  if (fontKey === 'times') return "TimesLocal, serif";
+  if (fontKey === 'sileot') return "SILEOTLocal, serif";
+  if (fontKey === 'roboto') return "\"Roboto Condensed\", sans-serif";
+  return "\"Inter\", sans-serif";
+}
+
+// Apply Hebrew and translation Font and Font Size dynamically
 function applyHebrewSettings() {
   const root = document.documentElement;
+  
+  // 1. Hebrew settings
   const font = state.hebrewFont || 'sileot';
   const size = state.hebrewFontSize || 32;
-
-  // Set css custom properties dynamically based on state with strictly local Hebrew fonts
-  let fontFamily = "SILEOTLocal, serif";
-  if (font === 'david') {
-    fontFamily = "DavidLocal, serif";
-  } else if (font === 'times') {
-    fontFamily = "TimesLocal, serif";
-  }
-
+  const fontFamily = getFontFamilyString(font);
   root.style.setProperty('--hebrew-font-family', fontFamily);
   root.style.setProperty('--hebrew-font-size', `${size / 16}rem`);
 
-  // Sync selection UI if element exists
+  // Sync Hebrew UI
   const selector = document.getElementById('setting-font-selector');
   if (selector) selector.value = font;
-
   const slider = document.getElementById('setting-size-slider');
   if (slider) slider.value = size;
-
   const valDisplay = document.getElementById('setting-size-val');
   if (valDisplay) valDisplay.innerText = `${size}px`;
 
-  // Update live preview text details if elements exist
+  // 2. Phonetic settings
+  const pFont = state.phoneticFont || 'inter';
+  const pSize = state.phoneticFontSize || 13;
+  root.style.setProperty('--phonetic-font-family', getFontFamilyString(pFont));
+  root.style.setProperty('--phonetic-font-size', `${pSize / 16}rem`);
+
+  // Sync Phonetic UI
+  const pSelector = document.getElementById('setting-phonetic-font-selector');
+  if (pSelector) pSelector.value = pFont;
+  const pSlider = document.getElementById('setting-phonetic-size-slider');
+  if (pSlider) pSlider.value = pSize;
+  const pValDisplay = document.getElementById('setting-phonetic-size-val');
+  if (pValDisplay) pValDisplay.innerText = `${pSize}px`;
+
+  // 3. French settings
+  const frFont = state.frenchFont || 'inter';
+  const frSize = state.frenchFontSize || 14;
+  root.style.setProperty('--french-font-family', getFontFamilyString(frFont));
+  root.style.setProperty('--french-font-size', `${frSize / 16}rem`);
+
+  // Sync French UI
+  const frSelector = document.getElementById('setting-french-font-selector');
+  if (frSelector) frSelector.value = frFont;
+  const frSlider = document.getElementById('setting-french-size-slider');
+  if (frSlider) frSlider.value = frSize;
+  const frValDisplay = document.getElementById('setting-french-size-val');
+  if (frValDisplay) frValDisplay.innerText = `${frSize}px`;
+
+  // 4. Malagasy settings
+  const mgFont = state.malagasyFont || 'inter';
+  const mgSize = state.malagasyFontSize || 14;
+  root.style.setProperty('--malagasy-font-family', getFontFamilyString(mgFont));
+  root.style.setProperty('--malagasy-font-size', `${mgSize / 16}rem`);
+
+  // Sync Malagasy UI
+  const mgSelector = document.getElementById('setting-malagasy-font-selector');
+  if (mgSelector) mgSelector.value = mgFont;
+  const mgSlider = document.getElementById('setting-malagasy-size-slider');
+  if (mgSlider) mgSlider.value = mgSize;
+  const mgValDisplay = document.getElementById('setting-malagasy-size-val');
+  if (mgValDisplay) mgValDisplay.innerText = `${mgSize}px`;
+
+  // 5. Update live preview details if elements exist
   const previewDetails = document.getElementById('font-preview-details');
   if (previewDetails) {
     const fontDisplay = font.charAt(0).toUpperCase() + font.slice(1);
-    previewDetails.innerText = `Font: ${fontDisplay} / Size: ${size}px`;
+    const pFontDisplay = pFont.charAt(0).toUpperCase() + pFont.slice(1);
+    const frFontDisplay = frFont.charAt(0).toUpperCase() + frFont.slice(1);
+    const mgFontDisplay = mgFont.charAt(0).toUpperCase() + mgFont.slice(1);
+
+    previewDetails.innerText = `HEBREW: ${fontDisplay} (${size}px) / PHONETIC: ${pFontDisplay} (${pSize}px) / FRENCH: ${frFontDisplay} (${frSize}px) / MALAGASY: ${mgFontDisplay} (${mgSize}px)`;
   }
 }
 
@@ -853,6 +912,72 @@ function setupEventListeners() {
       state.hebrewFontSize = parseInt(e.target.value, 10);
       applyHebrewSettings();
       saveStateToStorage();
+    });
+  }
+
+  // Phonetic Font selector listener
+  const phoneticFontSelector = document.getElementById('setting-phonetic-font-selector');
+  if (phoneticFontSelector) {
+    phoneticFontSelector.addEventListener('change', (e) => {
+      state.phoneticFont = e.target.value;
+      applyHebrewSettings();
+      saveStateToStorage();
+      if (window.refreshLessonView) window.refreshLessonView();
+    });
+  }
+
+  // Phonetic Font Size Slider listener
+  const phoneticSizeSlider = document.getElementById('setting-phonetic-size-slider');
+  if (phoneticSizeSlider) {
+    phoneticSizeSlider.addEventListener('input', (e) => {
+      state.phoneticFontSize = parseInt(e.target.value, 10);
+      applyHebrewSettings();
+      saveStateToStorage();
+      if (window.refreshLessonView) window.refreshLessonView();
+    });
+  }
+
+  // French Font selector listener
+  const frenchFontSelector = document.getElementById('setting-french-font-selector');
+  if (frenchFontSelector) {
+    frenchFontSelector.addEventListener('change', (e) => {
+      state.frenchFont = e.target.value;
+      applyHebrewSettings();
+      saveStateToStorage();
+      if (window.refreshLessonView) window.refreshLessonView();
+    });
+  }
+
+  // French Font Size Slider listener
+  const frenchSizeSlider = document.getElementById('setting-french-size-slider');
+  if (frenchSizeSlider) {
+    frenchSizeSlider.addEventListener('input', (e) => {
+      state.frenchFontSize = parseInt(e.target.value, 10);
+      applyHebrewSettings();
+      saveStateToStorage();
+      if (window.refreshLessonView) window.refreshLessonView();
+    });
+  }
+
+  // Malagasy Font selector listener
+  const malagasyFontSelector = document.getElementById('setting-malagasy-font-selector');
+  if (malagasyFontSelector) {
+    malagasyFontSelector.addEventListener('change', (e) => {
+      state.malagasyFont = e.target.value;
+      applyHebrewSettings();
+      saveStateToStorage();
+      if (window.refreshLessonView) window.refreshLessonView();
+    });
+  }
+
+  // Malagasy Font Size Slider listener
+  const malagasySizeSlider = document.getElementById('setting-malagasy-size-slider');
+  if (malagasySizeSlider) {
+    malagasySizeSlider.addEventListener('input', (e) => {
+      state.malagasyFontSize = parseInt(e.target.value, 10);
+      applyHebrewSettings();
+      saveStateToStorage();
+      if (window.refreshLessonView) window.refreshLessonView();
     });
   }
 

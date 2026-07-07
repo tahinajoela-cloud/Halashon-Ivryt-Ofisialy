@@ -239,9 +239,9 @@ function initNavigation(data) {
                         </button>
                         <p class="hebrew-text">${row.Hebrew || ''}</p>
                         ${row.Hebrew ? renderSpeechBtn(row.Hebrew) : ''}
-                        <p class="font-normal font-sans text-xs text-textSecondary/80 tracking-wide mt-1">${row.Phonetic || ''}</p>
-                        <p class="font-normal font-sans text-xs text-textPrimary mt-1">${row.French || ''}</p>
-                        <p class="font-normal font-sans text-xs text-textPrimary mt-1">${row.Malagasy || ''}</p>
+                        <p class="phonetic-text text-textSecondary/80 tracking-wide mt-1">${row.Phonetic || ''}</p>
+                        <p class="french-text text-textPrimary mt-1">${row.French || ''}</p>
+                        <p class="malagasy-text text-textPrimary mt-1">${row.Malagasy || ''}</p>
                     </div>`;
                 });
             }
@@ -351,9 +351,9 @@ function renderFullLesson(data, title, niveau) {
                     </button>
                     <p class="hebrew-text">${row.Hebrew||''}</p>
                     ${row.Hebrew ? renderSpeechBtn(row.Hebrew, false) : ''}
-                    <p class="font-normal font-sans text-xs text-textSecondary/80 tracking-wide mt-1">${row.Phonetic||''}</p>
-                    <p class="font-normal font-sans text-xs text-textPrimary mt-1">${row.French||''}</p>
-                    <p class="font-normal font-sans text-xs text-textPrimary mt-1">${row.Malagasy||''}</p>
+                    <p class="phonetic-text text-textSecondary/80 tracking-wide mt-1">${row.Phonetic||''}</p>
+                    <p class="french-text text-textPrimary mt-1">${row.French||''}</p>
+                    <p class="malagasy-text text-textPrimary mt-1">${row.Malagasy||''}</p>
                 </div>`;
         });
     });
@@ -901,9 +901,9 @@ window.renderRevisionView = function() {
                             ${getT('flashcard_reveal', 'Hampiseho ny dikany')}
                         </button>
                         <div id="rev-translation-${idx}" class="hidden space-y-1 text-xs pt-2 animate-fadeIn">
-                            <p class="font-normal font-sans text-textPrimary">${row.Phonetic || ''}</p>
-                            <p class="font-normal font-sans text-textSecondary">${row.Malagasy || ''}</p>
-                            <p class="font-normal font-sans text-textSecondary/80 italic">${row.French || ''}</p>
+                            <p class="phonetic-text text-textPrimary">${row.Phonetic || ''}</p>
+                            <p class="malagasy-text text-textSecondary">${row.Malagasy || ''}</p>
+                            <p class="french-text text-textSecondary/80 italic">${row.French || ''}</p>
                         </div>
                     </div>
                 </div>
@@ -1024,9 +1024,18 @@ window.renderFlashcardCurrent = function() {
     const mgText = document.getElementById('flashcard-mg-text');
     const frText = document.getElementById('flashcard-fr-text');
 
-    if (phoneticText) phoneticText.innerText = currentWord.Phonetic || '';
-    if (mgText) mgText.innerText = currentWord.Malagasy || '';
-    if (frText) frText.innerText = currentWord.French || '';
+    if (phoneticText) {
+        phoneticText.innerText = currentWord.Phonetic || '';
+        phoneticText.className = "phonetic-text text-textSecondary/80";
+    }
+    if (mgText) {
+        mgText.innerText = currentWord.Malagasy || '';
+        mgText.className = "malagasy-text text-textPrimary";
+    }
+    if (frText) {
+        frText.innerText = currentWord.French || '';
+        frText.className = "french-text text-textPrimary";
+    }
 };
 
 window.revealFlashcardTranslation = function() {

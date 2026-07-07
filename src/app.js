@@ -1057,7 +1057,19 @@ function setupEventListeners() {
         })
         .catch(err => {
           console.error("Diso fidirana:", err);
-          showToast("Diso ny mailaka na ny tenimiafina naiditrao!", "error");
+          let errorMsg = "Diso ny mailaka na ny tenimiafina naiditrao!";
+          if (err.code === 'auth/invalid-credential') {
+            errorMsg = "Diso ny fidirana na tsy mety ny tenimiafina naiditrao. Hamarino tsara na mifandraisa amin'ny Mpandrindra (Admin) raha mbola tsy manana kaonty ianao.";
+          } else if (err.code === 'auth/user-not-found') {
+            errorMsg = "Mbola tsy voasoratra ao amin'ny rafitra ity kaonty ity. Mifandraisa amin'ny Mpandrindra (Admin).";
+          } else if (err.code === 'auth/wrong-password') {
+            errorMsg = "Diso ny tenimiafina (Password) nampidirinao!";
+          } else if (err.code === 'auth/too-many-requests') {
+            errorMsg = "Be loatra ny andrana tsy nahomby. Voasakana vonjimaika ny fidirana amin'ny kaontinao, andramo indray afaka kelikely.";
+          } else if (err.message) {
+            errorMsg = `Tsy nahomby ny fidirana: ${err.message}`;
+          }
+          showToast(errorMsg, "error");
         });
     });
   }

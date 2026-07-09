@@ -398,7 +398,7 @@ window.renderFullLesson = renderFullLesson;
 
 const fallbackVocab = [
     { Hebrew: "שָׁלוֹם", Phonetic: "shalom", Malagasy: "Fiadanana", French: "Paix" },
-    { Hebrew: "אֱלֹהִים", Phonetic: "Elohim", Malagasy: "Andriamanitra", French: "Dieu" },
+    { Hebrew: "אֱלֹהִים", Phonetic: "Elohim", Malagasy: "Elohim", French: "Elohim" },
     { Hebrew: "בְּרֵאשִׁית", Phonetic: "bereshit", Malagasy: "Tamin'ny voalohany", French: "Au commencement" },
     { Hebrew: "שָׁמัיִם", Phonetic: "shamayim", Malagasy: "Lanitra", French: "Cieux" },
     { Hebrew: "אֶרֶץ", Phonetic: "eretz", Malagasy: "Tany", French: "Terre" },
@@ -548,7 +548,7 @@ window.quizRenderQuestion = function() {
             }
         });
         if (distractorsPool.length < 3) {
-            distractorsPool = ["Bonjour / Fiadanana", "Dieu / Andriamanitra", "Ciel / Lanitra", "Terre / Tany", "Lumière / Mazava"];
+            distractorsPool = ["Bonjour / Fiadanana", "Elohim / Elohim", "Ciel / Lanitra", "Terre / Tany", "Lumière / Mazava"];
         }
     }
 

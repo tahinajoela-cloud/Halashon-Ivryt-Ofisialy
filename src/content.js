@@ -1089,6 +1089,10 @@ window.updateRevisionBadgeCount = function() {
     if (badge) {
         badge.innerText = count;
     }
+    const badgeBottom = document.getElementById('revision-count-badge-bottom');
+    if (badgeBottom) {
+        badgeBottom.innerText = count;
+    }
 };
 
 // Clear All Difficult Words

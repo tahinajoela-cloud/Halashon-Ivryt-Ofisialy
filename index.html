@@ -464,23 +464,14 @@
           </div>
         </a>
 
-        <!-- Right Side: Interface Language Quick select & Menu Hamburger button -->
+        <!-- Right Side: Interface Language Quick select -->
         <div class="flex items-center gap-3">
           <!-- Quick Lang Toggle for interface -->
-          <div class="hidden sm:flex items-center bg-bgSecondary/40 p-1 rounded-sm border border-borderColor/60 transition-colors">
+          <div class="flex items-center bg-bgSecondary/40 p-1 rounded-sm border border-borderColor/60 transition-colors">
             <button data-lang="mg" class="lang-btn px-2.5 py-1 rounded-sm text-xs font-mono transition-all">MG</button>
             <button data-lang="fr" class="lang-btn px-2.5 py-1 rounded-sm text-xs font-mono transition-all">FR</button>
             <button data-lang="he" class="lang-btn px-2.5 py-1 rounded-sm text-xs font-mono transition-all">IL</button>
           </div>
-
-          <!-- Sidebar Toggle Hamburger Button -->
-          <button id="menu-toggle-btn" class="p-2.5 rounded-sm hover:bg-bgSecondary/60 text-textPrimary border border-borderColor/60 transition-all active:scale-95" aria-label="Open Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="4" x2="20" y1="12" y2="12"/>
-              <line x1="4" x2="20" y1="6" y2="6"/>
-              <line x1="4" x2="20" y1="18" y2="18"/>
-            </svg>
-          </button>
         </div>
       </div>
     </header>
@@ -1499,6 +1490,56 @@
             </div>
           </div>
 
+          <!-- Account & Information Actions Section -->
+          <div class="border-t border-borderColor/60 pt-6 mt-6 max-w-md space-y-4">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-textPrimary font-mono flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+              Kaonty &amp; Fanampiny
+            </h4>
+            
+            <div class="grid grid-cols-1 gap-3">
+              <!-- About Button shortcut -->
+              <button onclick="setView('about')" class="flex items-center justify-between p-3.5 bg-bgSecondary/25 hover:bg-bgSecondary/50 border border-borderColor/50 rounded-sm transition-all cursor-pointer group text-left">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="12" x2="12" y1="16" y2="12"/>
+                      <line x1="12" x2="12.01" y1="8" y2="8"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <span data-translate="menu_about" class="text-xs font-sans font-medium text-textPrimary">Momba ny fampiharana</span>
+                    <p class="text-[10px] text-textSecondary font-mono mt-0.5">Mombamomba ny fampiharana</p>
+                  </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textSecondary group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+
+              <!-- Logout Button Trigger -->
+              <button onclick="document.getElementById('logout-modal').classList.remove('hidden'); document.getElementById('logout-modal').classList.add('flex');" class="flex items-center justify-between p-3.5 bg-red-500/5 hover:bg-red-500/10 border border-red-500/20 rounded-sm transition-all cursor-pointer group text-left">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                      <polyline points="16 17 21 12 16 7"/>
+                      <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <span data-translate="menu_logout" class="text-xs font-sans font-medium text-red-500">Hiala amin'ny fampiharana</span>
+                    <p class="text-[10px] text-red-500/70 font-mono mt-0.5">Logout safely from your session</p>
+                  </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500/60 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Save Button (Floating style inside page) -->
           <div class="border-t border-borderColor pt-6 flex justify-end">
             <button id="settings-save-btn" class="flex items-center gap-2 px-6 py-3 bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor rounded-sm font-mono text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95 cursor-pointer">
@@ -1516,7 +1557,7 @@
     </main>
 
     <!-- FLOATING LIGHT/DARK TOGGLE CAPSULE IN FOOTER -->
-    <footer id="app-footer" class="hidden fixed bottom-6 right-6 z-40">
+    <footer id="app-footer" class="hidden fixed bottom-20 right-6 z-40">
       <div class="bg-bgCard border border-borderColor px-3.5 py-2 rounded-sm flex items-center gap-3 shadow-md">
         <span class="text-[9px] font-bold uppercase tracking-widest text-textSecondary font-mono select-none" data-translate="theme_switch_title">Loko</span>
         
@@ -1527,6 +1568,72 @@
         </label>
       </div>
     </footer>
+
+    <!-- BOTTOM NAVIGATION BAR (SOCIAL-MEDIA STYLE) -->
+    <nav id="bottom-nav-bar" class="hidden fixed bottom-0 left-0 right-0 z-40 bg-bgCard border-t border-borderColor/60 backdrop-blur-md px-2 py-2 flex justify-around items-center transition-colors duration-300 shadow-lg">
+      <!-- Home -->
+      <button data-view-link="home" class="bottom-nav-btn flex flex-col items-center justify-center flex-1 py-1 text-textSecondary hover:text-textPrimary transition-all group relative cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span data-translate="menu_home" class="text-[8px] sm:text-[9px] font-mono mt-1 tracking-wider uppercase truncate max-w-[70px] text-center">Fandraisana</span>
+        <span class="nav-active-dot absolute bottom-0 w-1 h-1 bg-accent rounded-full opacity-0 transition-opacity"></span>
+      </button>
+
+      <!-- Quiz -->
+      <button data-view-link="quiz" class="bottom-nav-btn flex flex-col items-center justify-center flex-1 py-1 text-textSecondary hover:text-textPrimary transition-all group relative cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <span data-translate="menu_quiz" class="text-[8px] sm:text-[9px] font-mono mt-1 tracking-wider uppercase truncate max-w-[70px] text-center">Lalao</span>
+        <span class="nav-active-dot absolute bottom-0 w-1 h-1 bg-accent rounded-full opacity-0 transition-opacity"></span>
+      </button>
+
+      <!-- Revision -->
+      <button data-view-link="revision" class="bottom-nav-btn flex flex-col items-center justify-center flex-1 py-1 text-textSecondary hover:text-textPrimary transition-all group relative cursor-pointer">
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transition-transform group-hover:scale-110 text-yellow-500 fill-yellow-500/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span id="revision-count-badge-bottom" class="absolute -top-1.5 -right-2 px-1.5 py-0.5 bg-yellow-500 text-bgPrimary text-[8px] font-mono font-bold rounded-full min-w-[15px] h-[15px] flex items-center justify-center leading-none border border-bgCard">0</span>
+        </div>
+        <span data-translate="menu_revision" class="text-[8px] sm:text-[9px] font-mono mt-1 tracking-wider uppercase truncate max-w-[70px] text-center">Mamerina</span>
+        <span class="nav-active-dot absolute bottom-0 w-1 h-1 bg-accent rounded-full opacity-0 transition-opacity"></span>
+      </button>
+
+      <!-- Favorites -->
+      <button data-view-link="favorites" class="bottom-nav-btn flex flex-col items-center justify-center flex-1 py-1 text-textSecondary hover:text-textPrimary transition-all group relative cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transition-transform group-hover:scale-110 text-red-500 fill-red-500/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+        </svg>
+        <span data-translate="menu_favorites" class="text-[8px] sm:text-[9px] font-mono mt-1 tracking-wider uppercase truncate max-w-[70px] text-center">Ankafizina</span>
+        <span class="nav-active-dot absolute bottom-0 w-1 h-1 bg-accent rounded-full opacity-0 transition-opacity"></span>
+      </button>
+
+      <!-- About -->
+      <button data-view-link="about" class="bottom-nav-btn flex flex-col items-center justify-center flex-1 py-1 text-textSecondary hover:text-textPrimary transition-all group relative cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" x2="12" y1="16" y2="12"/>
+          <line x1="12" x2="12.01" y1="8" y2="8"/>
+        </svg>
+        <span data-translate="menu_about" class="text-[8px] sm:text-[9px] font-mono mt-1 tracking-wider uppercase truncate max-w-[70px] text-center">Momba</span>
+        <span class="nav-active-dot absolute bottom-0 w-1 h-1 bg-accent rounded-full opacity-0 transition-opacity"></span>
+      </button>
+
+      <!-- Settings -->
+      <button data-view-link="settings" class="bottom-nav-btn flex flex-col items-center justify-center flex-1 py-1 text-textSecondary hover:text-textPrimary transition-all group relative cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span data-translate="menu_settings" class="text-[8px] sm:text-[9px] font-mono mt-1 tracking-wider uppercase truncate max-w-[70px] text-center">Tefy</span>
+        <span class="nav-active-dot absolute bottom-0 w-1 h-1 bg-accent rounded-full opacity-0 transition-opacity"></span>
+      </button>
+    </nav>
 
     <!-- LOG OUT CONFIRMATION MODAL -->
     <div id="logout-modal" class="fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm hidden px-4 transition-all">

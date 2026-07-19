@@ -112,6 +112,7 @@ async function initializeFirebase() {
             document.getElementById('main-header')?.classList.remove('hidden');
             document.getElementById('app-main')?.classList.remove('hidden');
             document.getElementById('app-footer')?.classList.remove('hidden');
+            document.getElementById('bottom-nav-bar')?.classList.remove('hidden');
 
             // Trigger lesson synchronization in background
             startLessonsSynchronization(currentUserId, true);
@@ -130,6 +131,7 @@ async function initializeFirebase() {
           document.getElementById('main-header')?.classList.add('hidden');
           document.getElementById('app-main')?.classList.add('hidden');
           document.getElementById('app-footer')?.classList.add('hidden');
+          document.getElementById('bottom-nav-bar')?.classList.add('hidden');
           
           const lessonContainer = document.getElementById('lesson-container');
           if (lessonContainer) lessonContainer.innerHTML = '';
@@ -159,6 +161,7 @@ function showUnauthorizedUI(userUid) {
   document.getElementById('main-header')?.classList.add('hidden');
   document.getElementById('app-main')?.classList.add('hidden');
   document.getElementById('app-footer')?.classList.add('hidden');
+  document.getElementById('bottom-nav-bar')?.classList.add('hidden');
 
   const contactAdminSection = document.getElementById('contact-admin-section');
   if (contactAdminSection) {
@@ -817,12 +820,33 @@ function updateActiveMenuHighlight() {
   const viewName = state.activeView;
   document.querySelectorAll('[data-view-link]').forEach(link => {
     const linkView = link.getAttribute('data-view-link');
-    if (linkView === viewName) {
-      link.classList.add('bg-bgSecondary/80', 'text-textPrimary', 'border-l-2', 'border-textPrimary', 'font-semibold');
-      link.classList.remove('text-textSecondary', 'hover:bg-bgSecondary/30');
+    const isBottomNav = link.closest('#bottom-nav-bar') !== null;
+    
+    if (isBottomNav) {
+      const activeDot = link.querySelector('.nav-active-dot');
+      if (linkView === viewName) {
+        link.classList.remove('text-textSecondary');
+        link.classList.add('text-accent', 'font-bold');
+        if (activeDot) {
+          activeDot.classList.remove('opacity-0');
+          activeDot.classList.add('opacity-100');
+        }
+      } else {
+        link.classList.remove('text-accent', 'font-bold');
+        link.classList.add('text-textSecondary');
+        if (activeDot) {
+          activeDot.classList.remove('opacity-100');
+          activeDot.classList.add('opacity-0');
+        }
+      }
     } else {
-      link.classList.remove('bg-bgSecondary/80', 'text-textPrimary', 'border-l-2', 'border-textPrimary', 'font-semibold');
-      link.classList.add('text-textSecondary', 'hover:bg-bgSecondary/30');
+      if (linkView === viewName) {
+        link.classList.add('bg-bgSecondary/80', 'text-textPrimary', 'border-l-2', 'border-textPrimary', 'font-semibold');
+        link.classList.remove('text-textSecondary', 'hover:bg-bgSecondary/30');
+      } else {
+        link.classList.remove('bg-bgSecondary/80', 'text-textPrimary', 'border-l-2', 'border-textPrimary', 'font-semibold');
+        link.classList.add('text-textSecondary', 'hover:bg-bgSecondary/30');
+      }
     }
   });
 }
@@ -1192,6 +1216,7 @@ function setupEventListeners() {
         document.getElementById('main-header')?.classList.add('hidden');
         document.getElementById('app-main')?.classList.add('hidden');
         document.getElementById('app-footer')?.classList.add('hidden');
+        document.getElementById('bottom-nav-bar')?.classList.add('hidden');
         
         const translations = window.APP_TRANSLATIONS;
         const lang = state.lang || 'mg';
@@ -1256,6 +1281,7 @@ async function init() {
         document.getElementById('main-header')?.classList.remove('hidden');
         document.getElementById('app-main')?.classList.remove('hidden');
         document.getElementById('app-footer')?.classList.remove('hidden');
+        document.getElementById('bottom-nav-bar')?.classList.remove('hidden');
         
         // Set view to home to render cached levels
         setView('home');

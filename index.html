@@ -556,6 +556,17 @@
             <span data-translate="menu_favorites">Ankafizina</span>
           </a>
 
+          <!-- Revision Link -->
+          <a href="#" data-view-link="revision" class="flex items-center justify-between gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group">
+            <div class="flex items-center gap-2.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:scale-115 text-yellow-500 fill-yellow-500/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span data-translate="menu_revision">Mamerina</span>
+            </div>
+            <span id="revision-count-badge" class="px-1.5 py-0.5 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 text-[9px] font-mono rounded-sm font-bold min-w-[18px] text-center">0</span>
+          </a>
+
           <!-- Settings Link -->
           <a href="#" data-view-link="settings" class="flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-mono uppercase tracking-wider transition-all group border-t border-borderColor/20 mt-1 pt-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-transform group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1143,6 +1154,68 @@
 
 
 
+      <!-- ==================== VIEW 3.5: REVISION (MAMERINA) ==================== -->
+      <section id="view-revision" class="hidden animate-fadeIn space-y-6">
+        <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 space-y-6 transition-colors duration-300">
+          
+          <!-- Header and Title -->
+          <div class="flex items-center gap-4 border-b border-borderColor pb-5">
+            <div class="w-12 h-12 rounded-sm border border-borderColor bg-bgSecondary/30 flex items-center justify-center text-yellow-500 shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-yellow-500/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div>
+              <h1 data-translate="revision_title" class="font-serif font-light text-xl md:text-2xl text-textPrimary tracking-wide italic">Famerenana Voambolana</h1>
+              <p data-translate="revision_subtitle" class="text-[10px] text-textSecondary font-mono mt-0.5 uppercase tracking-widest">Mamerina ireo teny sarotra nifanena taminao</p>
+            </div>
+          </div>
+
+          <!-- Revision Content State (buttons & list) -->
+          <div id="revision-content-state" class="hidden space-y-6">
+            <div class="flex flex-wrap items-center gap-4 bg-bgSecondary/10 border border-borderColor/50 p-4 rounded-sm">
+              <button onclick="window.startFlashcardSession()" class="flex items-center gap-2 px-5 py-2.5 bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor rounded-sm font-mono text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95 cursor-pointer font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5c0 .5-.5 1-1 1s-1-.5-1-1v-14C2 4.5 2.5 4 3 4h15a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H3.5"/>
+                  <path d="M6 6h10"/>
+                  <path d="M6 10h10"/>
+                  <path d="M6 14h8"/>
+                </svg>
+                <span data-translate="revision_start_btn">Mamerina ny rehetra</span>
+              </button>
+              <button onclick="window.clearAllDifficultWords()" class="flex items-center gap-2 px-5 py-2.5 bg-red-500/5 hover:bg-red-500/15 text-red-500 border border-red-500/20 rounded-sm font-mono text-xs uppercase tracking-wider transition-all active:scale-95 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span data-translate="revision_clear_btn">Hamafa ny rehetra</span>
+              </button>
+            </div>
+
+            <!-- Grid dynamically filled by window.renderRevisionView() -->
+            <div id="revision-list-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Dynamically populated cards -->
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div id="revision-empty-state" class="text-center py-16 space-y-4 max-w-md mx-auto">
+            <div class="w-20 h-20 rounded-full bg-bgSecondary border border-borderColor flex items-center justify-center text-textSecondary/30 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div class="space-y-1.5">
+              <h3 data-translate="revision_empty" class="font-serif font-bold text-lg text-textPrimary leading-tight">Tsy misy teny sarotra voatahiry mbola.</h3>
+              <p data-translate="revision_empty_desc" class="text-xs text-textSecondary leading-relaxed">Mandehana any amin'ny lesona ary tsindrio ilay famantarana kintana na manaova lalao fanontaniana mba hanampiana teny eto.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
       <!-- ==================== VIEW 4: SETTINGS (FIKIRAKIRANA) ==================== -->
       <section id="view-settings" class="hidden animate-fadeIn space-y-6">
         <div class="bg-bgCard rounded-sm border border-borderColor shadow-sm p-6 md:p-8 space-y-8 transition-colors duration-300">
@@ -1480,6 +1553,70 @@
             Eny, hiala
           </button>
         </div>
+      </div>
+    </div>
+
+
+
+    <!-- ==================== FLASHCARD PLAYING OVERLAY ==================== -->
+    <div id="revision-flashcard-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
+      <div class="bg-bgCard border border-borderColor rounded-sm shadow-2xl max-w-lg w-full p-6 md:p-8 space-y-6 relative transition-all duration-300 transform scale-100 flex flex-col justify-between" style="min-height: 400px;">
+        
+        <!-- Header: Close button and Progress -->
+        <div class="flex items-center justify-between border-b border-borderColor/60 pb-3">
+          <span id="flashcard-progress-text" class="text-[10px] font-mono uppercase tracking-widest text-textSecondary">Karatra 1 amin'ny X</span>
+          <button onclick="window.closeFlashcardSession()" class="p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-textPrimary transition-all cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Word area -->
+        <div class="flex-1 flex flex-col items-center justify-center text-center space-y-4 py-6">
+          <p id="flashcard-hebrew-word" class="hebrew-text leading-none select-none my-2 text-textPrimary text-4xl font-serif font-bold">שָׁלוֹם</p>
+          
+          <!-- Hear / Speak Button -->
+          <div class="flex justify-center">
+            <button id="flashcard-speak-btn" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgSecondary/40 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all">
+              <span class="speech-icon-container flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+              </span>
+              <span class="speech-text-container">Henoy ny famakiana</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Reveal action -->
+        <div class="flex flex-col items-center">
+          <!-- Before reveal -->
+          <button id="flashcard-reveal-btn" onclick="window.revealFlashcardTranslation()" class="w-full py-3 bg-textPrimary hover:bg-textSecondary text-bgCard hover:text-textPrimary border border-borderColor rounded-sm text-xs font-mono uppercase tracking-wider font-bold transition-all active:scale-98 cursor-pointer">
+            <span data-translate="flashcard_reveal">Hampiseho ny dikan-teny</span>
+          </button>
+
+          <!-- After reveal details & feedback -->
+          <div id="flashcard-reveal-details" class="hidden w-full space-y-6 animate-fadeIn">
+            <div class="p-4 bg-bgSecondary/20 border border-borderColor/50 rounded-sm space-y-2 text-center">
+              <p id="flashcard-phonetic-text" class="phonetic-text text-sm text-textSecondary font-sans font-medium tracking-wide">shalom</p>
+              <p id="flashcard-mg-text" class="malagasy-text text-base text-textPrimary font-sans font-medium">Fiadanana, Fiarahabana</p>
+              <p id="flashcard-fr-text" class="french-text text-sm text-textSecondary italic font-sans">Paix, Bonjour</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <button onclick="window.feedbackFlashcard(false)" class="py-2.5 bg-bgSecondary/40 text-textPrimary hover:bg-bgSecondary border border-borderColor/80 rounded-sm text-xs font-mono uppercase tracking-wider transition-all hover:text-textPrimary active:scale-95 cursor-pointer">
+                <span data-translate="flashcard_review_again">Mbola mamerina</span>
+              </button>
+              <button onclick="window.feedbackFlashcard(true)" class="py-2.5 bg-green-500 text-white border border-green-600 rounded-sm text-xs font-mono uppercase tracking-wider transition-all hover:bg-green-600 active:scale-95 cursor-pointer font-bold">
+                <span data-translate="flashcard_mastered">Efa fantatro</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 

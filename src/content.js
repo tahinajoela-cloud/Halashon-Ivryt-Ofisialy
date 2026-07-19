@@ -1125,12 +1125,22 @@ window.renderRevisionView = function() {
     if (emptyState) emptyState.classList.add('hidden');
     if (contentState) contentState.classList.remove('hidden');
 
+    const lang = (window.APP_STATE && window.APP_STATE.lang) || 'mg';
+
     if (grid) {
         let html = '';
         words.forEach((row, idx) => {
             const rowStr = encodeURIComponent(JSON.stringify(row));
+            const isVerseFav = window.isVerseFavorite && window.isVerseFavorite(row.Hebrew);
             html += `
                 <div class="card relative p-6 flex flex-col items-center justify-center text-center space-y-4" style="min-height: 200px;">
+                    <!-- Favorite/Heart button -->
+                    <button onclick="window.toggleFavoriteVerse('${rowStr}', this)" class="absolute top-3 left-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isVerseFav ? 'fill-red-500 text-red-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </button>
+
                     <!-- Delete button -->
                     <button onclick="window.removeSingleDifficultWord('${row.Hebrew}')" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-red-500/10 text-textSecondary hover:text-red-500 transition-colors cursor-pointer" title="Hamafa">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1553,6 +1563,13 @@ window.renderFavoritesView = function() {
                     <button onclick="window.toggleFavoriteVerse('${rowStr}', this); event.stopPropagation(); window.renderFavoritesView();" class="absolute top-3 left-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-red-500 hover:text-red-600 transition-colors cursor-pointer z-10" title="Retirer des favoris">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Star / Difficult Word Button -->
+                    <button onclick="window.toggleDifficultWord('${rowStr}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-yellow-500 transition-colors cursor-pointer z-10" title="Teny sarotra">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${window.isWordDifficult && window.isWordDifficult(row.Hebrew) ? 'fill-yellow-500 text-yellow-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                         </svg>
                     </button>
                     

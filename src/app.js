@@ -719,6 +719,9 @@ function renderTranslations() {
   if (state.activeView === 'favorites' && window.renderFavoritesView) {
     window.renderFavoritesView();
   }
+  if (state.activeView === 'revision' && window.renderRevisionView) {
+    window.renderRevisionView();
+  }
 }
 
 // Update login screen language UI
@@ -778,7 +781,7 @@ function setView(viewName) {
     window.stopSpeakingFullLesson();
   }
 
-  const views = ['home', 'about', 'dev', 'quiz', 'settings', 'favorites'];
+  const views = ['home', 'about', 'dev', 'quiz', 'settings', 'favorites', 'revision'];
   views.forEach(v => {
     const el = document.getElementById(`view-${v}`);
     if (el) {
@@ -795,6 +798,12 @@ function setView(viewName) {
   if (viewName === 'favorites') {
     if (window.renderFavoritesView) {
       window.renderFavoritesView();
+    }
+  }
+
+  if (viewName === 'revision') {
+    if (window.renderRevisionView) {
+      window.renderRevisionView();
     }
   }
 

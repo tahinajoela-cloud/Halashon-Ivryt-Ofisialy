@@ -464,6 +464,16 @@ window.APP_TRANSLATIONS = {
       fr: "Taille de la police hébraïque :",
       he: "גֹּדֶל הַגּוֹפָן הָעִבְרִי:"
     },
+    settings_lineheight_label: {
+      mg: "Andalana an’ny lahatsoratra (Interligne) : ",
+      fr: "Interligne du texte :",
+      he: "מֶרְוָח בֵּין שׁוּרוֹת:"
+    },
+    settings_spacing_label: {
+      mg: "Elanelan-tsoratra (Espacement) : ",
+      fr: "Espacement des paragraphes :",
+      he: "מֶרְוָח בֵּין פְּסָקוֹת:"
+    },
     settings_phonetic_font_label: {
       mg: "Fanehoan-tsoratra ho an’ny soratra Phonétique : ",
       fr: "Police pour l'écriture phonétique :",

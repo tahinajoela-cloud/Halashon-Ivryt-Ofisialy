@@ -146,23 +146,29 @@
       .hebrew-text {
         font-family: var(--hebrew-font-family, "SILEOTLocal", serif) !important;
         font-size: var(--hebrew-font-size, 2rem) !important;
-        line-height: 1.5;
+        line-height: var(--panel-line-height, 1.6) !important;
         color: var(--text-primary);
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--panel-paragraph-spacing, 0.5rem) !important;
         direction: rtl;
         text-align: center;
       }
       .phonetic-text {
         font-family: var(--phonetic-font-family, "Inter", sans-serif) !important;
         font-size: var(--phonetic-font-size, 0.8125rem) !important;
+        line-height: var(--panel-line-height, 1.6) !important;
+        margin-bottom: var(--panel-paragraph-spacing, 0.5rem) !important;
       }
       .french-text {
         font-family: var(--french-font-family, "Inter", sans-serif) !important;
         font-size: var(--french-font-size, 0.875rem) !important;
+        line-height: var(--panel-line-height, 1.6) !important;
+        margin-bottom: var(--panel-paragraph-spacing, 0.5rem) !important;
       }
       .malagasy-text {
         font-family: var(--malagasy-font-family, "Inter", sans-serif) !important;
         font-size: var(--malagasy-font-size, 0.875rem) !important;
+        line-height: var(--panel-line-height, 1.6) !important;
+        margin-bottom: var(--panel-paragraph-spacing, 0.5rem) !important;
       }
       .lesson-title {
         font-family: Georgia, Cambria, "Times New Roman", Times, serif;
@@ -281,7 +287,7 @@
 
           <!-- Rotated image border strictly from the theme HTML -->
           <div class="w-48 h-48 border border-borderColor p-2 rotate-3 bg-bgSecondary/40 shrink-0 shadow-sm transition-transform hover:rotate-0 duration-300 mx-auto md:mx-0">
-            <img src="./developper-image.jpg" onerror="this.onerror=null; this.src='/developper-image.jpg';" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+            <img src="./developper-image.jpg" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -485,7 +491,7 @@
         <!-- App Icon and Name in Sidebar -->
         <div class="flex flex-col items-center justify-center text-center py-3 mb-4 bg-bgSecondary/20 rounded-sm border border-borderColor">
           <div class="w-11 h-11 rounded-sm border border-borderColor bg-bgCard flex items-center justify-center text-textPrimary shadow-sm mb-2 transform rotate-3 hover:rotate-0 transition-transform overflow-hidden">
-            <img src="./icon.png" onerror="this.onerror=null; this.src='/icon.png';" alt="Icon" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+            <img src="./icon.png" alt="Icon" referrerPolicy="no-referrer" class="w-full h-full object-cover">
           </div>
           <span data-translate="app_name" class="font-serif font-bold text-sm text-textPrimary tracking-wide italic">Hebreo Famakiana</span>
           <span class="text-[8px] text-textSecondary font-mono mt-1 px-1.5 py-0.5 bg-bgSecondary border border-borderColor rounded-sm uppercase tracking-widest">v1.2.0</span>
@@ -765,7 +771,7 @@
 
             <!-- Rotated image border strictly from the theme HTML -->
             <div class="w-48 h-48 border border-borderColor p-2 rotate-3 bg-bgSecondary/40 shrink-0 shadow-sm transition-transform hover:rotate-0 duration-300">
-              <img src="./developper-image.jpg" onerror="this.onerror=null; this.src='/developper-image.jpg';" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+              <img src="./developper-image.jpg" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
             </div>
           </div>
 
@@ -1106,6 +1112,32 @@
               <span class="text-[10px] text-textSecondary font-mono">24px</span>
               <input id="setting-size-slider" type="range" min="24" max="48" step="2" value="32" class="flex-1 accent-textPrimary cursor-pointer h-1.5 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
               <span class="text-[10px] text-textSecondary font-mono">48px</span>
+            </div>
+          </div>
+
+          <!-- Setting 3b: Line Height (Interligne) Slider -->
+          <div class="space-y-2.5 max-w-md">
+            <div class="flex justify-between items-center">
+              <label data-translate="settings_lineheight_label" for="setting-lineheight-slider" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Interligne (Andalana):</label>
+              <span id="setting-lineheight-val" class="text-xs font-bold text-textPrimary font-mono bg-bgSecondary border border-borderColor px-2 py-0.5 rounded-sm">1.6</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-[10px] text-textSecondary font-mono">1.2</span>
+              <input id="setting-lineheight-slider" type="range" min="1.2" max="2.6" step="0.1" value="1.6" class="flex-1 accent-textPrimary cursor-pointer h-1.5 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
+              <span class="text-[10px] text-textSecondary font-mono">2.6</span>
+            </div>
+          </div>
+
+          <!-- Setting 3c: Paragraph Spacing Slider -->
+          <div class="space-y-2.5 max-w-md">
+            <div class="flex justify-between items-center">
+              <label data-translate="settings_spacing_label" for="setting-spacing-slider" class="text-xs font-bold uppercase tracking-widest text-textSecondary font-mono block">Elanelan-tsoratra (Espacement):</label>
+              <span id="setting-spacing-val" class="text-xs font-bold text-textPrimary font-mono bg-bgSecondary border border-borderColor px-2 py-0.5 rounded-sm">8px</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-[10px] text-textSecondary font-mono">4px</span>
+              <input id="setting-spacing-slider" type="range" min="4" max="24" step="2" value="8" class="flex-1 accent-textPrimary cursor-pointer h-1.5 bg-bgSecondary rounded-sm appearance-none border border-borderColor/40">
+              <span class="text-[10px] text-textSecondary font-mono">24px</span>
             </div>
           </div>
 

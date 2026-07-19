@@ -37,6 +37,8 @@ const state = {
   theme: 1,             // 1, 2, 3
   hebrewFont: 'sileot', // 'sileot', 'david', 'times'
   hebrewFontSize: 32,   // 24 to 48 px
+  lineHeight: 1.6,       // 1.2 to 2.6
+  paragraphSpacing: 8,   // 4 to 24 px
   phoneticFont: 'inter', // 'inter', 'roboto', 'sileot', 'david', 'times'
   phoneticFontSize: 13,  // 10 to 24 px
   frenchFont: 'inter',   // 'inter', 'roboto', 'sileot', 'david', 'times'
@@ -445,6 +447,8 @@ function saveStateToStorage() {
     theme: state.theme,
     hebrewFont: state.hebrewFont,
     hebrewFontSize: state.hebrewFontSize,
+    lineHeight: state.lineHeight,
+    paragraphSpacing: state.paragraphSpacing,
     phoneticFont: state.phoneticFont,
     phoneticFontSize: state.phoneticFontSize,
     frenchFont: state.frenchFont,
@@ -601,6 +605,12 @@ function applyHebrewSettings() {
   root.style.setProperty('--hebrew-font-family', fontFamily);
   root.style.setProperty('--hebrew-font-size', `${size / 16}rem`);
 
+  // 1b. Line Height and Spacing
+  const lh = state.lineHeight || 1.6;
+  const ps = state.paragraphSpacing || 8;
+  root.style.setProperty('--panel-line-height', lh);
+  root.style.setProperty('--panel-paragraph-spacing', `${ps}px`);
+
   // Sync Hebrew UI
   const selector = document.getElementById('setting-font-selector');
   if (selector) selector.value = font;
@@ -608,6 +618,18 @@ function applyHebrewSettings() {
   if (slider) slider.value = size;
   const valDisplay = document.getElementById('setting-size-val');
   if (valDisplay) valDisplay.innerText = `${size}px`;
+
+  // Sync Line Height UI
+  const lhSlider = document.getElementById('setting-lineheight-slider');
+  if (lhSlider) lhSlider.value = lh;
+  const lhVal = document.getElementById('setting-lineheight-val');
+  if (lhVal) lhVal.innerText = lh;
+
+  // Sync Paragraph Spacing UI
+  const psSlider = document.getElementById('setting-spacing-slider');
+  if (psSlider) psSlider.value = ps;
+  const psVal = document.getElementById('setting-spacing-val');
+  if (psVal) psVal.innerText = `${ps}px`;
 
   // 2. Phonetic settings
   const pFont = state.phoneticFont || 'inter';
@@ -910,6 +932,26 @@ function setupEventListeners() {
   if (sizeSlider) {
     sizeSlider.addEventListener('input', (e) => {
       state.hebrewFontSize = parseInt(e.target.value, 10);
+      applyHebrewSettings();
+      saveStateToStorage();
+    });
+  }
+
+  // Line Height Slider listener
+  const lineheightSlider = document.getElementById('setting-lineheight-slider');
+  if (lineheightSlider) {
+    lineheightSlider.addEventListener('input', (e) => {
+      state.lineHeight = parseFloat(e.target.value);
+      applyHebrewSettings();
+      saveStateToStorage();
+    });
+  }
+
+  // Paragraph Spacing Slider listener
+  const spacingSlider = document.getElementById('setting-spacing-slider');
+  if (spacingSlider) {
+    spacingSlider.addEventListener('input', (e) => {
+      state.paragraphSpacing = parseInt(e.target.value, 10);
       applyHebrewSettings();
       saveStateToStorage();
     });

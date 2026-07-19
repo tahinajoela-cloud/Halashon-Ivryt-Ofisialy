@@ -19,42 +19,54 @@
     <style>
       @font-face {
         font-family: 'SILEOTLocal';
-        src: url('/fonts/SILEOT.ttf') format('truetype');
+        src: url('./fonts/SILEOT.ttf') format('truetype'),
+             url('./public/fonts/SILEOT.ttf') format('truetype'),
+             url('./src/fonts/SILEOT.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'Sileot';
-        src: url('/fonts/SILEOT.ttf') format('truetype');
+        src: url('./fonts/SILEOT.ttf') format('truetype'),
+             url('./public/fonts/SILEOT.ttf') format('truetype'),
+             url('./src/fonts/SILEOT.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'DavidLocal';
-        src: url('/fonts/David.ttf') format('truetype');
+        src: url('./fonts/David.ttf') format('truetype'),
+             url('./public/fonts/David.ttf') format('truetype'),
+             url('./src/fonts/David.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'David';
-        src: url('/fonts/David.ttf') format('truetype');
+        src: url('./fonts/David.ttf') format('truetype'),
+             url('./public/fonts/David.ttf') format('truetype'),
+             url('./src/fonts/David.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'TimesLocal';
-        src: url('/fonts/Times.ttf') format('truetype');
+        src: url('./fonts/Times.ttf') format('truetype'),
+             url('./public/fonts/Times.ttf') format('truetype'),
+             url('./src/fonts/Times.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'Times';
-        src: url('/fonts/Times.ttf') format('truetype');
+        src: url('./fonts/Times.ttf') format('truetype'),
+             url('./public/fonts/Times.ttf') format('truetype'),
+             url('./src/fonts/Times.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -287,7 +299,7 @@
 
           <!-- Rotated image border strictly from the theme HTML -->
           <div class="w-48 h-48 border border-borderColor p-2 rotate-3 bg-bgSecondary/40 shrink-0 shadow-sm transition-transform hover:rotate-0 duration-300 mx-auto md:mx-0">
-            <img src="./developper-image.jpg" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+            <img src="./developper-image.jpg" onerror="this.onerror=null; this.src='./public/developper-image.jpg';" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -491,7 +503,7 @@
         <!-- App Icon and Name in Sidebar -->
         <div class="flex flex-col items-center justify-center text-center py-3 mb-4 bg-bgSecondary/20 rounded-sm border border-borderColor">
           <div class="w-11 h-11 rounded-sm border border-borderColor bg-bgCard flex items-center justify-center text-textPrimary shadow-sm mb-2 transform rotate-3 hover:rotate-0 transition-transform overflow-hidden">
-            <img src="./icon.png" alt="Icon" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+            <img src="./icon.png" onerror="this.onerror=null; this.src='./public/icon.png';" alt="Icon" referrerPolicy="no-referrer" class="w-full h-full object-cover">
           </div>
           <span data-translate="app_name" class="font-serif font-bold text-sm text-textPrimary tracking-wide italic">Hebreo Famakiana</span>
           <span class="text-[8px] text-textSecondary font-mono mt-1 px-1.5 py-0.5 bg-bgSecondary border border-borderColor rounded-sm uppercase tracking-widest">v1.2.0</span>
@@ -771,7 +783,7 @@
 
             <!-- Rotated image border strictly from the theme HTML -->
             <div class="w-48 h-48 border border-borderColor p-2 rotate-3 bg-bgSecondary/40 shrink-0 shadow-sm transition-transform hover:rotate-0 duration-300">
-              <img src="./developper-image.jpg" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
+              <img src="./developper-image.jpg" onerror="this.onerror=null; this.src='./public/developper-image.jpg';" alt="Tahina Joela" referrerPolicy="no-referrer" class="w-full h-full object-cover">
             </div>
           </div>
 

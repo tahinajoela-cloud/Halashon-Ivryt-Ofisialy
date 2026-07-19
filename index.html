@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
     
+    <!-- Bootstrap CSS for dynamic layout and components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <!-- Local compiled Tailwind CSS for full offline capabilities -->
     <link rel="stylesheet" href="./src/index.css" />
 
@@ -91,6 +94,16 @@
       }
       .animate-slideInUp {
         animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Carousel Invert Chevrons based on active theme */
+      .carousel-control-prev-icon.invert,
+      .carousel-control-next-icon.invert {
+        filter: invert(0.3) contrast(1.5);
+      }
+      .dark .carousel-control-prev-icon.invert,
+      .dark .carousel-control-next-icon.invert {
+        filter: invert(1);
       }
 
       /* Floating capsule button styles */
@@ -211,7 +224,7 @@
 
         <!-- Toggle Sign In / Sign Up Link -->
         <div class="text-center pt-2">
-          <button id="toggle-auth-mode-btn" class="text-[11px] text-textSecondary hover:text-textPrimary transition-colors font-mono uppercase tracking-wider underline decoration-borderColor hover:decoration-textPrimary">
+          <button id="toggle-auth-mode-btn" class="text-[11px] text-textSecondary hover:text-textPrimary transition-colors font-mono uppercase tracking-wider">
             <span id="toggle-auth-mode-text" data-translate="login_contact_admin">Hifandray amin'ny mpiandraikitra raha mila kaonty</span>
           </button>
         </div>
@@ -386,7 +399,7 @@
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
               </div>
-              <span data-translate="dev_payment_mvola" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">Mvola : 034 97 252 67</span>
+              <span data-translate="dev_payment_mvola" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono">Mvola : 034 97 252 67</span>
             </a>
 
             <!-- OrangeMoney -->
@@ -396,7 +409,7 @@
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
               </div>
-              <span data-translate="dev_payment_orange" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">OrangeMoney: 032 22 213 53</span>
+              <span data-translate="dev_payment_orange" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono">OrangeMoney: 032 22 213 53</span>
             </a>
           </div>
         </div>
@@ -595,6 +608,43 @@
           </div>
         </div>
 
+        <!-- Dynamic Bootstrap Carousel for Learning Tips and Daily Quotes -->
+        <div id="learningCarousel" class="carousel slide bg-bgCard border border-borderColor rounded-sm p-4 mb-6 shadow-sm transition-colors duration-300" data-bs-ride="carousel" data-bs-interval="6000">
+          <div class="carousel-indicators mb-0" style="bottom: -15px;">
+            <button type="button" data-bs-target="#learningCarousel" data-bs-slide-to="0" class="active bg-textPrimary w-2 h-2 rounded-circle border-0" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#learningCarousel" data-bs-slide-to="1" class="bg-textPrimary/50 w-2 h-2 rounded-circle border-0" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#learningCarousel" data-bs-slide-to="2" class="bg-textPrimary/50 w-2 h-2 rounded-circle border-0" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner text-center py-2">
+            <!-- Slide 1: Tips on reading -->
+            <div class="carousel-item active">
+              <span class="text-[9px] font-mono tracking-widest text-textSecondary uppercase block mb-1">Torohevitra momba ny Famakiana 💡</span>
+              <h4 class="font-serif italic text-base text-textPrimary mb-2">Vakio mivantana miaraka amin'ny feony</h4>
+              <p class="text-xs text-textSecondary leading-relaxed max-w-lg mx-auto">Vakio mafy ny lahatsoratra Hebreo mampiasa ny bokotra feo. Ny fihainoana matetika dia manampy ny sofinao zatra amin'ny Niqqud sy ny lantom-peo.</p>
+            </div>
+            <!-- Slide 2: Quiz practice -->
+            <div class="carousel-item">
+              <span class="text-[9px] font-mono tracking-widest text-textSecondary uppercase block mb-1">Fanazarana ny Saina 🧠</span>
+              <h4 class="font-serif italic text-base text-textPrimary mb-2">Ampiasao ny Lalao Fanontaniana</h4>
+              <p class="text-xs text-textSecondary leading-relaxed max-w-lg mx-auto">Ny "Lalao fanontaniana" dia fomba tsara indrindra hitadidiana ireo voambolana. Manaova fanamby isan'andro mba hanamafisana ny fahalalanao!</p>
+            </div>
+            <!-- Slide 3: Difficult Words revision -->
+            <div class="carousel-item">
+              <span class="text-[9px] font-mono tracking-widest text-textSecondary uppercase block mb-1">Famerenana ny Lesona 📝</span>
+              <h4 class="font-serif italic text-base text-textPrimary mb-2">Tehirizo ireo "Teny Sarotra"</h4>
+              <p class="text-xs text-textSecondary leading-relaxed max-w-lg mx-auto">Rehefa mahita teny sarotra ianao dia tsindrio ilay kintana ambony havanana. Azonao averina jerena manokana izy ireo any aoriana ao amin'ny menu.</p>
+            </div>
+          </div>
+          <button class="carousel-control-prev opacity-30 hover:opacity-100" type="button" data-bs-target="#learningCarousel" data-bs-slide="prev" style="width: 5%;">
+            <span class="carousel-control-prev-icon invert" aria-hidden="true" style="width: 1.5rem; height: 1.5rem;"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next opacity-30 hover:opacity-100" type="button" data-bs-target="#learningCarousel" data-bs-slide="next" style="width: 5%;">
+            <span class="carousel-control-next-icon invert" aria-hidden="true" style="width: 1.5rem; height: 1.5rem;"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
         <!-- The Main Lessons Content Card Area -->
         <div id="lesson-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Populated dynamically (Levels, Lessons, Phrases) -->
@@ -622,29 +672,48 @@
             Rindrambaiko mpanampy natao manokana ho an'ny mpianatra sy mpandalina ny teny Hebreo ara-Baiboly...
           </p>
 
-          <!-- List of Features -->
-          <div class="bg-bgSecondary/15 border border-borderColor p-5 rounded-sm space-y-4">
-            <h3 data-translate="about_features_title" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic">Ny Zavatra Azon'ny Fampiharana Atao:</h3>
-            <ul class="space-y-2.5 text-textPrimary">
-              <li class="flex items-start gap-3 text-sm font-sans">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textPrimary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span data-translate="about_feature_1" class="font-serif italic text-textPrimary text-base">Fampisehoana lahatsoratra Hebreo misy Niqqud feno.</span>
-              </li>
-              <li class="flex items-start gap-3 text-sm font-sans">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textPrimary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span data-translate="about_feature_2" class="font-serif italic text-textPrimary text-base">Fampitahana dikan-teny telo miaraka (Hebreo, Malagasy, Frantsay).</span>
-              </li>
-              <li class="flex items-start gap-3 text-sm font-sans">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-textPrimary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span data-translate="about_feature_3" class="font-serif italic text-textPrimary text-base">Fikirakirana ny endriky ny soratra sy ny loko manokana araka izay tiana.</span>
-              </li>
-            </ul>
+          <!-- Bootstrap Accordion for dynamic feature showcase and FAQs -->
+          <div class="accordion accordion-flush bg-transparent border border-borderColor rounded-sm p-3 shadow-sm" id="aboutAccordion">
+            <h3 data-translate="about_features_title" class="font-serif font-bold text-xs uppercase tracking-widest text-textSecondary italic pb-3 border-b border-borderColor mb-2">Ny Zavatra Azon'ny Fampiharana Atao (Bootstrap Accordion):</h3>
+            
+            <div class="accordion-item bg-transparent border-b border-borderColor/50">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed bg-transparent text-textPrimary font-serif italic text-base focus:shadow-none focus:bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  ⭐ Fampisehoana lahatsoratra Hebreo misy Niqqud feno
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#aboutAccordion">
+                <div class="accordion-body text-textSecondary text-xs font-sans leading-relaxed">
+                  Ny rindrambaiko dia mampiseho ny tarehin-tsoratra Hebreo miaraka amin'ny "Niqqud" (vowel signs) feno. Izany dia manamora ny famakiana sy ny fanononana marina ny teny tsirairay ho an'ny mpianatra.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item bg-transparent border-b border-borderColor/50">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed bg-transparent text-textPrimary font-serif italic text-base focus:shadow-none focus:bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  ⭐ Fampitahana dikan-teny telo miaraka (Hebreo, Malagasy, Frantsay)
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#aboutAccordion">
+                <div class="accordion-body text-textSecondary text-xs font-sans leading-relaxed">
+                  Afaka mampitaha avy hatrany ny lahatsoratra Hebreo amin'ny teny Malagasy sy Frantsay ianao. Izany dia manampy amin'ny fahazoana tsara ny dikany sy ny teny manodidina amin'ny fiteninao mahazatra.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item bg-transparent border-0">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed bg-transparent text-textPrimary font-serif italic text-base focus:shadow-none focus:bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  ⭐ Fikirakirana ny endriky ny soratra sy ny loko manokana araka izay tiana
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#aboutAccordion">
+                <div class="accordion-body text-textSecondary text-xs font-sans leading-relaxed">
+                  Misafidiana karazan-tsoratra (fonts) maro samihafa toy ny Sileot, David, na Times, ary ovao ny haben'ny soratra mba ho mora vakiana kokoa amin'ny fitaovanao. Azonao atao ihany koa ny manova ny loko (Light sy Dark themes).
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- File Sync Button -->
@@ -813,7 +882,7 @@
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                     </svg>
                   </div>
-                  <span data-translate="dev_payment_mvola" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">Mvola : 034 97 252 67</span>
+                  <span data-translate="dev_payment_mvola" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono">Mvola : 034 97 252 67</span>
                 </a>
 
                 <!-- OrangeMoney -->
@@ -823,7 +892,7 @@
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                     </svg>
                   </div>
-                  <span data-translate="dev_payment_orange" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono group-hover:underline">OrangeMoney: 032 22 213 53</span>
+                  <span data-translate="dev_payment_orange" class="font-extrabold text-sm text-textPrimary tracking-wide font-mono">OrangeMoney: 032 22 213 53</span>
                 </a>
               </div>
             </div>
@@ -1302,6 +1371,9 @@
     <div id="toast-container" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2 pointer-events-none">
       <!-- Toast cards injected here dynamically -->
     </div>
+
+    <!-- Bootstrap JS Bundle for dynamic components (Tooltips, Accordions, Carousel, Modals, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Script references -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" crossorigin="anonymous"></script>

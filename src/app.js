@@ -33,7 +33,7 @@ const safeStorage = {
 // App State with defaults
 const state = {
   lang: 'mg',           // 'mg', 'fr', 'he'
-  darkMode: false,      // true, false
+  darkMode: true,       // true, false
   theme: 1,             // 1, 2, 3
   hebrewFont: 'sileot', // 'sileot', 'david', 'times'
   hebrewFontSize: 32,   // 24 to 48 px
@@ -472,55 +472,55 @@ function applyTheme() {
 
   if (!isDark) {
     if (themeNum == 1) {
-      // 1. Tropical Tech (Light)
-      root.style.setProperty('--bg-primary', '#F4F5F7');
-      root.style.setProperty('--bg-secondary', '#DEEBFF');
-      root.style.setProperty('--bg-card', '#FFFFFF');
-      root.style.setProperty('--text-primary', '#172B4D');
-      root.style.setProperty('--text-secondary', '#5E6C84');
-      root.style.setProperty('--accent', '#FF5630');
-      root.style.setProperty('--accent-hover', '#DE350B');
-      root.style.setProperty('--border-color', '#D2E2FB');
+      // 1. Tropical Tech (Light / Deep Ocean Blue)
+      root.style.setProperty('--bg-primary', '#0f2d4a');
+      root.style.setProperty('--bg-secondary', '#163f66');
+      root.style.setProperty('--bg-card', '#163f66');
+      root.style.setProperty('--text-primary', '#F8FAFC');
+      root.style.setProperty('--text-secondary', '#94A3B8');
+      root.style.setProperty('--accent', '#FF6B4A');
+      root.style.setProperty('--accent-hover', '#FF5630');
+      root.style.setProperty('--border-color', '#1e4f7e');
     } else if (themeNum == 2) {
-      // 2. Vibrant Nature (Light)
-      root.style.setProperty('--bg-primary', '#F7FAF8');
-      root.style.setProperty('--bg-secondary', '#E2F8FB');
-      root.style.setProperty('--bg-card', '#FFFFFF');
-      root.style.setProperty('--text-primary', '#091E42');
-      root.style.setProperty('--text-secondary', '#505F79');
+      // 2. Vibrant Nature (Light / Forest Green)
+      root.style.setProperty('--bg-primary', '#0d2d1e');
+      root.style.setProperty('--bg-secondary', '#14402c');
+      root.style.setProperty('--bg-card', '#14402c');
+      root.style.setProperty('--text-primary', '#F0FDF4');
+      root.style.setProperty('--text-secondary', '#80A294');
       root.style.setProperty('--accent', '#36B37E');
       root.style.setProperty('--accent-hover', '#1D9A5F');
-      root.style.setProperty('--border-color', '#D2F4F9');
+      root.style.setProperty('--border-color', '#1c523a');
     } else if (themeNum == 3) {
-      // 3. Neon Twilight (Light)
-      root.style.setProperty('--bg-primary', '#F8F9FA');
-      root.style.setProperty('--bg-secondary', '#EAE6FF');
-      root.style.setProperty('--bg-card', '#FFFFFF');
-      root.style.setProperty('--text-primary', '#253858');
-      root.style.setProperty('--text-secondary', '#6B778C');
+      // 3. Neon Twilight (Light / Deep Purple)
+      root.style.setProperty('--bg-primary', '#23153c');
+      root.style.setProperty('--bg-secondary', '#321f54');
+      root.style.setProperty('--bg-card', '#321f54');
+      root.style.setProperty('--text-primary', '#F3F0FF');
+      root.style.setProperty('--text-secondary', '#A594C5');
       root.style.setProperty('--accent', '#FFAB00');
       root.style.setProperty('--accent-hover', '#E69500');
-      root.style.setProperty('--border-color', '#D2C9FF');
+      root.style.setProperty('--border-color', '#412a6a');
     } else if (themeNum == 4) {
-      // 4. Warm Joy (Light)
-      root.style.setProperty('--bg-primary', '#FFF9FA');
-      root.style.setProperty('--bg-secondary', '#FCE8EF');
-      root.style.setProperty('--bg-card', '#FFFFFF');
-      root.style.setProperty('--text-primary', '#2D1C24');
-      root.style.setProperty('--text-secondary', '#685960');
-      root.style.setProperty('--accent', '#70129B');
-      root.style.setProperty('--accent-hover', '#540978');
-      root.style.setProperty('--border-color', '#F7D2DD');
+      // 4. Warm Joy (Light / Warm Crimson)
+      root.style.setProperty('--bg-primary', '#350b20');
+      root.style.setProperty('--bg-secondary', '#491530');
+      root.style.setProperty('--bg-card', '#491530');
+      root.style.setProperty('--text-primary', '#FFF0F5');
+      root.style.setProperty('--text-secondary', '#C89FB7');
+      root.style.setProperty('--accent', '#E52F6E');
+      root.style.setProperty('--accent-hover', '#70129B');
+      root.style.setProperty('--border-color', '#5f2043');
     } else {
-      // 5. Cyber Electric (Light)
-      root.style.setProperty('--bg-primary', '#F4F7FC');
-      root.style.setProperty('--bg-secondary', '#DEEBFF');
-      root.style.setProperty('--bg-card', '#FFFFFF');
-      root.style.setProperty('--text-primary', '#101828');
-      root.style.setProperty('--text-secondary', '#475467');
+      // 5. Cyber Electric (Light / Cool Slate Blue)
+      root.style.setProperty('--bg-primary', '#0e1d2f');
+      root.style.setProperty('--bg-secondary', '#172a41');
+      root.style.setProperty('--bg-card', '#172a41');
+      root.style.setProperty('--text-primary', '#F0F4F9');
+      root.style.setProperty('--text-secondary', '#7F92B0');
       root.style.setProperty('--accent', '#00E5A3');
       root.style.setProperty('--accent-hover', '#00C289');
-      root.style.setProperty('--border-color', '#E4ECF7');
+      root.style.setProperty('--border-color', '#203754');
     }
   } else {
     if (themeNum == 1) {
@@ -716,6 +716,9 @@ function renderTranslations() {
   if (window.refreshQuizUIOnLangChange) {
     window.refreshQuizUIOnLangChange();
   }
+  if (state.activeView === 'favorites' && window.renderFavoritesView) {
+    window.renderFavoritesView();
+  }
 }
 
 // Update login screen language UI
@@ -770,7 +773,12 @@ function updateAuthUI() {
 function setView(viewName) {
   state.activeView = viewName;
   
-  const views = ['home', 'about', 'dev', 'quiz', 'settings'];
+  // Stop continuous lesson audio reading when changing views
+  if (window.stopSpeakingFullLesson) {
+    window.stopSpeakingFullLesson();
+  }
+
+  const views = ['home', 'about', 'dev', 'quiz', 'settings', 'favorites'];
   views.forEach(v => {
     const el = document.getElementById(`view-${v}`);
     if (el) {
@@ -783,6 +791,12 @@ function setView(viewName) {
       }
     }
   });
+
+  if (viewName === 'favorites') {
+    if (window.renderFavoritesView) {
+      window.renderFavoritesView();
+    }
+  }
 
   updateActiveMenuHighlight();
   closeSidebar();

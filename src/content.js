@@ -154,6 +154,195 @@ window.updateSpeechButtons = function() {
     });
 };
 
+// Continuous sequence reader states
+window.isPlayingFullLesson = false;
+window.currentPlayIndex = -1;
+window.lessonPlaylist = [];
+window.lessonSpeechTimeout = null;
+
+window.playNextPlaylistItem = function() {
+    if (!window.isPlayingFullLesson) return;
+    
+    // Clear all previous active highlighting
+    document.querySelectorAll('.reader-card-highlight').forEach(el => {
+        el.classList.remove('reader-card-highlight', 'ring-2', 'ring-textPrimary', 'scale-[1.01]', 'bg-bgSecondary/20', 'shadow-md');
+    });
+
+    if (window.currentPlayIndex < 0 || window.currentPlayIndex >= window.lessonPlaylist.length) {
+        window.stopSpeakingFullLesson();
+        return;
+    }
+
+    const item = window.lessonPlaylist[window.currentPlayIndex];
+    
+    // Highlight the active word card
+    const cardEl = document.getElementById(item.id);
+    if (cardEl) {
+        cardEl.classList.add('reader-card-highlight', 'ring-2', 'ring-textPrimary', 'scale-[1.01]', 'bg-bgSecondary/20', 'shadow-md');
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    let ttsText = item.text;
+    if (ttsText) {
+        ttsText = ttsText.replace(/יְהוָה/g, "אֲדֹנָי").replace(/יהוה/g, "אֲדֹנָי");
+        ttsText = ttsText.replace(/[\u0591-\u05AF]/g, "");
+        ttsText = ttsText.replace(/\u05D0\u05B7\u05EA\u05BC\u05B0/g, "\u05D0\u05B7\u05EA");
+        ttsText = ttsText.replace(/\u05D0\u05B7\u05EA\u05B0/g, "\u05D0\u05B7\u05EA");
+        ttsText = ttsText.replace(/\u05B0(?=[^\u0590-\u05FF]|$)/g, "");
+        ttsText = ttsText.replace(/\u05BC/g, "");
+        ttsText = ttsText.replace(/[\u05C1\u05C2\u05BD]/g, "");
+        ttsText = ttsText.replace(/\u05BE/g, " ");
+    }
+
+    const utterance = new SpeechSynthesisUtterance(ttsText);
+    utterance.lang = 'he-IL';
+    
+    const voices = window.speechSynthesis.getVoices();
+    const heVoice = voices.find(v => v.lang.startsWith('he'));
+    if (heVoice) {
+        utterance.voice = heVoice;
+    }
+    
+    utterance.rate = 0.75; // Slower speed to help pronunciation comprehension
+
+    utterance.onend = () => {
+        if (window.isPlayingFullLesson) {
+            window.currentPlayIndex++;
+            window.lessonSpeechTimeout = setTimeout(() => {
+                window.playNextPlaylistItem();
+            }, 1000); // 1s pause between words
+        }
+    };
+
+    utterance.onerror = () => {
+        if (window.isPlayingFullLesson) {
+            window.currentPlayIndex++;
+            window.playNextPlaylistItem();
+        }
+    };
+
+    if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+    }
+};
+
+window.stopSpeakingFullLesson = function() {
+    window.isPlayingFullLesson = false;
+    window.currentPlayIndex = -1;
+    window.lessonPlaylist = [];
+    if (window.lessonSpeechTimeout) clearTimeout(window.lessonSpeechTimeout);
+    
+    if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+    }
+
+    // Clean up highlights
+    document.querySelectorAll('.reader-card-highlight').forEach(el => {
+        el.classList.remove('reader-card-highlight', 'ring-2', 'ring-textPrimary', 'scale-[1.01]', 'bg-bgSecondary/20', 'shadow-md');
+    });
+
+    // Reset Play Button UI
+    const btn = document.getElementById('lesson-play-all-btn');
+    if (btn) {
+        const lang = (window.APP_STATE && window.APP_STATE.lang) || 'mg';
+        let label = 'Henoy ny lesona feno';
+        if (lang === 'fr') label = 'Écouter toute la leçon';
+        if (lang === 'he') label = 'האזן לכל השיעור';
+
+        const iconContainer = btn.querySelector('.play-all-icon');
+        if (iconContainer) {
+            iconContainer.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            `;
+        }
+        const textContainer = btn.querySelector('.play-all-text-container');
+        if (textContainer) {
+            textContainer.innerText = label;
+        }
+        btn.classList.remove('bg-red-500', 'text-white', 'hover:bg-red-600');
+        btn.classList.add('bg-textPrimary', 'text-bgCard', 'hover:bg-textSecondary', 'hover:text-textPrimary');
+    }
+};
+
+window.togglePlayEntireLesson = function(encodedTitle) {
+    if (!window.speechSynthesis) {
+        if (window.showToast) window.showToast("Tsy zakan'ity browser ity ny famakiana feo.", "error");
+        return;
+    }
+
+    if (window.isPlayingFullLesson) {
+        window.stopSpeakingFullLesson();
+        return;
+    }
+
+    const title = decodeURIComponent(encodedTitle);
+    const data = window.allData || [];
+    const info = data.find(i => i.PhoneticTitle === title);
+    if (!info) return;
+
+    const filteredData = data.filter(i => i.PhoneticTitle === title);
+    const cats = [...new Set(filteredData.map(i => i.Category).filter(i => i))];
+    
+    window.lessonPlaylist = [];
+    if (info.HebrewTitle) {
+        window.lessonPlaylist.push({
+            text: info.HebrewTitle,
+            id: 'lesson-header-hebrew-card'
+        });
+    }
+
+    let plIdx = 0;
+    cats.forEach(cat => {
+        filteredData.filter(i => i.Category === cat).forEach(row => {
+            if (row.Hebrew) {
+                window.lessonPlaylist.push({
+                    text: row.Hebrew,
+                    id: `reader-card-${plIdx}`
+                });
+            }
+            plIdx++;
+        });
+    });
+
+    if (window.lessonPlaylist.length === 0) return;
+
+    // Terminate any standard individual word playback
+    window.currentSpeakingText = null;
+    window.updateSpeechButtons();
+
+    window.isPlayingFullLesson = true;
+    window.currentPlayIndex = 0;
+
+    // Update Play Button UI to active/Stop mode
+    const btn = document.getElementById('lesson-play-all-btn');
+    if (btn) {
+        const lang = (window.APP_STATE && window.APP_STATE.lang) || 'mg';
+        let label = 'Hajanona';
+        if (lang === 'fr') label = 'Arrêter';
+        if (lang === 'he') label = 'עצור';
+
+        const iconContainer = btn.querySelector('.play-all-icon');
+        if (iconContainer) {
+            iconContainer.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="animate-pulse">
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                </svg>
+            `;
+        }
+        const textContainer = btn.querySelector('.play-all-text-container');
+        if (textContainer) {
+            textContainer.innerText = label;
+        }
+        btn.classList.remove('bg-textPrimary', 'text-bgCard', 'hover:bg-textSecondary', 'hover:text-textPrimary');
+        btn.classList.add('bg-red-500', 'text-white', 'hover:bg-red-600');
+    }
+
+    window.playNextPlaylistItem();
+};
+
 // Warm up SpeechSynthesis voices array
 if (typeof window !== 'undefined' && window.speechSynthesis) {
     window.speechSynthesis.getVoices();
@@ -322,28 +511,88 @@ function renderFullLesson(data, title, niveau) {
     const container = document.getElementById('lesson-container');
     const info = data.find(i => i.PhoneticTitle === title);
     
+    // Stop any currently running full lesson playback before re-rendering
+    if (window.stopSpeakingFullLesson) {
+        window.stopSpeakingFullLesson();
+    }
+
+    const lang = (window.APP_STATE && window.APP_STATE.lang) || 'mg';
+    let playAllLabel = 'Henoy ny lesona feno';
+    if (lang === 'fr') playAllLabel = 'Écouter toute la leçon';
+    if (lang === 'he') playAllLabel = 'האזן לכל השיעור';
+
+    const isLessonFav = window.isLessonFavorite && window.isLessonFavorite(title, niveau);
+
     let html = `
-        <h2 class="lesson-title" style="text-align:center; cursor:pointer;" onclick="renderLessons(window.allData, '${niveau}')">
-            <div class="card" style="text-align:center;">
-                <p>${getT('lesson_label', 'Lesona')} ${info.Lesson||''}</p>
-                <p class="hebrew-text">${info.HebrewTitle||''}</p>
-                ${info.HebrewTitle ? renderSpeechBtn(info.HebrewTitle, false) : ''}
-                <p>${info.PhoneticTitle||''}</p>
-                <p>${info.FrenchTitle||''}</p>
-                <p>${info.MalagasyTitle||''}</p>
+        <div class="lesson-title col-span-1 md:col-span-2 lg:col-span-3 mb-4">
+            <div id="lesson-header-hebrew-card" class="card relative p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-bgCard border border-borderColor rounded-sm shadow-md transition-all duration-300">
+                 <!-- Favorite Lesson Button -->
+                 <button onclick="window.toggleFavoriteLesson('${title.replace(/'/g, "\\'")}', '${niveau}', '${info.Lesson||""}', '${(info.FrenchTitle||"").replace(/'/g, "\\'")}', '${(info.MalagasyTitle||"").replace(/'/g, "\\'")}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isLessonFav ? 'fill-red-500 text-red-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                         <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                     </svg>
+                 </button>
+                 <!-- Left side: lesson info -->
+                 <div class="text-center md:text-left space-y-2">
+                     <button onclick="renderLessons(window.allData, '${niveau}')" class="inline-flex items-center gap-1.5 px-3 py-1 bg-bgSecondary/40 hover:bg-bgSecondary/80 text-textSecondary hover:text-textPrimary text-[10px] font-mono uppercase tracking-widest border border-borderColor/50 rounded-sm transition-all cursor-pointer">
+                         &larr; ${getT('level_label', 'Sokajy')} ${niveau} / ${getT('lesson_label', 'Lesona')} ${info.Lesson||''}
+                     </button>
+                     <h2 class="font-serif font-bold text-2xl text-textPrimary leading-tight tracking-tight mt-1">${info.PhoneticTitle||''}</h2>
+                     <p class="text-xs text-textSecondary italic">${info.FrenchTitle||''} &mdash; ${info.MalagasyTitle||''}</p>
+                 </div>
+                 
+                 <!-- Center/Right: Hebrew text + Play Controls -->
+                 <div class="flex flex-col items-center gap-3 bg-bgSecondary/20 border border-borderColor/50 p-4 rounded-sm min-w-[280px]">
+                     <span class="text-[9px] font-mono tracking-widest text-textSecondary uppercase">Hebreo (Lecture continue)</span>
+                     <p class="hebrew-text font-serif text-3xl font-medium tracking-wide text-textPrimary" style="margin-bottom: 0px !important;">${info.HebrewTitle||''}</p>
+                     
+                     <div class="flex items-center gap-2 mt-1">
+                         <!-- Individual Hebrew title play button -->
+                         <button onclick="window.speakHebrew('${info.HebrewTitle.replace(/'/g, "\\'")}', this)" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgCard hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all" data-text="${encodeURIComponent(info.HebrewTitle)}">
+                             <span class="speech-icon-container flex items-center justify-center">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                     <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                 </svg>
+                             </span>
+                             <span class="speech-text-container">${getPronounceLabel()}</span>
+                         </button>
+                         
+                         <!-- PLAY ALL LESSON BUTTON -->
+                         <button id="lesson-play-all-btn" onclick="window.togglePlayEntireLesson('${encodeURIComponent(title)}')" class="flex items-center justify-center gap-1.5 px-4 py-1.5 bg-textPrimary text-bgCard hover:bg-textSecondary hover:text-textPrimary rounded-full text-xs font-mono font-bold border border-borderColor cursor-pointer transition-all shadow-sm">
+                             <span class="play-all-icon flex items-center justify-center">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                     <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                 </svg>
+                             </span>
+                             <span class="play-all-text-container">${playAllLabel}</span>
+                         </button>
+                     </div>
+                 </div>
             </div>
-        </h2>`;
+        </div>`;
     
     const filteredData = data.filter(i => i.PhoneticTitle === title);
     const cats = [...new Set(filteredData.map(i => i.Category).filter(i => i))];
 
+    let rowIdx = 0;
     cats.forEach(cat => {
         const translatedCat = translateCategory(cat);
-        html += `<h3 style="text-align:center; color: #4caf50; margin-top: 30px;">${translatedCat}</h3>`;
+        html += `<h3 class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-accent font-serif text-lg font-bold italic mt-8 mb-4 border-b border-borderColor/40 pb-2">${translatedCat}</h3>`;
         filteredData.filter(i => i.Category === cat).forEach(row => {
             const isStarred = window.isWordDifficult && window.isWordDifficult(row.Hebrew);
+            const isVerseFav = window.isVerseFavorite && window.isVerseFavorite(row.Hebrew);
+            const cardId = `reader-card-${rowIdx}`;
             html += `
-                <div class="card relative" style="text-align:center;">
+                <div id="${cardId}" class="card relative reader-card transition-all duration-300 border-borderColor hover:border-textPrimary/40" style="text-align:center;">
+                    <!-- Favorite Verse Button -->
+                    <button onclick="window.toggleFavoriteVerse('${encodeURIComponent(JSON.stringify(row))}', this)" class="absolute top-3 left-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isVerseFav ? 'fill-red-500 text-red-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Star / Difficult Word Button -->
                     <button onclick="window.toggleDifficultWord('${encodeURIComponent(JSON.stringify(row))}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-yellow-500 transition-colors cursor-pointer z-10" title="Teny sarotra">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isStarred ? 'fill-yellow-500 text-yellow-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -355,6 +604,7 @@ function renderFullLesson(data, title, niveau) {
                     <p class="french-text text-textPrimary mt-1">${row.French||''}</p>
                     <p class="malagasy-text text-textPrimary mt-1">${row.Malagasy||''}</p>
                 </div>`;
+            rowIdx++;
         });
     });
     container.innerHTML = html;
@@ -1088,6 +1338,257 @@ window.feedbackFlashcard = function(mastered) {
                 </button>
             </div>
         `;
+    }
+};
+
+
+// ==================================================================
+// ===================== FAVORITES SYSTEM ===========================
+// ==================================================================
+
+let activeFavoritesTab = 'lessons';
+
+window.getFavoriteLessons = function() {
+    try {
+        const t = window.localStorage.getItem('fav_lessons_' + getActiveUserId());
+        return t ? JSON.parse(t) : [];
+    } catch (e) {
+        console.warn("Storage access failed for getFavoriteLessons", e);
+        return [];
+    }
+};
+
+window.saveFavoriteLessons = function(lessons) {
+    try {
+        window.localStorage.setItem('fav_lessons_' + getActiveUserId(), JSON.stringify(lessons));
+    } catch (e) {
+        console.warn("Storage access failed for saveFavoriteLessons", e);
+    }
+};
+
+window.isLessonFavorite = function(title, niveau) {
+    return window.getFavoriteLessons().some(l => l.title === title && l.niveau === niveau);
+};
+
+window.toggleFavoriteLesson = function(title, niveau, lessonNum, frenchTitle, malagasyTitle, btn) {
+    let lessons = window.getFavoriteLessons();
+    const idx = lessons.findIndex(l => l.title === title && l.niveau === niveau);
+    const lang = (window.APP_STATE && window.APP_STATE.lang) || 'mg';
+    const svg = btn.querySelector('svg');
+    
+    if (idx > -1) {
+        lessons.splice(idx, 1);
+        if (svg) {
+            svg.classList.remove('fill-red-500', 'text-red-500');
+            svg.classList.add('text-textSecondary/50');
+        }
+        const msg = lang === 'mg' ? "Lesona nesorina tamin'ny ankafizina" : (lang === 'fr' ? "Leçon retirée des favoris" : "השיעור הוסר מהמועדפים");
+        if (window.showToast) window.showToast(msg, 'success');
+    } else {
+        lessons.push({
+            title: title,
+            niveau: niveau,
+            lessonNum: lessonNum,
+            frenchTitle: frenchTitle,
+            malagasyTitle: malagasyTitle,
+            addedAt: new Date().toISOString()
+        });
+        if (svg) {
+            svg.classList.remove('text-textSecondary/50');
+            svg.classList.add('fill-red-500', 'text-red-500');
+        }
+        const msg = lang === 'mg' ? "Lesona nampidirina tamin'ny ankafizina" : (lang === 'fr' ? "Leçon ajoutée aux favoris" : "השיעור נוסף למועדפים");
+        if (window.showToast) window.showToast(msg, 'success');
+    }
+    window.saveFavoriteLessons(lessons);
+};
+
+window.getFavoriteVerses = function() {
+    try {
+        const t = window.localStorage.getItem('fav_verses_' + getActiveUserId());
+        return t ? JSON.parse(t) : [];
+    } catch (e) {
+        console.warn("Storage access failed for getFavoriteVerses", e);
+        return [];
+    }
+};
+
+window.saveFavoriteVerses = function(verses) {
+    try {
+        window.localStorage.setItem('fav_verses_' + getActiveUserId(), JSON.stringify(verses));
+    } catch (e) {
+        console.warn("Storage access failed for saveFavoriteVerses", e);
+    }
+};
+
+window.isVerseFavorite = function(hebrew) {
+    if (!hebrew) return false;
+    return window.getFavoriteVerses().some(v => v.Hebrew === hebrew);
+};
+
+window.toggleFavoriteVerse = function(rowEncoded, btn) {
+    let row;
+    try {
+        row = JSON.parse(decodeURIComponent(rowEncoded));
+    } catch (e) {
+        console.error("Failed to parse row for toggleFavoriteVerse:", e);
+        return;
+    }
+    
+    if (!row || !row.Hebrew) return;
+    
+    let verses = window.getFavoriteVerses();
+    const idx = verses.findIndex(v => v.Hebrew === row.Hebrew);
+    const lang = (window.APP_STATE && window.APP_STATE.lang) || 'mg';
+    const svg = btn.querySelector('svg');
+    
+    if (idx > -1) {
+        verses.splice(idx, 1);
+        if (svg) {
+            svg.classList.remove('fill-red-500', 'text-red-500');
+            svg.classList.add('text-textSecondary/50');
+        }
+        const msg = lang === 'mg' ? "Andinin-teny nesorina tamin'ny ankafizina" : (lang === 'fr' ? "Verset retiré des favoris" : "הפסוק הוסר מהמועדפים");
+        if (window.showToast) window.showToast(msg, 'success');
+    } else {
+        verses.push({
+            Hebrew: row.Hebrew,
+            Phonetic: row.Phonetic || '',
+            French: row.French || '',
+            Malagasy: row.Malagasy || '',
+            PhoneticTitle: row.PhoneticTitle || window.currentTitle || '',
+            Lesson: row.Lesson || '',
+            Level: row.Level || window.currentNiveau || '',
+            addedAt: new Date().toISOString()
+        });
+        if (svg) {
+            svg.classList.remove('text-textSecondary/50');
+            svg.classList.add('fill-red-500', 'text-red-500');
+        }
+        const msg = lang === 'mg' ? "Andinin-teny nampidirina tamin'ny ankafizina" : (lang === 'fr' ? "Verset ajouté aux favoris" : "הפסוק נוסף למועדפים");
+        if (window.showToast) window.showToast(msg, 'success');
+    }
+    window.saveFavoriteVerses(verses);
+};
+
+window.setFavoritesTab = function(tabName) {
+    activeFavoritesTab = tabName;
+    window.renderFavoritesView();
+};
+
+window.renderFavoritesView = function() {
+    window.currentView = 'favorites';
+    
+    const lessons = window.getFavoriteLessons();
+    const verses = window.getFavoriteVerses();
+    
+    // Update active tab buttons visuals
+    const lessonsTab = document.getElementById('fav-lessons-tab');
+    const versesTab = document.getElementById('fav-verses-tab');
+    if (lessonsTab && versesTab) {
+        if (activeFavoritesTab === 'lessons') {
+            lessonsTab.className = "px-5 py-2.5 text-xs font-mono uppercase tracking-wider border-b-2 border-textPrimary text-textPrimary font-semibold transition-all cursor-pointer";
+            versesTab.className = "px-5 py-2.5 text-xs font-mono uppercase tracking-wider border-b-2 border-transparent text-textSecondary hover:text-textPrimary transition-all cursor-pointer";
+        } else {
+            lessonsTab.className = "px-5 py-2.5 text-xs font-mono uppercase tracking-wider border-b-2 border-transparent text-textSecondary hover:text-textPrimary transition-all cursor-pointer";
+            versesTab.className = "px-5 py-2.5 text-xs font-mono uppercase tracking-wider border-b-2 border-textPrimary text-textPrimary font-semibold transition-all cursor-pointer";
+        }
+    }
+    
+    // Render Favorite Lessons
+    const lessonsEmpty = document.getElementById('fav-lessons-empty');
+    const lessonsGrid = document.getElementById('fav-lessons-grid');
+    if (lessonsEmpty && lessonsGrid) {
+        if (lessons.length === 0) {
+            lessonsEmpty.classList.remove('hidden');
+            lessonsGrid.classList.add('hidden');
+        } else {
+            lessonsEmpty.classList.add('hidden');
+            lessonsGrid.classList.remove('hidden');
+            
+            let html = '';
+            lessons.forEach(info => {
+                html += `
+                <div class="card relative p-6 bg-bgCard border border-borderColor rounded-sm shadow-md transition-all duration-300 hover:scale-[1.02] hover:border-textPrimary/40 flex flex-col justify-between" style="text-align:center;">
+                    <button onclick="window.toggleFavoriteLesson('${info.title.replace(/'/g, "\\'")}', '${info.niveau}', '${info.lessonNum}', '${(info.frenchTitle||"").replace(/'/g, "\\'")}', '${(info.malagasyTitle||"").replace(/'/g, "\\'")}', this); event.stopPropagation(); window.renderFavoritesView();" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-red-500 hover:text-red-600 transition-colors cursor-pointer z-10" title="Retirer des favoris">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </button>
+                    <div onclick="window.renderFullLesson(window.allData, '${info.title.replace(/'/g, "\\'")}', '${info.niveau}')" class="cursor-pointer space-y-3 flex-1 flex flex-col justify-between">
+                        <div class="space-y-1">
+                            <span class="inline-block px-2 py-0.5 bg-bgSecondary border border-borderColor text-textSecondary font-mono text-[9px] rounded-sm uppercase tracking-wider mb-1">${getT('level_label', 'Ambaratonga')} ${info.niveau}</span>
+                            <p class="text-xs font-mono text-textSecondary uppercase tracking-widest">${getT('lesson_label', 'Lesona')} ${info.lessonNum||''}</p>
+                            <h3 class="font-serif font-bold text-lg text-textPrimary tracking-tight mt-1 leading-tight">${info.title}</h3>
+                        </div>
+                        <p class="text-[11px] text-textSecondary italic mt-1 leading-relaxed">
+                            ${info.frenchTitle || ''} <br>
+                            <span class="opacity-80">${info.malagasyTitle || ''}</span>
+                        </p>
+                    </div>
+                </div>`;
+            });
+            lessonsGrid.innerHTML = html;
+        }
+    }
+    
+    // Render Favorite Verses
+    const versesEmpty = document.getElementById('fav-verses-empty');
+    const versesGrid = document.getElementById('fav-verses-grid');
+    if (versesEmpty && versesGrid) {
+        if (verses.length === 0) {
+            versesEmpty.classList.remove('hidden');
+            versesGrid.classList.add('hidden');
+        } else {
+            versesEmpty.classList.add('hidden');
+            versesGrid.classList.remove('hidden');
+            
+            let html = '';
+            verses.forEach((row, idx) => {
+                const rowStr = encodeURIComponent(JSON.stringify(row));
+                const cardId = `fav-verse-card-${idx}`;
+                html += `
+                <div id="${cardId}" class="card relative reader-card transition-all duration-300 border-borderColor hover:border-textPrimary/40 flex flex-col justify-between p-6 bg-bgCard border rounded-sm shadow-md" style="text-align:center;">
+                    <!-- Top Heart/Favorite Button -->
+                    <button onclick="window.toggleFavoriteVerse('${rowStr}', this); event.stopPropagation(); window.renderFavoritesView();" class="absolute top-3 left-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-red-500 hover:text-red-600 transition-colors cursor-pointer z-10" title="Retirer des favoris">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Lesson Reference Tag -->
+                    <div class="mb-2">
+                        <span onclick="event.stopPropagation(); window.renderFullLesson(window.allData, '${row.PhoneticTitle.replace(/'/g, "\\'")}', '${row.Level}');" class="inline-block px-2 py-0.5 bg-bgSecondary border border-borderColor hover:border-textPrimary/40 text-textSecondary hover:text-textPrimary font-mono text-[8px] rounded-sm uppercase tracking-wider cursor-pointer">
+                            ${row.PhoneticTitle} (N.${row.Level})
+                        </span>
+                    </div>
+
+                    <!-- Hebrew text -->
+                    <p class="hebrew-text font-serif text-3xl text-textPrimary leading-loose" style="direction: rtl;">${row.Hebrew || ''}</p>
+                    
+                    <!-- Listen Button -->
+                    ${row.Hebrew ? `
+                    <div class="flex justify-center my-2">
+                        <button onclick="window.speakHebrew('${row.Hebrew.replace(/'/g, "\\'")}', this)" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgSecondary/40 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all" data-text="${encodeURIComponent(row.Hebrew)}">
+                            <span class="speech-icon-container flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                </svg>
+                            </span>
+                            <span class="speech-text-container">${getPronounceLabel()}</span>
+                        </button>
+                    </div>` : ''}
+                    
+                    <!-- Translation fields -->
+                    <p class="phonetic-text text-textSecondary/80 tracking-wide mt-1 text-sm font-sans">${row.Phonetic || ''}</p>
+                    <p class="french-text text-textPrimary mt-1 text-xs font-sans leading-relaxed">${row.French || ''}</p>
+                    <p class="malagasy-text text-textPrimary mt-1 text-xs font-sans leading-relaxed">${row.Malagasy || ''}</p>
+                </div>`;
+            });
+            versesGrid.innerHTML = html;
+            window.updateSpeechButtons();
+        }
     }
 };
 

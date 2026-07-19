@@ -185,6 +185,41 @@ window.APP_TRANSLATIONS = {
       fr: "Paramètres",
       he: "הַגְדָּרוֹת"
     },
+    menu_favorites: {
+      mg: "Ankafizina (Favoris)",
+      fr: "Favoris",
+      he: "מועדפים"
+    },
+    favorites_title: {
+      mg: "Ny Ankafizinao",
+      fr: "Vos Favoris",
+      he: "המועדפים שלך"
+    },
+    favorites_subtitle: {
+      mg: "Ireo lesona sy andinin-teny voatahirinao ho ankafizina.",
+      fr: "Vos leçons et versets hébreux favoris enregistrés.",
+      he: "השיעורים והפסוקים המועדפים עליך."
+    },
+    favorites_empty_lessons: {
+      mg: "Tsy misy lesona ankafizina mbola.",
+      fr: "Aucune leçon favorite enregistrée pour le moment.",
+      he: "אין שיעורים מועדפים כרגע."
+    },
+    favorites_empty_verses: {
+      mg: "Tsy misy andinin-teny ankafizina mbola.",
+      fr: "Aucun verset favori enregistré pour le moment.",
+      he: "אין פסוקים מועדפים כרגע."
+    },
+    favorites_lessons_tab: {
+      mg: "Lesona Ankafizina",
+      fr: "Leçons Favorites",
+      he: "שיעורים מועדפים"
+    },
+    favorites_verses_tab: {
+      mg: "Andinin-teny Ankafizina",
+      fr: "Versets Favoris",
+      he: "פסוקים מועדפים"
+    },
     menu_revision: {
       mg: "Mamerina (Flashcards)",
       fr: "Révision (Flashcards)",

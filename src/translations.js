@@ -332,15 +332,30 @@ window.APP_TRANSLATIONS = {
       fr: "Affichage de textes hébreux avec niqqud complet.",
       he: "הַצָּגַת טֶקְסְטִים בְּעִבְרִית עִם נִקּוּד מָלֵא."
     },
+    about_feature_1_desc: {
+      mg: "Ny rindrambaiko dia mampiseho ny tarehin-tsoratra Hebreo miaraka amin'ny 'Niqqud' (vowel signs) feno. Izany dia manamora ny famakiana sy ny fanononana marina ny teny tsirairay ho an'ny mpianatra.",
+      fr: "Le logiciel affiche les caractères hébreux avec le 'Niqqud' (signes de voyelles) complet. Cela facilite la lecture et la prononciation correcte de chaque mot pour l'étudiant.",
+      he: "הַתּוֹכְנָה מַצִּיגָה אֶת הָאוֹתִיּוֹת הָעִבְרִיּוֹת עִם נִקּוּד מָלֵא. דָּבָר זֶה מֵקֵל על הַקְּרִיאָה וְעַל הַהֲגִיָּה הַנְּכוֹנָה שֶׁל כָּל מִלָּה עֲבוּר הַלּוֹמֵד."
+    },
     about_feature_2: {
       mg: "Fampitahana dikan-teny telo miaraka (Hebreo, Malagasy, Frantsay).",
       fr: "Comparaison simultanée de trois langues (Hébreu, Malgache, Français).",
       he: "הַשְׁוָאָה סִימוּלְטָנִית שֶׁל שָׁלֹשׁ שָׂפוֹת."
     },
+    about_feature_2_desc: {
+      mg: "Afaka mampitaha avy hatrany ny lahatsoratra Hebreo amin'ny teny Malagasy sy Frantsay ianao. Izany dia manampy amin'ny fahazoana tsara ny dikany sy ny teny manodidina amin'ny fiteninao mahazatra.",
+      fr: "Vous pouvez comparer instantanément le texte hébreu avec le malgache et le français. Cela aide à bien comprendre le sens et le contexte dans votre langue habituelle.",
+      he: "נִתָּן לְהַשְׁווֹת בְּאֹפֶן מִיָּדִי אֶת הַטֶקְסְט הָעִבְרִי עִם מָלָגָשִׁית וְצָרְפָתִית. דָּבָר זֶה עוֹזֵר לְהָבִין הֵטֵב אֶת הַמַּשְׁמָעוּת וְאֶת הַהֶקְשֵׁר בַּשָּׂפָה הַמֻּכֶּרֶת לְךָ."
+    },
     about_feature_3: {
       mg: "Fikirakirana ny endriky ny soratra sy ny loko manokana araka izay tiana.",
       fr: "Personnalisation complète des polices, tailles et thèmes de couleur.",
       he: "הַתְאָמָה אִישִׁית מְלֵאָה שֶׁל גּוֹפָנִים, גְּדָלִים וְעֶרְכוֹת נוֹשֵׂא."
+    },
+    about_feature_3_desc: {
+      mg: "Misafidiana karazan-tsoratra (fonts) maro samihafa toy ny Sileot, David, na Times, ary ovao ny haben'ny soratra mba ho mora vakiana kokoa amin'ny fitaovanao. Azonao atao ihany koa ny manova ny loko (Light sy Dark themes).",
+      fr: "Choisissez parmi plusieurs polices différentes comme Sileot, David ou Times, et modifiez la taille du texte pour une meilleure lecture sur votre appareil. Vous pouvez également changer de thème (thèmes Clair et Sombre).",
+      he: "בְּחַר מִתּוֹךְ מִסְפַּר גּוֹפָנִים שׁוֹנִים כְּמוֹ סִילֶאוֹט, דָּוִד אוֹ טַיְימְס, וְשַׁנֵּה אֶת גּוֹדֶל הַטֶקְסְט לִקְרִיאָה נוֹחָה יוֹתֵר בַּמַּכְשִׁיר שֶׁלְּךָ. נִתָּן גַּם לְשַׁנּוֹת אֶת עֶרְכַת הַצְּבָעִים (בָּהִיר וְכֵהֶה)."
     },
     about_sync_btn: {
       mg: "Hamarino sy havaozy ny rakitra (Sync)",

@@ -42,14 +42,9 @@ window.handleRemoveSingleDifficultWord = function(btn) {
     window.removeSingleDifficultWord(hebrew);
 };
 
-// Speech synthesis function using the native Web Speech API (offline compatible)
+// Speech synthesis function using native SpeechSynthesis with a robust online/offline Google Translate fallback
 window.speakHebrew = function(text, btnElement) {
     if (!text) return;
-    if (!window.speechSynthesis) {
-        if (window.showToast) window.showToast("Tsy zakan'ity browser ity ny famakiana feo.", "error");
-        else console.warn("Tsy zakan'ity browser ity ny famakiana feo.");
-        return;
-    }
 
     // Support calling as: window.speakHebrew(this, event)
     let actualText = text;
@@ -61,14 +56,25 @@ window.speakHebrew = function(text, btnElement) {
 
     if (!actualText) return;
 
-    // If currently speaking, toggle or stop
-    if (window.speechSynthesis.speaking) {
+    let isCurrentlySpeakingText = (window.currentSpeakingText === actualText);
+
+    // Cancel any ongoing native speech synthesis
+    if (window.speechSynthesis) {
         window.speechSynthesis.cancel();
-        if (window.currentSpeakingText === actualText) {
-            window.currentSpeakingText = null;
-            window.updateSpeechButtons();
-            return;
-        }
+    }
+    // Cancel any ongoing audio fallback playback
+    if (window.currentAudioTTS) {
+        try {
+            window.currentAudioTTS.pause();
+        } catch (e) {}
+        window.currentAudioTTS = null;
+    }
+
+    // Toggle stop behavior if user clicked the same button that is currently playing
+    if (isCurrentlySpeakingText) {
+        window.currentSpeakingText = null;
+        window.updateSpeechButtons();
+        return;
     }
 
     window.currentSpeakingText = actualText;
@@ -118,38 +124,77 @@ window.speakHebrew = function(text, btnElement) {
         ttsText = ttsText.replace(/\u05BE/g, " ");
     }
 
-    const utterance = new SpeechSynthesisUtterance(ttsText);
-    utterance.lang = 'he-IL';
-
-    // Find first Hebrew voice if loaded
-    const voices = window.speechSynthesis.getVoices();
-    const heVoice = voices.find(v => v.lang.startsWith('he'));
-    if (heVoice) {
-        utterance.voice = heVoice;
+    // Attempt native speech synthesis if Hebrew voice is available, otherwise use Google Translate TTS
+    let heVoice = null;
+    if (window.speechSynthesis) {
+        const voices = window.speechSynthesis.getVoices();
+        heVoice = voices.find(v => v.lang.startsWith('he'));
     }
-    
-    // Set natural slower speed for pronunciation learning
-    utterance.rate = 0.8;
 
-    utterance.onstart = () => {
-        window.updateSpeechButtons();
-    };
-
-    utterance.onend = () => {
-        if (window.currentSpeakingText === actualText) {
-            window.currentSpeakingText = null;
+    function speakNative() {
+        if (!window.speechSynthesis) return;
+        const utterance = new SpeechSynthesisUtterance(ttsText);
+        utterance.lang = 'he-IL';
+        if (heVoice) {
+            utterance.voice = heVoice;
         }
-        window.updateSpeechButtons();
-    };
+        utterance.rate = 0.8;
 
-    utterance.onerror = () => {
-        if (window.currentSpeakingText === actualText) {
-            window.currentSpeakingText = null;
+        utterance.onstart = () => {
+            window.updateSpeechButtons();
+        };
+
+        utterance.onend = () => {
+            if (window.currentSpeakingText === actualText) {
+                window.currentSpeakingText = null;
+            }
+            window.updateSpeechButtons();
+        };
+
+        utterance.onerror = () => {
+            if (window.currentSpeakingText === actualText) {
+                window.currentSpeakingText = null;
+            }
+            window.updateSpeechButtons();
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    if (!heVoice) {
+        // Fallback to beautiful, high-quality, authentic Google Translate TTS engine
+        try {
+            const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=he&client=tw-ob&q=${encodeURIComponent(ttsText)}`;
+            const audio = new Audio(url);
+            window.currentAudioTTS = audio;
+            audio.onplay = () => {
+                window.updateSpeechButtons();
+            };
+            audio.onended = () => {
+                if (window.currentSpeakingText === actualText) {
+                    window.currentSpeakingText = null;
+                }
+                window.updateSpeechButtons();
+            };
+            audio.onerror = () => {
+                if (window.currentSpeakingText === actualText) {
+                    window.currentSpeakingText = null;
+                }
+                window.updateSpeechButtons();
+                // If Google Translate audio fails, try native speech as final resort
+                speakNative();
+            };
+            audio.play().catch(err => {
+                console.warn("Google TTS audio play failed, falling back to native SpeechSynthesis:", err);
+                speakNative();
+            });
+        } catch (e) {
+            console.error("Failed to initialize Google TTS audio:", e);
+            speakNative();
         }
-        window.updateSpeechButtons();
-    };
-
-    window.speechSynthesis.speak(utterance);
+    } else {
+        speakNative();
+    }
 };
 
 // Update play/stop icons across all rendered cards dynamically
@@ -453,7 +498,7 @@ function initNavigation(data) {
                     const isStarred = window.isWordDifficult && window.isWordDifficult(row.Hebrew);
                     html += `
                     <div class="card relative" style="text-align:center;">
-                        <button onclick="window.toggleDifficultWord('${encodeURIComponent(JSON.stringify(row))}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-yellow-500 transition-colors cursor-pointer z-10" title="Teny sarotra">
+                        <button onclick="window.toggleDifficultWord('${encodeURIComponent(JSON.stringify(row)).replace(/'/g, "%27")}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-yellow-500 transition-colors cursor-pointer z-10" title="Teny sarotra">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isStarred ? 'fill-yellow-500 text-yellow-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                             </svg>
@@ -591,7 +636,7 @@ function renderFullLesson(data, title, niveau) {
                          </button>
                          
                          <!-- PLAY ALL LESSON BUTTON -->
-                         <button id="lesson-play-all-btn" onclick="window.togglePlayEntireLesson('${encodeURIComponent(title)}')" class="flex items-center justify-center gap-1.5 px-4 py-1.5 bg-textPrimary text-bgCard hover:bg-textSecondary hover:text-textPrimary rounded-full text-xs font-mono font-bold border border-borderColor cursor-pointer transition-all shadow-sm">
+                         <button id="lesson-play-all-btn" onclick="window.togglePlayEntireLesson('${encodeURIComponent(title).replace(/'/g, "%27")}')" class="flex items-center justify-center gap-1.5 px-4 py-1.5 bg-textPrimary text-bgCard hover:bg-textSecondary hover:text-textPrimary rounded-full text-xs font-mono font-bold border border-borderColor cursor-pointer transition-all shadow-sm">
                              <span class="play-all-icon flex items-center justify-center">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -618,14 +663,14 @@ function renderFullLesson(data, title, niveau) {
             html += `
                 <div id="${cardId}" class="card relative reader-card transition-all duration-300 border-borderColor hover:border-textPrimary/40" style="text-align:center;">
                     <!-- Favorite Verse Button -->
-                    <button onclick="window.toggleFavoriteVerse('${encodeURIComponent(JSON.stringify(row))}', this)" class="absolute top-3 left-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
+                    <button onclick="window.toggleFavoriteVerse('${encodeURIComponent(JSON.stringify(row)).replace(/'/g, "%27")}', this)" class="absolute top-3 left-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isVerseFav ? 'fill-red-500 text-red-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
                         </svg>
                     </button>
 
                     <!-- Star / Difficult Word Button -->
-                    <button onclick="window.toggleDifficultWord('${encodeURIComponent(JSON.stringify(row))}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-yellow-500 transition-colors cursor-pointer z-10" title="Teny sarotra">
+                    <button onclick="window.toggleDifficultWord('${encodeURIComponent(JSON.stringify(row)).replace(/'/g, "%27")}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-yellow-500 transition-colors cursor-pointer z-10" title="Teny sarotra">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isStarred ? 'fill-yellow-500 text-yellow-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                         </svg>
@@ -1166,7 +1211,7 @@ window.renderRevisionView = function() {
     if (grid) {
         let html = '';
         words.forEach((row, idx) => {
-            const rowStr = encodeURIComponent(JSON.stringify(row));
+            const rowStr = encodeURIComponent(JSON.stringify(row)).replace(/'/g, "%27");
             const isVerseFav = window.isVerseFavorite && window.isVerseFavorite(row.Hebrew);
             html += `
                 <div class="card relative p-6 flex flex-col items-center justify-center text-center space-y-4" style="min-height: 200px;">
@@ -1591,7 +1636,7 @@ window.renderFavoritesView = function() {
             
             let html = '';
             verses.forEach((row, idx) => {
-                const rowStr = encodeURIComponent(JSON.stringify(row));
+                const rowStr = encodeURIComponent(JSON.stringify(row)).replace(/'/g, "%27");
                 const cardId = `fav-verse-card-${idx}`;
                 html += `
                 <div id="${cardId}" class="card relative reader-card transition-all duration-300 border-borderColor hover:border-textPrimary/40 flex flex-col justify-between p-6 bg-bgCard border rounded-sm shadow-md" style="text-align:center;">

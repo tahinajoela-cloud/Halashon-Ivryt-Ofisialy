@@ -19,6 +19,29 @@ function getPronounceLabel() {
 
 window.currentSpeakingText = null;
 
+// New safe global event handlers to completely prevent HTML string quote breaking syntax errors
+window.handleToggleFavoriteLesson = function(btn, event) {
+    if (event) event.stopPropagation();
+    const title = decodeURIComponent(btn.getAttribute('data-title') || '');
+    const niveau = decodeURIComponent(btn.getAttribute('data-niveau') || '');
+    const lessonNum = decodeURIComponent(btn.getAttribute('data-lesson-num') || '');
+    const frenchTitle = decodeURIComponent(btn.getAttribute('data-french-title') || '');
+    const malagasyTitle = decodeURIComponent(btn.getAttribute('data-malagasy-title') || '');
+    window.toggleFavoriteLesson(title, niveau, lessonNum, frenchTitle, malagasyTitle, btn);
+};
+
+window.handleRenderFullLesson = function(btn, event) {
+    if (event) event.stopPropagation();
+    const title = decodeURIComponent(btn.getAttribute('data-title') || '');
+    const niveau = decodeURIComponent(btn.getAttribute('data-niveau') || '');
+    window.renderFullLesson(window.allData, title, niveau);
+};
+
+window.handleRemoveSingleDifficultWord = function(btn) {
+    const hebrew = decodeURIComponent(btn.getAttribute('data-hebrew') || '');
+    window.removeSingleDifficultWord(hebrew);
+};
+
 // Speech synthesis function using the native Web Speech API (offline compatible)
 window.speakHebrew = function(text, btnElement) {
     if (!text) return;
@@ -28,21 +51,31 @@ window.speakHebrew = function(text, btnElement) {
         return;
     }
 
+    // Support calling as: window.speakHebrew(this, event)
+    let actualText = text;
+    let actualBtn = btnElement;
+    if (typeof text !== 'string' && text && text.getAttribute) {
+        actualBtn = text;
+        actualText = decodeURIComponent(actualBtn.getAttribute('data-text') || '');
+    }
+
+    if (!actualText) return;
+
     // If currently speaking, toggle or stop
     if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
-        if (window.currentSpeakingText === text) {
+        if (window.currentSpeakingText === actualText) {
             window.currentSpeakingText = null;
             window.updateSpeechButtons();
             return;
         }
     }
 
-    window.currentSpeakingText = text;
+    window.currentSpeakingText = actualText;
 
     // Helper to pre-process Biblical/literary Hebrew text for standard Modern Hebrew TTS engine.
-    // This preserves correct phonetics for classical literary/Biblical words like "אַתְּ", "שָׁמַעְתְּ", etc.
-    let ttsText = text;
+    // This preserves correct phonetics for classical literary/Biblical words like "אַתְּ", "שָׁמัעְתְּ", etc.
+    let ttsText = actualText;
     if (ttsText) {
         // 1. Translate the Tetragrammaton (יְהוָה / יהוה) to "אֲדֹנָי" (Adonai) for pronunciation,
         // which is the traditional and grammatically correct way to read it in literary/Biblical Hebrew.
@@ -103,14 +136,14 @@ window.speakHebrew = function(text, btnElement) {
     };
 
     utterance.onend = () => {
-        if (window.currentSpeakingText === text) {
+        if (window.currentSpeakingText === actualText) {
             window.currentSpeakingText = null;
         }
         window.updateSpeechButtons();
     };
 
     utterance.onerror = () => {
-        if (window.currentSpeakingText === text) {
+        if (window.currentSpeakingText === actualText) {
             window.currentSpeakingText = null;
         }
         window.updateSpeechButtons();
@@ -357,11 +390,10 @@ if (typeof window !== 'undefined' && window.speechSynthesis) {
 // Generate the pronunciation button HTML template cleanly
 function renderSpeechBtn(text, useStopPropagation = false) {
     if (!text) return '';
-    const cleanText = text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
     const stopProp = useStopPropagation ? 'event.stopPropagation();' : '';
     return `
         <div class="my-2.5 flex justify-center">
-            <button onclick="${stopProp} window.speakHebrew('${cleanText}', this)" class="speech-btn inline-flex items-center gap-1.5 px-3 py-1 bg-bgSecondary/60 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all hover:scale-105 active:scale-95" data-text="${encodeURIComponent(text)}">
+            <button onclick="${stopProp} window.speakHebrew(this)" class="speech-btn inline-flex items-center gap-1.5 px-3 py-1 bg-bgSecondary/60 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all hover:scale-105 active:scale-95" data-text="${encodeURIComponent(text)}">
                 <span class="speech-icon-container flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -481,7 +513,7 @@ function renderLessons(data, niveau) {
 
     titles.forEach(info => {
         html += `
-        <div class="card" style="text-align:center; cursor:pointer;" onclick="renderFullLesson(window.allData, '${info.PhoneticTitle}', '${niveau}')">
+        <div class="card" style="text-align:center; cursor:pointer;" onclick="window.handleRenderFullLesson(this, event)" data-title="${encodeURIComponent(info.PhoneticTitle)}" data-niveau="${encodeURIComponent(niveau)}">
             <p>${getT('lesson_label', 'Lesona')} ${info.Lesson||''}</p>
             <p class="hebrew-text">${info.HebrewTitle||''}</p>
             ${info.HebrewTitle ? renderSpeechBtn(info.HebrewTitle, true) : ''}
@@ -527,7 +559,7 @@ function renderFullLesson(data, title, niveau) {
         <div class="lesson-title col-span-1 md:col-span-2 lg:col-span-3 mb-4">
             <div id="lesson-header-hebrew-card" class="card relative p-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-bgCard border border-borderColor rounded-sm shadow-md transition-all duration-300">
                  <!-- Favorite Lesson Button -->
-                 <button onclick="window.toggleFavoriteLesson('${title.replace(/'/g, "\\'")}', '${niveau}', '${info.Lesson||""}', '${(info.FrenchTitle||"").replace(/'/g, "\\'")}', '${(info.MalagasyTitle||"").replace(/'/g, "\\'")}', this)" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
+                 <button onclick="window.handleToggleFavoriteLesson(this, event)" data-title="${encodeURIComponent(title)}" data-niveau="${encodeURIComponent(niveau)}" data-lesson-num="${encodeURIComponent(info.Lesson||"")}" data-french-title="${encodeURIComponent(info.FrenchTitle||"")}" data-malagasy-title="${encodeURIComponent(info.MalagasyTitle||"")}" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-textSecondary hover:text-red-500 transition-colors cursor-pointer z-10" title="${lang === 'mg' ? 'Tehirizo ho ankafizina' : (lang === 'fr' ? 'Ajouter aux favoris' : 'הוסף למועדפים')}">
                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ${isLessonFav ? 'fill-red-500 text-red-500' : 'text-textSecondary/50'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
                      </svg>
@@ -548,7 +580,7 @@ function renderFullLesson(data, title, niveau) {
                      
                      <div class="flex items-center gap-2 mt-1">
                          <!-- Individual Hebrew title play button -->
-                         <button onclick="window.speakHebrew('${info.HebrewTitle.replace(/'/g, "\\'")}', this)" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgCard hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all" data-text="${encodeURIComponent(info.HebrewTitle)}">
+                         <button onclick="window.speakHebrew(this)" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgCard hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all" data-text="${encodeURIComponent(info.HebrewTitle)}">
                              <span class="speech-icon-container flex items-center justify-center">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -1524,12 +1556,12 @@ window.renderFavoritesView = function() {
             lessons.forEach(info => {
                 html += `
                 <div class="card relative p-6 bg-bgCard border border-borderColor rounded-sm shadow-md transition-all duration-300 hover:scale-[1.02] hover:border-textPrimary/40 flex flex-col justify-between" style="text-align:center;">
-                    <button onclick="window.toggleFavoriteLesson('${info.title.replace(/'/g, "\\'")}', '${info.niveau}', '${info.lessonNum}', '${(info.frenchTitle||"").replace(/'/g, "\\'")}', '${(info.malagasyTitle||"").replace(/'/g, "\\'")}', this); event.stopPropagation(); window.renderFavoritesView();" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-red-500 hover:text-red-600 transition-colors cursor-pointer z-10" title="Retirer des favoris">
+                    <button onclick="window.handleToggleFavoriteLesson(this, event); window.renderFavoritesView();" data-title="${encodeURIComponent(info.title)}" data-niveau="${encodeURIComponent(info.niveau)}" data-lesson-num="${encodeURIComponent(info.lessonNum||"")}" data-french-title="${encodeURIComponent(info.frenchTitle||"")}" data-malagasy-title="${encodeURIComponent(info.malagasyTitle||"")}" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-bgSecondary/80 text-red-500 hover:text-red-600 transition-colors cursor-pointer z-10" title="Retirer des favoris">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
                         </svg>
                     </button>
-                    <div onclick="window.renderFullLesson(window.allData, '${info.title.replace(/'/g, "\\'")}', '${info.niveau}')" class="cursor-pointer space-y-3 flex-1 flex flex-col justify-between">
+                    <div onclick="window.handleRenderFullLesson(this, event)" data-title="${encodeURIComponent(info.title)}" data-niveau="${encodeURIComponent(info.niveau)}" class="cursor-pointer space-y-3 flex-1 flex flex-col justify-between">
                         <div class="space-y-1">
                             <span class="inline-block px-2 py-0.5 bg-bgSecondary border border-borderColor text-textSecondary font-mono text-[9px] rounded-sm uppercase tracking-wider mb-1">${getT('level_label', 'Ambaratonga')} ${info.niveau}</span>
                             <p class="text-xs font-mono text-textSecondary uppercase tracking-widest">${getT('lesson_label', 'Lesona')} ${info.lessonNum||''}</p>
@@ -1579,7 +1611,7 @@ window.renderFavoritesView = function() {
                     
                     <!-- Lesson Reference Tag -->
                     <div class="mb-2">
-                        <span onclick="event.stopPropagation(); window.renderFullLesson(window.allData, '${row.PhoneticTitle.replace(/'/g, "\\'")}', '${row.Level}');" class="inline-block px-2 py-0.5 bg-bgSecondary border border-borderColor hover:border-textPrimary/40 text-textSecondary hover:text-textPrimary font-mono text-[8px] rounded-sm uppercase tracking-wider cursor-pointer">
+                        <span onclick="window.handleRenderFullLesson(this, event)" data-title="${encodeURIComponent(row.PhoneticTitle)}" data-niveau="${encodeURIComponent(row.Level)}" class="inline-block px-2 py-0.5 bg-bgSecondary border border-borderColor hover:border-textPrimary/40 text-textSecondary hover:text-textPrimary font-mono text-[8px] rounded-sm uppercase tracking-wider cursor-pointer">
                             ${row.PhoneticTitle} (N.${row.Level})
                         </span>
                     </div>
@@ -1590,7 +1622,7 @@ window.renderFavoritesView = function() {
                     <!-- Listen Button -->
                     ${row.Hebrew ? `
                     <div class="flex justify-center my-2">
-                        <button onclick="window.speakHebrew('${row.Hebrew.replace(/'/g, "\\'")}', this)" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgSecondary/40 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all" data-text="${encodeURIComponent(row.Hebrew)}">
+                        <button onclick="window.speakHebrew(this)" class="speech-btn flex items-center justify-center gap-1.5 px-3 py-1 bg-bgSecondary/40 hover:bg-bgSecondary text-textPrimary rounded-full text-[11px] font-mono border border-borderColor/60 cursor-pointer transition-all" data-text="${encodeURIComponent(row.Hebrew)}">
                             <span class="speech-icon-container flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>

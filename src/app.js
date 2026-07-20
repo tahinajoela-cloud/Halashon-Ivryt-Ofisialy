@@ -33,7 +33,7 @@ const safeStorage = {
 // App State with defaults
 const state = {
   lang: 'mg',           // 'mg', 'fr', 'he'
-  darkMode: true,       // true, false
+  darkMode: false,      // Default to false for clear, simple light theme requested by the user
   theme: 1,             // 1, 2, 3
   hebrewFont: 'sileot', // 'sileot', 'david', 'times'
   hebrewFontSize: 32,   // 24 to 48 px
@@ -474,108 +474,92 @@ function applyTheme() {
   }
 
   if (!isDark) {
+    // Light Mode - Customized based on user request:
+    // Header background is colorful (var(--bg-header)), body background is grey,
+    // panel background is white (var(--bg-card) = #ffffff), panel text is black (var(--text-primary) = #0f172a).
+    root.style.setProperty('--bg-card', '#ffffff');
+    root.style.setProperty('--text-primary', '#0f172a');
+    root.style.setProperty('--text-secondary', '#475569');
+    root.style.setProperty('--bg-secondary', '#f1f5f9');
+    root.style.setProperty('--border-color', '#cbd5e1');
+
     if (themeNum == 1) {
-      // 1. Tropical Tech (Light / Deep Ocean Blue)
-      root.style.setProperty('--bg-primary', '#0f2d4a');
-      root.style.setProperty('--bg-secondary', '#163f66');
-      root.style.setProperty('--bg-card', '#163f66');
-      root.style.setProperty('--text-primary', '#F8FAFC');
-      root.style.setProperty('--text-secondary', '#94A3B8');
-      root.style.setProperty('--accent', '#FF6B4A');
-      root.style.setProperty('--accent-hover', '#FF5630');
-      root.style.setProperty('--border-color', '#1e4f7e');
+      // 1. Tropical Tech (Light / Blue Theme)
+      root.style.setProperty('--bg-primary', '#f3f4f6'); // Body Grey
+      root.style.setProperty('--bg-header', '#3b82f6');  // Colored Header (Blue)
+      root.style.setProperty('--accent', '#3b82f6');
+      root.style.setProperty('--accent-hover', '#2563eb');
     } else if (themeNum == 2) {
-      // 2. Vibrant Nature (Light / Forest Green)
-      root.style.setProperty('--bg-primary', '#0d2d1e');
-      root.style.setProperty('--bg-secondary', '#14402c');
-      root.style.setProperty('--bg-card', '#14402c');
-      root.style.setProperty('--text-primary', '#F0FDF4');
-      root.style.setProperty('--text-secondary', '#80A294');
-      root.style.setProperty('--accent', '#36B37E');
-      root.style.setProperty('--accent-hover', '#1D9A5F');
-      root.style.setProperty('--border-color', '#1c523a');
+      // 2. Vibrant Nature (Light / Forest Green Theme)
+      root.style.setProperty('--bg-primary', '#f0fdf4'); // Soft Green-Grey Body
+      root.style.setProperty('--bg-header', '#10b981');  // Colored Header (Emerald Green)
+      root.style.setProperty('--accent', '#10b981');
+      root.style.setProperty('--accent-hover', '#059669');
     } else if (themeNum == 3) {
-      // 3. Neon Twilight (Light / Deep Purple)
-      root.style.setProperty('--bg-primary', '#23153c');
-      root.style.setProperty('--bg-secondary', '#321f54');
-      root.style.setProperty('--bg-card', '#321f54');
-      root.style.setProperty('--text-primary', '#F3F0FF');
-      root.style.setProperty('--text-secondary', '#A594C5');
-      root.style.setProperty('--accent', '#FFAB00');
-      root.style.setProperty('--accent-hover', '#E69500');
-      root.style.setProperty('--border-color', '#412a6a');
+      // 3. Neon Twilight (Light / Deep Purple Theme)
+      root.style.setProperty('--bg-primary', '#f5f3ff'); // Soft Purple-Grey Body
+      root.style.setProperty('--bg-header', '#8b5cf6');  // Colored Header (Purple)
+      root.style.setProperty('--accent', '#8b5cf6');
+      root.style.setProperty('--accent-hover', '#7c3aed');
     } else if (themeNum == 4) {
-      // 4. Warm Joy (Light / Warm Crimson)
-      root.style.setProperty('--bg-primary', '#350b20');
-      root.style.setProperty('--bg-secondary', '#491530');
-      root.style.setProperty('--bg-card', '#491530');
-      root.style.setProperty('--text-primary', '#FFF0F5');
-      root.style.setProperty('--text-secondary', '#C89FB7');
-      root.style.setProperty('--accent', '#E52F6E');
-      root.style.setProperty('--accent-hover', '#70129B');
-      root.style.setProperty('--border-color', '#5f2043');
+      // 4. Warm Joy (Light / Warm Crimson Theme)
+      root.style.setProperty('--bg-primary', '#fff1f2'); // Soft Red-Grey Body
+      root.style.setProperty('--bg-header', '#ec4899');  // Colored Header (Pink/Crimson)
+      root.style.setProperty('--accent', '#ec4899');
+      root.style.setProperty('--accent-hover', '#db2777');
     } else {
-      // 5. Cyber Electric (Light / Cool Slate Blue)
-      root.style.setProperty('--bg-primary', '#0e1d2f');
-      root.style.setProperty('--bg-secondary', '#172a41');
-      root.style.setProperty('--bg-card', '#172a41');
-      root.style.setProperty('--text-primary', '#F0F4F9');
-      root.style.setProperty('--text-secondary', '#7F92B0');
-      root.style.setProperty('--accent', '#00E5A3');
-      root.style.setProperty('--accent-hover', '#00C289');
-      root.style.setProperty('--border-color', '#203754');
+      // 5. Cyber Electric (Light / Cyan Theme)
+      root.style.setProperty('--bg-primary', '#ecfeff'); // Soft Cyan-Grey Body
+      root.style.setProperty('--bg-header', '#06b6d4');  // Colored Header (Cyan)
+      root.style.setProperty('--accent', '#06b6d4');
+      root.style.setProperty('--accent-hover', '#0891b2');
     }
   } else {
+    // Dark Mode - Elegant, dark cohesive themes
+    root.style.setProperty('--text-primary', '#f8fafc');
+    root.style.setProperty('--text-secondary', '#94a3b8');
+    root.style.setProperty('--border-color', '#334155');
+
     if (themeNum == 1) {
       // 1. Tropical Tech (Dark)
-      root.style.setProperty('--bg-primary', '#0F172A');
-      root.style.setProperty('--bg-secondary', '#1E293B');
-      root.style.setProperty('--bg-card', '#1E293B');
-      root.style.setProperty('--text-primary', '#F1F5F9');
-      root.style.setProperty('--text-secondary', '#94A3B8');
-      root.style.setProperty('--accent', '#FF6B4A');
-      root.style.setProperty('--accent-hover', '#FF5630');
-      root.style.setProperty('--border-color', '#334155');
+      root.style.setProperty('--bg-primary', '#0f172a');
+      root.style.setProperty('--bg-secondary', '#1e293b');
+      root.style.setProperty('--bg-card', '#1e293b');
+      root.style.setProperty('--bg-header', '#1e293b');
+      root.style.setProperty('--accent', '#ff6b4a');
+      root.style.setProperty('--accent-hover', '#ff5630');
     } else if (themeNum == 2) {
       // 2. Vibrant Nature (Dark)
-      root.style.setProperty('--bg-primary', '#0A1110');
-      root.style.setProperty('--bg-secondary', '#121C1A');
-      root.style.setProperty('--bg-card', '#121C1A');
-      root.style.setProperty('--text-primary', '#E6F4EA');
-      root.style.setProperty('--text-secondary', '#80A294');
-      root.style.setProperty('--accent', '#36B37E');
-      root.style.setProperty('--accent-hover', '#1D9A5F');
-      root.style.setProperty('--border-color', '#1C322C');
+      root.style.setProperty('--bg-primary', '#0a1110');
+      root.style.setProperty('--bg-secondary', '#121c1a');
+      root.style.setProperty('--bg-card', '#121c1a');
+      root.style.setProperty('--bg-header', '#121c1a');
+      root.style.setProperty('--accent', '#36b37e');
+      root.style.setProperty('--accent-hover', '#1d9a5f');
     } else if (themeNum == 3) {
       // 3. Neon Twilight (Dark)
-      root.style.setProperty('--bg-primary', '#0B0516');
-      root.style.setProperty('--bg-secondary', '#18122B');
-      root.style.setProperty('--bg-card', '#18122B');
-      root.style.setProperty('--text-primary', '#F3F0FF');
-      root.style.setProperty('--text-secondary', '#A594C5');
-      root.style.setProperty('--accent', '#FFAB00');
-      root.style.setProperty('--accent-hover', '#E69500');
-      root.style.setProperty('--border-color', '#2C1E47');
+      root.style.setProperty('--bg-primary', '#0b0516');
+      root.style.setProperty('--bg-secondary', '#18122b');
+      root.style.setProperty('--bg-card', '#18122b');
+      root.style.setProperty('--bg-header', '#18122b');
+      root.style.setProperty('--accent', '#ffab00');
+      root.style.setProperty('--accent-hover', '#e69500');
     } else if (themeNum == 4) {
       // 4. Warm Joy (Dark)
-      root.style.setProperty('--bg-primary', '#15050E');
-      root.style.setProperty('--bg-secondary', '#240E1B');
-      root.style.setProperty('--bg-card', '#240E1B');
-      root.style.setProperty('--text-primary', '#FFF0F5');
-      root.style.setProperty('--text-secondary', '#C89FB7');
-      root.style.setProperty('--accent', '#E52F6E');
-      root.style.setProperty('--accent-hover', '#70129B');
-      root.style.setProperty('--border-color', '#3C132B');
+      root.style.setProperty('--bg-primary', '#15050e');
+      root.style.setProperty('--bg-secondary', '#240e1b');
+      root.style.setProperty('--bg-card', '#240e1b');
+      root.style.setProperty('--bg-header', '#240e1b');
+      root.style.setProperty('--accent', '#e52f6e');
+      root.style.setProperty('--accent-hover', '#70129b');
     } else {
       // 5. Cyber Electric (Dark)
-      root.style.setProperty('--bg-primary', '#0B0F19');
-      root.style.setProperty('--bg-secondary', '#121B2A');
-      root.style.setProperty('--bg-card', '#121B2A');
-      root.style.setProperty('--text-primary', '#F0F4F9');
-      root.style.setProperty('--text-secondary', '#7F92B0');
-      root.style.setProperty('--accent', '#00E5A3');
-      root.style.setProperty('--accent-hover', '#00C289');
-      root.style.setProperty('--border-color', '#1F2E45');
+      root.style.setProperty('--bg-primary', '#0b0f19');
+      root.style.setProperty('--bg-secondary', '#121b2a');
+      root.style.setProperty('--bg-card', '#121b2a');
+      root.style.setProperty('--bg-header', '#121b2a');
+      root.style.setProperty('--accent', '#00e5a3');
+      root.style.setProperty('--accent-hover', '#00c289');
     }
   }
 
@@ -1263,12 +1247,39 @@ function setupEventListeners() {
   }
 }
 
+// Monitor navigator.onLine for synchronization status
+function setupNetworkStatusMonitoring() {
+  function updateStatus() {
+    const isOnline = navigator.onLine;
+    const dot = document.getElementById('sync-status-dot');
+    const ping = document.getElementById('sync-status-ping');
+    const text = document.getElementById('sync-status-text');
+
+    if (dot && text) {
+      if (isOnline) {
+        dot.className = 'relative inline-flex rounded-full h-2 w-2 bg-emerald-500';
+        if (ping) ping.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75';
+        text.textContent = 'Connected';
+      } else {
+        dot.className = 'relative inline-flex rounded-full h-2 w-2 bg-red-500';
+        if (ping) ping.className = 'hidden';
+        text.textContent = 'Offline';
+      }
+    }
+  }
+
+  window.addEventListener('online', updateStatus);
+  window.addEventListener('offline', updateStatus);
+  updateStatus(); // Initial call
+}
+
 // Initializer
 async function init() {
   loadStateFromStorage();
   applyTheme();
   renderTranslations();
   setupEventListeners();
+  setupNetworkStatusMonitoring();
 
   // Run offline mode check right away
   const cachedData = safeStorage.getItem('lessons_data');
